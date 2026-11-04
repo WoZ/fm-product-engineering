@@ -16,6 +16,8 @@ Conventions are the authoritative repository policies. The root [AGENTS.md](../A
 
 ## Decisions and Authority
 
-[Repository foundation](decisions/0001-repository-foundation.md) records the initial architecture. Historical decisions do not override current conventions. Repository instructions remain subject to applicable higher-priority instructions and explicit user directions.
+[Repository foundation](decisions/0001-repository-foundation.md) records the initial architecture. [Solution exploration workflow](decisions/0002-solution-exploration-workflow.md) records the planned research skills, coordination model, and saved investigation materials.
+
+Historical decisions do not override current conventions. Repository instructions remain subject to applicable higher-priority instructions and explicit user directions.
 
 For a repository policy conflict, identify the conflicting passages and resolve them explicitly in the change rather than silently inventing an exception. Keep normative requirements in their owning convention. Human reviewers validate changes; agents provide the implementation and verification evidence.

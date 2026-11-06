@@ -59,10 +59,10 @@ A question is blocking if its answer is needed to distinguish the user's intende
 - Conflicting requirements prevent a coherent understanding.
 - An unknown preference, constraint, or user decision would otherwise have to be assumed to interpret the request.
 
-Defer material nonblocking gaps, preserving them for the next stage:
+Defer material nonblocking gaps according to their purpose:
 
-- **Brief preparation:** Research-framing details that can be clarified while creating and validating the brief.
-- **Exploration:** Facts, explanations, comparisons, and findings to establish through research.
+- **Brief preparation:** Leave research-framing details to brief creation and validation. Do not compile or save a separate list of these questions in the final artifact, including under another category. Preserve any already stated decisions or conditions that affect the brief.
+- **Exploration:** Preserve material, already identified questions about facts, explanations, comparisons, and findings for the final artifact when they add meaning beyond the confirmed request.
 
 You must not ask deferred questions now merely because their answers affect eventual research. Do not ask questions already answered in the input or questions that would not change your understanding. Do not ask the user to choose between alternatives when comparing them is the requested research.
 
@@ -74,7 +74,7 @@ If the user cannot or does not want to answer, reassess whether the question is 
 
 ## 4. Restate and Obtain Confirmation
 
-At `READY`, restate the request in your own words, including material stated boundaries. Clearly distinguish confirmed information, unconfirmed proposals, and deferred questions.
+At `READY`, restate the request in your own words, including material stated boundaries. Clearly distinguish confirmed information, unconfirmed proposals, and any deferred questions discussed during clarification. Discussing a nonblocking gap does not make it a required artifact field; brief-preparation questions must not become a final handoff list.
 
 Ask the user to confirm that the restatement accurately reflects their intent. Do not ask them to certify research readiness or approve a brief. Confirmation validates the presented restatement; it does not resolve omitted ambiguities, answer unasked questions, or turn separately labeled proposals into confirmed requirements.
 
@@ -84,15 +84,9 @@ If the user stops or does not confirm, do not claim completion. Distinguish unre
 
 ## 5. Save the Clarified Input
 
-After confirmation, prepare and save clarified input for brief creation containing:
+After confirmation, read [the clarified input template](references/clarified-input-template.md) and prepare the Markdown document using its structure and filling rules. The document must convey the current confirmed intent without requiring the next agent to reconstruct it from the conversation or original input. Incorporate the material meaning of user clarifications, decisions, boundaries, exclusions, constraints, and preferences directly into the appropriate sections.
 
-- The confirmed restatement of the request.
-- The original input or an accessible reference for the next stage, preserving material user clarifications.
-- Stated decisions, boundaries, exclusions, mandatory constraints, and preferences, keeping their meanings distinct.
-- Material unconfirmed assumptions or proposals, explicitly labeled.
-- Material open questions, distinguished as brief-preparation questions or exploration questions, with a brief explanation of why leaving them open does not obscure the confirmed intent.
-
-Do not invent content to fill empty categories or expand the artifact into a brief, research plan, or findings.
+Before saving, check the document against the template's completion checks. Do not invent content to fill empty categories or expand the artifact into a brief, research plan, or findings.
 
 Use the user's specified destination or the host's configured artifact-saving convention. If neither exists, request a destination when saving becomes necessary. Do not overwrite an existing artifact without authorization.
 

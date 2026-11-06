@@ -19,6 +19,10 @@ $exploration-input-clarification Help me clarify the exploration request in <inp
 
 Input may also be supplied in chat. The workflow asks for confirmation of its restatement and uses a user-specified destination or the host's configured saving convention; otherwise it asks for a destination when needed.
 
+## Clarified Input Output
+
+The saved result is a self-contained Markdown document for the next agent preparing a brief. Its [template and filling rules](skills/exploration-input-clarification/references/clarified-input-template.md) define a descriptive title, a required confirmed request, and conditional sections for context, conditions, unconfirmed proposals, and future research questions. Section names are fixed in English. Material clarifications are incorporated directly into the current understanding, without a dialogue history or a separate list of brief-preparation questions.
+
 ## Package and Verification Status
 
 The canonical [plugin.json](plugin.json) follows the portable format in the [official packaging guide](https://developers.openai.com/plugins/build/plugins). Skills are packaged under `skills/`; the package has no scripts, bundled tools, or external service prerequisites. Reading supplied input and saving the result require capabilities provided by the host.

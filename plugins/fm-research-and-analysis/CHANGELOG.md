@@ -6,5 +6,6 @@ Initial package version: `0.1.0`.
 
 - Add `exploration-input-clarification` for understanding exploratory requests, confirming intent, and saving clarified input for brief creation.
 - Tighten readiness checks for ambiguous subjects and expected outcomes, distinguish unknown intent from choices left open for exploration, and require reasons for deferring material questions. Confirmation does not resolve omitted ambiguities; invocation and input formats remain unchanged.
+- Breaking output contract change: standardize clarified input as self-contained Markdown using a bundled template with a descriptive H1, fixed English section names, and conditional content categories. Remove the required original-input handoff and separate brief-preparation question list. Consumers must use the current meaning incorporated into the document instead of reconstructing intent from source history or expecting a brief-question list. Readiness, confirmation, saving, invocation, and input formats remain unchanged; no released artifacts are rewritten.
 - Add Codex metadata disabling implicit invocation and a repository-local development symlink to the canonical packaged skill.
 - Establish the initial workflow contract; no prior version requires migration. Runtime discovery, installation, and behavioral execution remain unverified. No release has been published or tagged.

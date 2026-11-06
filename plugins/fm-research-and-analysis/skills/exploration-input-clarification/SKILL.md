@@ -27,7 +27,7 @@ Evaluate all of these criteria internally. They are checks for understanding, no
 4. **Context:** Is the supplied context sufficient to interpret the request?
 5. **Scope:** Are the intended subject and stated boundaries and exclusions clear?
 6. **Constraints:** What mandatory requirements, constraints, and preferences has the user explicitly stated?
-7. **Ambiguity:** Are there materially different interpretations of the user's intent?
+7. **Ambiguity:** Do key terms leave materially different interpretations of the subject, scope, or expected outcome unresolved?
 8. **Consistency:** Do contradictions prevent an accurate restatement?
 9. **Assumptions:** Does the interpretation depend on an unconfirmed assumption about intent?
 10. **Research suitability:** Does the request include investigation or learning, rather than only carrying out an already defined task?
@@ -43,17 +43,19 @@ Once the request is sufficiently understood, assess research suitability first. 
 | Status | Condition and action |
 |---|---|
 | **NOT AN EXPLORATION** | The understood request has no investigative or learning component. Explain why it falls outside this workflow, suggest an appropriate next workflow, and end without entering the readiness loop or automatically starting another workflow. A fixed solution alone does not justify this status. |
-| **CLARIFICATION REQUIRED** | At least one blocking issue remains: you cannot accurately restate intent without an unsupported assumption or choice on the user's behalf. Ask the necessary blocking questions and reassess after answers. |
-| **READY** | The request includes exploration, its primary intent and intended subject are understood, and no blocking issue remains. Skip clarifying questions and proceed to restatement. |
+| **CLARIFICATION REQUIRED** | At least one blocking issue remains: materially different user intentions are unresolved, or understanding requires an unsupported assumption or choice on the user's behalf. Ask the necessary blocking questions and reassess after answers. |
+| **READY** | The request includes exploration, its primary intent, intended subject, and expected outcome are understood, and no blocking issue remains. Skip clarifying questions and proceed to restatement. |
 
 The Readiness Gate passes exactly at `READY`. It assesses input readiness only; confirmation and saving are separate completion conditions. Open questions for brief preparation or exploration do not prevent `READY` unless they block understanding at this stage.
 
 ### Decide What Must Be Asked Now
 
-A question is blocking only if its answer is needed to understand and accurately restate the user's intent before handing input to brief creation. You must clarify an issue unresolved by the supplied context when:
+A broad paraphrase is not sufficient evidence of understanding. Before assigning `READY`, check whether two materially different tasks still fit the same restatement. Examine ambiguous terms that determine who or what is in scope, what the user wants to achieve, and what receiving or producing a result means. If plausible interpretations change these elements, clarify them unless the user has already left that choice open for exploration. For example, following selected authors and discovering anyone posting about a topic are different tasks even though both involve receiving people's posts.
+
+A question is blocking if its answer is needed to distinguish the user's intended task before handing input to brief creation. You must clarify an issue unresolved by the supplied context when:
 
 - The primary intent cannot be determined.
-- Materially different interpretations would produce different restatements.
+- Materially different interpretations change the subject, scope, or expected outcome, even if one general restatement could cover them all.
 - Conflicting requirements prevent a coherent understanding.
 - An unknown preference, constraint, or user decision would otherwise have to be assumed to interpret the request.
 
@@ -64,9 +66,9 @@ Defer material nonblocking gaps, preserving them for the next stage:
 
 You must not ask deferred questions now merely because their answers affect eventual research. Do not ask questions already answered in the input or questions that would not change your understanding. Do not ask the user to choose between alternatives when comparing them is the requested research.
 
-An uncertainty does not become deferrable merely because it can be phrased as a research question. Clarify unknown user intention when it blocks understanding; leave open a decision the user wants research to inform.
+An uncertainty does not become deferrable merely because it can be phrased as a research question. Distinguish unknown user intention from a choice the user wants research to inform. Do not treat an unanswered question as evidence that the user wants to explore its alternatives. Clarify that distinction when it changes the intended task. Before deferring a material gap, identify why leaving it open does not obscure the user's intent; an effect on implementation alone does not make it blocking.
 
-Group related blocking issues, prioritize those most affecting understanding, and ask specific, understandable questions. You should ask the minimum number needed and offer meaningful options with brief implications when useful. Reassess affected issues after answers. You may propose interpretations or assumptions, but label them as unconfirmed proposals and never treat them as user requirements without confirmation.
+Group related blocking issues, prioritize those most affecting understanding, and ask specific, understandable questions. Ask only questions needed to resolve those issues, without a fixed question count or skipping necessary distinctions to minimize the count. Offer meaningful options with brief implications when useful. Reassess affected issues after answers. You may propose interpretations or assumptions, but label them as unconfirmed proposals and never treat them as user requirements without confirmation.
 
 If the user cannot or does not want to answer, reassess whether the question is genuinely blocking. Defer it if nonblocking. If it remains blocking, explain the unresolved issue and leave the workflow incomplete; do not repeatedly ask the same question or invent an answer.
 
@@ -74,9 +76,9 @@ If the user cannot or does not want to answer, reassess whether the question is 
 
 At `READY`, restate the request in your own words, including material stated boundaries. Clearly distinguish confirmed information, unconfirmed proposals, and deferred questions.
 
-Ask the user to confirm that the restatement accurately reflects their intent. Do not ask them to certify research readiness or approve a brief. Confirmation of the restatement must not silently turn separately labeled proposals into confirmed requirements.
+Ask the user to confirm that the restatement accurately reflects their intent. Do not ask them to certify research readiness or approve a brief. Confirmation validates the presented restatement; it does not resolve omitted ambiguities, answer unasked questions, or turn separately labeled proposals into confirmed requirements.
 
-If the user corrects the interpretation, update it, reassess affected conditions, and obtain confirmation of the revised restatement. Return to clarification only if a blocking issue remains.
+If the user corrects the interpretation, update it, reassess affected conditions, and obtain confirmation of the revised restatement. If a blocking ambiguity is discovered, return to clarification even if the user has already confirmed a broad restatement.
 
 If the user stops or does not confirm, do not claim completion. Distinguish unresolved input from input that is `READY` but awaiting confirmation.
 
@@ -88,7 +90,7 @@ After confirmation, prepare and save clarified input for brief creation containi
 - The original input or an accessible reference for the next stage, preserving material user clarifications.
 - Stated decisions, boundaries, exclusions, mandatory constraints, and preferences, keeping their meanings distinct.
 - Material unconfirmed assumptions or proposals, explicitly labeled.
-- Material open questions, distinguished as brief-preparation questions or exploration questions.
+- Material open questions, distinguished as brief-preparation questions or exploration questions, with a brief explanation of why leaving them open does not obscure the confirmed intent.
 
 Do not invent content to fill empty categories or expand the artifact into a brief, research plan, or findings.
 

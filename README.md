@@ -4,11 +4,11 @@ An AI-first monorepo for FocusMatrix plugins and skills that help coding agents 
 
 ## Current State
 
-The repository contains governance, documentation, basic text-file configuration, and the initial [FocusMatrix Research and Analysis package](plugins/fm-research-and-analysis/README.md), version `0.1.0`. Its `exploration-input-clarification` skill prepares confirmed input for research brief creation. Verification is static only; runtime discovery, installation, and behavioral execution have not been verified. Codex is the initial packaging and validation target. Other coding agents are future targets with unverified compatibility.
+The repository contains governance, documentation, basic text-file configuration, and the initial [FocusMatrix Research and Analysis package](plugins/fm-research-and-analysis/README.md), version `0.1.0`. Its `exploration-input-clarification` skill prepares confirmed input; `exploration-brief-creation` uses that input to prepare a confirmed brief with a complete research plan. Verification consists of static checks and manual scenario reviews; runtime discovery, installation, and live behavioral execution have not been verified. Codex is the initial packaging and validation target. Other coding agents are future targets with unverified compatibility.
 
 ## Local Use
 
-The repository-local `.agents/skills/exploration-input-clarification` symlink points to the canonical skill inside the plugin. Invoke it explicitly as `$exploration-input-clarification`, supplying the request in chat or identifying an input file. Implicit invocation is disabled by Codex metadata. This development link is separate from plugin installation; see the [package README](plugins/fm-research-and-analysis/README.md#local-authoring-and-use) for the relative target and usage details.
+The repository-local `.agents/skills/` symlinks point to the canonical skills inside the plugin. Invoke `$exploration-input-clarification` explicitly with a request in chat or an input file. Invoke `$exploration-brief-creation` with saved clarified input to prepare a brief; it uses default automatic discovery and requires a choice between inspecting existing project materials and Greenfield Zone. Input clarification retains its explicit-only policy. These development links are separate from plugin installation; see the [package README](plugins/fm-research-and-analysis/README.md#local-authoring-and-use) for relative targets and usage details.
 
 ## Navigation
 

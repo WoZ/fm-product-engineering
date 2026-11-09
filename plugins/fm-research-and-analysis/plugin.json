@@ -2,5 +2,5 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "fm-research-and-analysis",
   "version": "0.1.0",
-  "description": "Clarify exploration requests into confirmed input for research brief creation."
+  "description": "Clarify exploration requests and prepare confirmed research briefs with complete research plans."
 }

@@ -4,6 +4,8 @@
 
 Initial package version: `0.1.0`.
 
+- Add `exploration-brief-creation` to turn saved clarified input into a confirmed, saved research brief with a complete research plan. Require an explicit project-context choice before discovery: targeted inspection of existing documents and code, or Greenfield Zone without project inspection. Support bounded mapping stages, clarification, final confirmation, and saving failure handling; stop before research execution. Bundle the dialogue protocol and brief template and add a repository-local development symlink. The new skill uses default automatic discovery; the existing skill remains explicit-only. Existing skill and clarified-input contracts and package version are unchanged. Verification for this addition is static and manual scenario review; runtime discovery, installation, and live behavioral execution remain unverified.
+
 - Refactor clarification instructions into the main workflow, a bundled dialogue protocol read before any question, and the output template. Consolidate repeated rules and place complete/incomplete output requirements together. Preserve invocation, readiness, question presentation, confirmation, saving, and output contracts; no version change. Update documentation links. Verification is static; the development evaluator still needs adaptation, including support for pre-confirmation reference reads.
 
 - Present all questions as Markdown text in the chat and receive answers as chat messages. Use one shared question format throughout the workflow; invocation, version, and output structure remain unchanged.

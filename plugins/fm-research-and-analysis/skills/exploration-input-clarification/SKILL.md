@@ -93,9 +93,46 @@ An unknown user intention must not be disguised as a future research question. C
 
 ### Present Questions
 
-Use the host's available structured question interface when available and permitted, with meaningful answer choices or free-text input. Give brief implications where they help the user choose. Allow a custom answer; where relevant, allow the user to leave a choice open for exploration. If no suitable structured interface is available, use a concise text menu or free-text question with the same semantics. When running in Codex, read [Codex interaction guidance](references/codex-interaction.md) before presenting the first questions.
+Present all questions as Markdown text in the chat using the format below. The user replies with a chat message. Give brief implications where they help the user choose; where relevant, allow the user to leave a choice open for exploration.
+
+Every question must end its answer choices with a separate custom-answer option bearing the next unused letter. The label must explicitly tell the user to enter their own answer, for example, `D. Custom answer — enter your own response.` Localize the label to the conversation language. This requirement applies to all questions, including clarification, checkpoint menus, confirmation, and requests for missing input or a saving destination. With no predefined choices, show `A. Custom answer — enter your own response.` and specify the information needed. An invitation in the question prompt does not replace this option.
+
+Include literal letter prefixes (`A.`, `B.`, and so on) in the choice labels. Markdown bullets or list positions alone do not provide these answer identifiers. Keep the letters and their meanings stable when interpreting answers and retrying a question.
 
 Within a selected category, ask a coherent group of questions, then return to the checkpoint. Do not automatically ask every candidate question. Preserve the force of each answer: a preference remains optional, an assumption remains unconfirmed, and skipping a question supplies no answer. Revisit an answered question only when a correction or conflict makes it necessary.
+
+#### Text Question Format
+
+- Present the group in one message. Start each question with `❓ **Q1 — Topic:** Question text`, using a stable identifier and a short topic label in the conversation language. List choices as Markdown bullets with only their letter prefixes bold, such as `- **A.** Choice text`. Separate question blocks with a horizontal rule or equivalent clear spacing.
+- Use the question heading, choices, and reply example as the visual structure, without appended arrow-marked rationale lines. Provide explanations when requested or needed to resolve an insufficient answer. Use portable Markdown and the question-mark symbol.
+- Apply the final custom-answer option rule above to each choice list. Include an illustrative answer format such as `Q1: A` and `Q2: C — <custom text>`.
+- If a text question has no meaningful predefined choices, use the custom-answer-only format above rather than inventing alternatives or leaving an unlabeled open question.
+- Request a separate answer for each question, identified by its number. Multiple separate answers may share one message; do not offer a single undifferentiated answer for the group. If the question-to-answer mapping is unclear, ask the user to identify the corresponding questions.
+- Accept a selected letter, a custom answer, or a letter with an explanation. A custom answer must contain text; its option letter alone supplies no substantive answer. Keep question identifiers and existing option meanings stable on retries. A materially changed question receives a new identifier.
+
+Illustrative text layout; localize the wording and derive the actual questions from the request:
+
+```markdown
+❓ **Q1 — Funding:** What does the available budget represent?
+
+- **A.** The total project spending limit.
+- **B.** Currently available funds; additional funding is possible.
+- **C.** Custom answer — enter your own response.
+
+---
+
+❓ **Q2 — Participation:** Is your personal participation required?
+
+- **A.** Yes.
+- **B.** No.
+- **C.** Custom answer — enter your own response.
+
+Answer each question separately, for example:
+Q1: C — <your explanation>
+Q2: B.
+```
+
+Before presenting any question, check that its final choice uses the next unused letter and explicitly tells the user to enter their own answer. Also check the question-mark heading and bold identifier/topic, bold choice letters, and reply example identifying questions separately.
 
 ### Round Checkpoint and User Choice
 
@@ -103,9 +140,9 @@ At each checkpoint:
 
 1. Briefly summarize current understanding and material changes, and identify any remaining blockers.
 2. Offer the relevant remaining categories with their purpose, distinguishing blocking and optional clarification. Show a manageable prioritized selection and allow the user to introduce another direction; do not imply the displayed set is exhaustive.
-3. Explicitly ask whether to deepen a selected category, introduce another direction, or finish clarification and fix the current results. Wait for the user's choice before asking optional questions or proceeding to final restatement. Silence, a dismissed menu, or a skipped answer is not a choice to finish or confirm.
+3. Explicitly ask whether to deepen a selected category, introduce another direction, or finish clarification and fix the current results. Wait for the user's choice before asking optional questions or proceeding to final restatement. Silence, an empty message, or a skipped answer is not a choice to finish or confirm.
 
-If the user chooses a direction, conduct the next round and repeat the checkpoint. If no useful categories remain, offer finishing or a user-supplied direction without manufacturing more questions. These checkpoints occur at dialogue boundaries, not after internal reading, analysis, or saving operations.
+Selecting a category chooses the next clarification topic; it does not answer that category's questions. If the user chooses a direction, conduct the next round and repeat the checkpoint. If no useful categories remain, offer finishing or a user-supplied direction without manufacturing more questions. These checkpoints occur at dialogue boundaries, not after internal reading, analysis, or saving operations.
 
 If the user chooses to finish at `READY`, proceed to section 5. This choice ends deepening; it does not confirm the final restatement. If blockers remain, explain why finalization is unavailable and offer focused clarification or stopping without completion. Do not save an unfinished final artifact. If the user stops, leave the workflow incomplete without repeatedly requesting the same answer.
 

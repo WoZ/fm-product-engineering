@@ -19,7 +19,9 @@ $exploration-input-clarification Help me clarify the exploration request in <inp
 
 Input may also be supplied in chat. After each clarification round, the workflow summarizes its understanding and offers relevant categories for further clarification, a custom direction, or finishing. Categories are derived from the current request; optional deepening does not block readiness. Choosing to finish is followed by a separate restatement confirmation. If blocking ambiguities remain, the user may stop without completing or saving the result.
 
-The workflow uses native structured questions when available and permitted, with a text fallback; see [Codex interaction guidance](skills/exploration-input-clarification/references/codex-interaction.md). It does not change client settings or modes. Saving uses a user-specified destination or the host's configured saving convention; otherwise the workflow asks for a destination when needed.
+All questions are presented as Markdown text in the chat, and the user replies with a chat message. Every question includes a final custom-answer option with the next unused letter and an explicit instruction to enter the user's own answer. This includes checkpoint menus, confirmation, and questions without predefined choices; see the [question presentation requirements](skills/exploration-input-clarification/SKILL.md#present-questions). Questions use a question-mark symbol, a bold question identifier and topic, bold choice letters, and visual separation. The user answers each question separately, optionally in one message, using a choice, custom text, or a choice with qualifications.
+
+Saving uses a user-specified destination or the host's configured saving convention; otherwise the workflow asks for a destination when needed.
 
 ## Clarified Input Output
 
@@ -31,4 +33,4 @@ The canonical [plugin.json](plugin.json) follows the portable format in the [off
 
 The development link supports local authoring; it does not install the distributable plugin. The installed package uses its own files and does not depend on the link or repository governance. No marketplace catalog or installation settings are included in this change.
 
-Verification includes static inspection and manual scenario walkthroughs of the written workflow. Runtime discovery, plugin installation, live structured-question rendering, and behavioral workflow execution have not been verified. The existing development evaluation does not cover the new round menus and requires adaptation before its results can validate this interaction contract; it is unchanged by this update. Codex is the initial packaging target; portability of the instructions does not establish support for other hosts. See the [changelog](CHANGELOG.md) for changes.
+Verification includes static inspection and manual scenario walkthroughs of the written workflow. Runtime discovery, plugin installation, and behavioral workflow execution have not been verified. The existing development evaluation does not cover the new round menus and requires adaptation before its results can validate this interaction contract; it is unchanged by this update. Codex is the initial packaging target; portability of the instructions does not establish support for other hosts. See the [changelog](CHANGELOG.md) for changes.

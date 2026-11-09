@@ -67,15 +67,15 @@ Distinguish nonblocking gaps from required clarification:
 
 Do not require answers to nonblocking questions merely because they affect eventual research. Offer relevant optional clarification through the deepening loop below. Do not ask questions already answered in the input or questions that would not change your understanding. Do not ask the user to choose between alternatives when comparing them is the requested research.
 
-Before deferring a material gap, identify why leaving it open does not obscure the user's intent. Phrasing an uncertainty as a research question does not make it deferrable, and an unanswered question is not evidence that the user wants to explore its alternatives. Clarify whether a choice is delegated to research when that distinction changes the intended task.
+Before leaving a material gap open in completed input, identify why it does not obscure the user's intent. Phrasing an uncertainty as a research question does not make it nonblocking, and an unanswered question is not evidence that the user wants to explore its alternatives. Clarify whether a choice is delegated to research when that distinction changes the intended task.
 
 For the initial clarification round, group related blocking issues, prioritize those most affecting understanding, and ask specific, understandable questions. Do not skip necessary distinctions to minimize the question count. Use the question presentation rules below. You may propose interpretations or assumptions, but label them as unconfirmed proposals and never treat them as user requirements without confirmation.
 
-If the user cannot or does not want to answer, reassess whether the question is genuinely blocking. Defer it if nonblocking. If it remains blocking, explain the unresolved issue and leave the workflow incomplete; do not repeatedly ask the same question or invent an answer.
+Handle insufficient answers and explicit deferrals under **Validate Answers and Handle Deferrals** below. Reassess whether an unresolved question is genuinely blocking. A skipped blocker keeps the workflow incomplete; the user may choose to save the understood portion using the incomplete-input path below.
 
 ## 4. Offer User-Controlled Deepening
 
-A round consists of a related group of questions and the user's responses. After every round, incorporate the answers, reassess readiness, and present a checkpoint. Also present a checkpoint when the initial input is already `READY`; optional questions are never a prerequisite for ending clarification. Requests classified as `NOT AN EXPLORATION` exit under section 3 without entering this loop.
+A round consists of a related group of questions and the user's responses, including any follow-up needed to validate them. Once each question has an accepted answer or an explicit deferral, incorporate the results, reassess readiness, and present a checkpoint. A user request to change direction or stop interrupts the round. Also present a checkpoint when the initial input is already `READY`; optional questions are never a prerequisite for ending clarification. Requests classified as `NOT AN EXPLORATION` exit under section 3 without entering this loop.
 
 ### Derive Relevant Categories
 
@@ -134,6 +134,18 @@ Q2: B.
 
 Before presenting any question, check that its final choice uses the next unused letter and explicitly tells the user to enter their own answer. Also check the question-mark heading and bold identifier/topic, bold choice letters, and reply example identifying questions separately.
 
+### Validate Answers and Handle Deferrals
+
+Apply these rules to every text answer, including custom input and explanations accompanying a selected option. A valid option selection without added text is sufficient when it unambiguously answers the question.
+
+1. Associate each answer with its question and evaluate the whole response. Preserve the selected option together with its qualifications. Check that it addresses the question, resolves the requested distinction, and has a clear meaning consistent with its explanation and relevant prior input. A custom answer may correct the offered choices; accept that correction when clear. Judge semantic sufficiency, not length, factual proof, or the feasibility of the user's wishes.
+2. Accept sufficient answers and retain them while checking the rest of the group. For a missing, off-topic, contradictory, or ambiguous answer, briefly identify the specific unresolved point and re-ask only the affected question with its original identifier. Do not silently discard a qualification, favor the letter over contradictory text, or move an answer to a different question.
+3. Repeat this clarification after each further insufficient response until the question is answered or explicitly deferred. Wait for the user's response between attempts. A request to explain the question, revise the task, change direction, or stop is dialogue control: respond to it and reassess the pending questions instead of treating it as an invalid answer.
+4. For an on-topic response such as "I don't know" or "I haven't decided," clarify the user's intended next action if it is not already explicit: an explanation of the question, intentional deferral, or a choice left to exploration. Do not infer any of these actions from lack of knowledge alone.
+5. Treat an explicit request to skip or defer a question as a decision to leave it unanswered. Acknowledge it, stop retrying that question, and retain the topic, missing clarification, and the user's deferral decision for restatement and saving. An omitted answer, silence, or an empty custom-answer selection is not an explicit deferral. Revisit a deferred question only if the user reopens it or a material change requires reassessment; do not use repeated reassessment to pressure the user for the same answer.
+
+A deferral supplies no substantive answer, default value, requirement, or automatic research question. Reassess readiness using section 3: a nonblocking deferral may accompany `READY`; a blocking deferral retains `CLARIFICATION REQUIRED`. Saving an incomplete input does not change that status or complete the workflow.
+
 ### Round Checkpoint and User Choice
 
 At each checkpoint:
@@ -144,21 +156,23 @@ At each checkpoint:
 
 Selecting a category chooses the next clarification topic; it does not answer that category's questions. If the user chooses a direction, conduct the next round and repeat the checkpoint. If no useful categories remain, offer finishing or a user-supplied direction without manufacturing more questions. These checkpoints occur at dialogue boundaries, not after internal reading, analysis, or saving operations.
 
-If the user chooses to finish at `READY`, proceed to section 5. This choice ends deepening; it does not confirm the final restatement. If blockers remain, explain why finalization is unavailable and offer focused clarification or stopping without completion. Do not save an unfinished final artifact. If the user stops, leave the workflow incomplete without repeatedly requesting the same answer.
+If the user chooses to finish at `READY`, proceed to section 5. This choice ends deepening; it does not confirm the final restatement. If blockers remain, explain why finalization is unavailable and offer focused clarification, saving an explicitly incomplete input, or stopping without saving. If the user chooses incomplete saving, follow sections 5 and 6 without assigning `READY` or claiming completion. If the user stops without choosing to save, leave the workflow incomplete without repeatedly requesting the same answer.
 
 ## 5. Restate and Obtain Confirmation
 
 After the user chooses to finish clarification at `READY`, restate the request in your own words, including material stated boundaries and answers from all rounds. Clearly distinguish confirmed information, unconfirmed proposals, and any deferred questions discussed during clarification. Discussing a nonblocking gap does not make it a required artifact field; brief-preparation questions must not become a final handoff list.
 
+If the user instead chooses to save incomplete input, restate only the understood portion and explicitly identify the unresolved blockers and any intentional deferrals. Label it incomplete and not ready for brief creation. Ask the user to confirm the accuracy of that partial understanding and the recorded gaps; confirmation does not resolve them. For either saving path, include explicit deferral decisions in the restatement without turning them into research assignments.
+
 Ask the user separately to confirm that the restatement accurately reflects their intent. Do not reuse the choice to finish clarification as confirmation. Do not ask them to certify research readiness or approve a brief. Confirmation validates the presented restatement; it does not resolve omitted ambiguities, answer unasked questions, or turn separately labeled proposals into confirmed requirements.
 
-If the user corrects the interpretation, update it, reassess affected conditions, and obtain confirmation of the revised restatement. A material correction returns to the clarification loop and invalidates prior confirmation. If a blocking ambiguity is discovered, return to clarification even if the user has already confirmed a broad restatement.
+If the user corrects the interpretation, update it, reassess affected conditions, and obtain confirmation of the revised restatement. A material correction returns to the clarification loop and invalidates prior confirmation. If a blocking ambiguity is discovered on the completed-input path, return to clarification even if the user has already confirmed a broad restatement. On the incomplete-input path, keep acknowledged blockers visible and obtain confirmation of any revised partial restatement.
 
 If the user stops or does not confirm, do not claim completion. Distinguish unresolved input from input that is `READY` but awaiting confirmation.
 
 ## 6. Save the Clarified Input
 
-After confirmation, read [the clarified input template](references/clarified-input-template.md) and prepare the Markdown document using its structure and filling rules. The document must convey the current confirmed intent without requiring the next agent to reconstruct it from the conversation or original input. Incorporate the material meaning of user clarifications, decisions, boundaries, exclusions, constraints, and preferences directly into the appropriate sections.
+After confirmation, read [the clarified input template](references/clarified-input-template.md) and prepare the Markdown document using its structure and filling rules, including the incomplete-input variant when selected. The document must convey the current confirmed understanding without requiring the next agent to reconstruct it from the conversation or original input. Incorporate the material meaning of user clarifications, decisions, boundaries, exclusions, constraints, preferences, and explicit deferrals directly into the appropriate sections.
 
 Before saving, check the document against the template's completion checks. Do not invent content to fill empty categories or expand the artifact into a brief, research plan, or findings.
 
@@ -167,3 +181,5 @@ Use the user's specified destination or the host's configured artifact-saving co
 If saving fails or the host cannot persist artifacts, provide the prepared content in chat, explain that it was not saved, and identify the outstanding saving step. Do not claim persistence or completion.
 
 Complete the workflow only when all three conditions hold: input is `READY`, the user has confirmed the current restatement, and the result has been saved. Report the saved location to the user. End this stage without automatically creating a brief or starting research.
+
+For incomplete saving, report the saved location, remaining blockers, and `CLARIFICATION REQUIRED` status. Explicitly state that clarification remains incomplete and the document is not ready for brief creation. Confirmation and persistence of partial input do not satisfy the completion conditions above.

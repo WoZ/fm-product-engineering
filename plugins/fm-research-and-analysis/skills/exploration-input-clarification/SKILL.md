@@ -50,14 +50,15 @@ The Readiness Gate passes exactly at `READY`. It assesses input readiness only; 
 
 ### Decide What Must Be Asked Now
 
-A broad paraphrase is not sufficient evidence of understanding. Before assigning `READY`, check whether two materially different tasks still fit the same restatement. Examine ambiguous terms that determine who or what is in scope, what the user wants to achieve, and what receiving or producing a result means. If plausible interpretations change these elements, clarify them unless the user has already left that choice open for exploration.
+A broad paraphrase is not sufficient evidence of understanding. Before assigning `READY` or treating a question as blocking, apply these checks internally to each material uncertainty:
 
-A question is blocking if its answer is needed to distinguish the user's intended task before handing input to brief creation. You must clarify an issue unresolved by the supplied context when:
+1. **Identify the unresolved meaning.** For an ambiguity, name two plausible interpretations grounded in the supplied input and explain how they change the intended subject, scope, or expected outcome. If the issue is missing primary intent or conflicting requirements, identify what cannot be understood or reconciled instead of inventing alternative intentions.
+2. **Identify the unavoidable choice.** State the assumption or user decision that handing off the request would require without an answer. An effect on research framing, findings, or implementation alone is insufficient; explain why the next stage would otherwise receive materially different tasks.
+3. **Try a faithful handoff without that choice.** Check whether the uncertainty can remain open while preserving the same understood task and the original force of stated conditions. For example, available funds are not automatically a spending cap, and a desired completion date is not automatically a deadline. A broad umbrella statement that hides different intentions does not pass this check. Neither does silently treating unknown intent as a choice delegated to research.
 
-- The primary intent cannot be determined.
-- Materially different interpretations change the subject, scope, or expected outcome, even if one general restatement could cover them all.
-- Conflicting requirements prevent a coherent understanding.
-- An unknown preference, constraint, or user decision would otherwise have to be assumed to interpret the request.
+A question is blocking only when these checks show that missing intent, a material ambiguity, a contradiction, or an unavoidable unsupported assumption prevents an accurate handoff. Ask the necessary questions before assigning `READY`. Otherwise, leave the gap nonblocking without inventing an answer. These checks are internal reasoning aids, not required artifact fields or a questionnaire.
+
+Keep classifications grounded in the current input. A request to identify more gaps or ask more questions does not itself make a nonblocking gap blocking or invalidate `READY`. Reclassify when new information, a user correction, or a specifically identified earlier oversight changes the assessment. Explain the concrete reason to the user; when correcting an earlier readiness error, identify the missed ambiguity, contradiction, or assumption rather than relabeling the whole category.
 
 Distinguish nonblocking gaps from required clarification:
 
@@ -66,7 +67,7 @@ Distinguish nonblocking gaps from required clarification:
 
 Do not require answers to nonblocking questions merely because they affect eventual research. Offer relevant optional clarification through the deepening loop below. Do not ask questions already answered in the input or questions that would not change your understanding. Do not ask the user to choose between alternatives when comparing them is the requested research.
 
-An uncertainty does not become deferrable merely because it can be phrased as a research question. Distinguish unknown user intention from a choice the user wants research to inform. Do not treat an unanswered question as evidence that the user wants to explore its alternatives. Clarify that distinction when it changes the intended task. Before deferring a material gap, identify why leaving it open does not obscure the user's intent; an effect on implementation alone does not make it blocking.
+Before deferring a material gap, identify why leaving it open does not obscure the user's intent. Phrasing an uncertainty as a research question does not make it deferrable, and an unanswered question is not evidence that the user wants to explore its alternatives. Clarify whether a choice is delegated to research when that distinction changes the intended task.
 
 For the initial clarification round, group related blocking issues, prioritize those most affecting understanding, and ask specific, understandable questions. Do not skip necessary distinctions to minimize the question count. Use the question presentation rules below. You may propose interpretations or assumptions, but label them as unconfirmed proposals and never treat them as user requirements without confirmation.
 

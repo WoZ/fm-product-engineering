@@ -4,6 +4,7 @@
 
 Initial package version: `0.1.0`.
 
+- Make clarification blockers require an internal check of competing meanings, unavoidable assumptions, and whether a faithful handoff can preserve uncertainty. Require a concrete reason for reclassifying gaps or correcting readiness; a request for more questions alone does not change their status. Invocation, version, and output structure remain unchanged.
 - Add user-controlled deepening rounds with dynamically derived clarification categories, a checkpoint after every round, and a finish-or-continue choice even when input is already ready. Optional clarification does not block readiness; stopping with blockers does not save a final artifact. Choosing to finish and confirming the final restatement remain separate interactions. Existing dialogue drivers must handle these new checkpoints; the development evaluation has not been adapted. Invocation, version, and output structure remain unchanged.
 - Add packaged Codex interaction guidance for available native question tools and a text fallback, without changing client settings or requiring a question tool. Verify the written transitions through manual scenario walkthroughs; live UI behavior remains unverified.
 - Add `exploration-input-clarification` for understanding exploratory requests, confirming intent, and saving clarified input for brief creation.

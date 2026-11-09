@@ -1,12 +1,10 @@
 # Clarified Input Template
 
-Read this resource after the user confirms the current restatement and before preparing the final Markdown. It defines the output document, not additional clarification questions or readiness criteria.
+Read after confirmation and before preparing the Markdown artifact. This resource defines output, not additional questions or readiness criteria; [SKILL.md](../SKILL.md) owns saving and workflow completion.
 
 ## Document Structure
 
-Use the following heading names exactly, in English, and in this order. `Confirmed request` is always required. Include each other section only when it has material content; omit empty sections and subsections entirely, without placeholders such as "not specified." Do not ask questions or invent content to populate the structure.
-
-The bracketed text below describes content to replace. Do not copy these instructions or unused headings into the result.
+Use these exact English headings in this order. `Confirmed request` is required; other sections appear only when they have material content. Omit empty sections and subsections without placeholders such as “not specified.” Do not ask questions or invent content to fill them. Replace bracketed instructions and remove unused headings.
 
 ```markdown
 # [Short descriptive title of the confirmed request]
@@ -40,43 +38,45 @@ The bracketed text below describes content to replace. Do not copy these instruc
 
 ## Title
 
-Form the title from the current confirmed request, rather than the first message. Use one short descriptive phrase identifying the subject and what the user wants to understand, explain, or decide. Include a material boundary if omitting it would describe a different or overly broad task.
+Use exactly one H1: a short descriptive phrase derived from the current confirmed request, identifying its subject and desired understanding, explanation, or decision. Include a boundary when omitting it would describe a different or overly broad task. Revisit the title after material corrections.
 
-The document must have exactly one H1, without a generic prefix such as "Clarified input." No mandatory numbering or word count applies. The title must be noticeably shorter than the full request and must not introduce a technology, solution, finding, or goal the user did not specify. It does not replace the full formulation or need to repeat every condition. Revisit it after a material correction to the request.
+The title must be noticeably shorter than the full request and must not introduce an unstated technology, solution, finding, or goal. It does not replace the full formulation or need every condition. Use no generic prefix such as “Clarified input”; no mandatory numbering or word count applies.
 
-## Incomplete Input Variant
+## Complete and Incomplete Input
 
-Use this variant only after the user chooses to save incomplete input and separately confirms the partial restatement and recorded gaps. Immediately after the H1, insert this exact status notice:
+| Variant | Required content |
+|---|---|
+| Completed input | `Confirmed request` contains a complete, coherent statement of the understood task. No blocking assumption or ambiguity may remain, including in an optional section. Nonblocking explicit deferrals may remain. |
+| Incomplete input | Only after the user chooses incomplete saving and separately confirms the partial restatement and gaps. `Confirmed request` contains only the understood portion, with its limitations. In `Context, decisions, and boundaries`, identify each unresolved blocker, the missing clarification, and any explicit deferral. If primary intent is unknown, say so instead of inventing it. |
+
+Incomplete input keeps the same headings and order. Immediately after the H1, insert this exact notice:
 
 ```markdown
 > Status: INCOMPLETE — CLARIFICATION REQUIRED. Not ready for brief creation.
 ```
 
-Keep the same section names and order. In this variant, `Confirmed request` contains only the understood portion confirmed by the user, with its limitations stated explicitly. In `Context, decisions, and boundaries`, identify each unresolved blocker and the clarification still missing, including any explicit deferral decision. If primary intent is not yet understood, say so rather than inventing a complete request. These are known gaps in the current understanding, not a brief-preparation checklist or permission to choose an interpretation.
-
-The complete-request requirement applies to completed input. An incomplete document must instead accurately convey the confirmed partial understanding, conspicuous status, and unresolved blockers. All other filling and completion checks still apply. Confirmation of this variant does not resolve the blockers or complete the workflow.
+Only the incomplete variant may retain blockers. They are known gaps, not a brief-preparation checklist or permission to choose an interpretation. Confirmation does not resolve them or complete clarification. All shared filling and completion checks below apply to both variants.
 
 ## Filling Rules
 
-- Write the confirmed request as a paragraph. Use separate bullets for independent decisions, conditions, proposals, and questions; keep explanations and qualifications with their item. Do not combine a mandatory condition and a preference into one item.
-- Put necessary context, established decisions, subject boundaries, and exclusions in `Context, decisions, and boundaries`. Attribute user assertions where needed so they are not presented as independently verified facts.
-- Preserve each current explicit deferral in `Context, decisions, and boundaries`: identify its topic, the clarification intentionally left unanswered, and the user's decision to defer it. A nonblocking deferral can appear in completed input; an unresolved blocking deferral requires the incomplete variant. Keep the substantive decision rather than question identifiers or a dialogue log. If a later answer resolves the issue, incorporate that answer and omit the superseded deferral.
-- Put mandatory conditions and preferences in their respective H3 subsections. Include each H3 only when it has content, and omit their parent H2 if both are empty. Preserve the original strength of each condition. A brief mention of a material condition in the title or confirmed request may supplement its full entry, but must not change its meaning.
-- Keep only previously raised, material unconfirmed assumptions or proposals needed to hand off the request accurately. This section is not a place to brainstorm. Label each item's status in words; neither placement nor emphasis alone makes it clear. Confirmation of the restatement does not turn separately labeled proposals into requirements. An assumption that blocks understanding must be resolved before the final document, rather than hidden here.
-- Keep only already identified research questions about facts, explanations, or choices left to research that add material meaning beyond the confirmed request. Explain for each question or homogeneous group why it can remain open. Do not invent questions, methods, or a work plan to fill the section. Do not reclassify brief-framing or organizational details as research questions merely to preserve them.
-- Preserve the current meaning of material clarifications directly in the request, context, or conditions. Do not include original utterances, a question-and-answer history, superseded interpretations, or a source link as a way to reconstruct that history. A necessary reference to user material that is itself the subject of the request may remain in context.
-- Incorporate material answers from every clarification round while preserving their force as requirements, preferences, or unconfirmed proposals. Omit round checkpoints, navigation choices, and inventories of unselected categories. Preserve explicit deferrals as specified above; an omitted answer alone supplies no deferral decision. Deferrals do not supply conditions or automatically become future research questions.
-- Do not include a separate list of brief-preparation questions, including under another name. Brief creation determines its own missing details. Already stated decisions and conditions must still be preserved even when they affect the future brief.
-- Exclude phase logs, the internal analytical checklist, a brief, a research plan, and research findings.
+- Write the confirmed request as a paragraph. Incorporate the current material meaning of answers from every round directly into the request, context, or conditions so the artifact stands alone.
+- Use separate bullets for independent decisions, conditions, proposals, and questions, keeping qualifications with each item. Keep mandatory conditions and preferences separate and preserve their original force.
+- Put necessary context, decisions, boundaries, and exclusions in `Context, decisions, and boundaries`. Attribute user assertions where needed rather than presenting them as verified facts. A reference to supplied material that is itself the subject may remain here.
+- Record each current explicit deferral here too: topic, clarification intentionally unanswered, and the user's deferral decision. Preserve the decision, not question identifiers or a dialogue log. Incorporate later answers and omit superseded deferrals. An omitted answer alone is not a deferral; neither omission nor deferral creates a condition, default, or automatic research assignment.
+- Put mandatory conditions and preferences under their respective H3 headings; omit their parent H2 when both are empty. A material condition may also appear briefly in the title or request without changing its meaning.
+- Include only previously raised, material unconfirmed assumptions or proposals needed for accurate handoff. Label each status explicitly in words, not through placement or emphasis alone. Restatement confirmation does not turn separately labeled proposals into requirements. Do not brainstorm here; blockers belong only in the incomplete variant's context section.
+- Include only previously identified research questions about facts, explanations, or choices left to research that add meaning beyond the confirmed request. Explain for each question or homogeneous group why it may remain open without obscuring intent. Do not invent questions, methods, or a work plan, or reclassify brief-framing and organizational details to retain them.
+- Exclude original utterances, question-and-answer history, superseded interpretations, phase logs, internal diagnostic checks, checkpoints, and inventories of unselected categories. A source link must not substitute for incorporating the current meaning.
+- Exclude a separate brief-preparation question list, even under another name, while preserving stated decisions and conditions affecting a future brief. Do not include a brief, research plan, or findings.
 
 ## Completion Checks
 
 Before saving, verify that:
 
-- The document is understandable without the chat history, preserves all material current clarifications and conditions, and contains a complete confirmed request.
-- Exactly one descriptive H1 and the applicable fixed H2/H3 headings appear in the prescribed order. A simple request may need only the title and `Confirmed request`.
-- Preferences remain preferences, proposals remain unconfirmed, and user hypotheses are not stated as verified facts. Explicit deferrals remain unanswered, without default values or automatic research assignments. No blocking ambiguity is concealed in an optional section; unresolved blockers appear only in the visibly incomplete variant.
-- No history, disguised source-input section, or list of brief-preparation questions remains. Removing them has not removed material current information.
-- Saving the Markdown or passing its content to the next agent conveys the same meaning. Formatting alone does not guarantee a particular model's interpretation; that requires behavioral verification.
+- The artifact is understandable without chat history or reconstruction from original input, and preserves all material current clarifications, conditions, and explicit deferrals with their correct status.
+- It meets the selected variant's requirements: a complete request without blockers, or confirmed partial understanding with the exact incomplete notice and visible blockers.
+- Exactly one descriptive H1 and applicable fixed H2/H3 headings appear in order. A simple completed request may need only the title and `Confirmed request`.
+- No history, disguised source-input section, or brief-preparation question list remains; removing these has not removed material current meaning.
+- Passing the Markdown content to the next agent conveys the same meaning as the saved artifact. Formatting alone does not establish a model's interpretation; that requires behavioral verification.
 
-Apply the saving and completion conditions in `SKILL.md`. Showing this content in chat or stdout does not itself satisfy successful persistence.
+Showing content in chat or stdout is not successful persistence. Apply the saving and completion conditions in `SKILL.md`.

@@ -4,6 +4,8 @@
 
 Initial package version: `0.1.0`.
 
+- Refactor clarification instructions into the main workflow, a bundled dialogue protocol read before any question, and the output template. Consolidate repeated rules and place complete/incomplete output requirements together. Preserve invocation, readiness, question presentation, confirmation, saving, and output contracts; no version change. Update documentation links. Verification is static; the development evaluator still needs adaptation, including support for pre-confirmation reference reads.
+
 - Present all questions as Markdown text in the chat and receive answers as chat messages. Use one shared question format throughout the workflow; invocation, version, and output structure remain unchanged.
 - Require a final custom-answer option in every question, including checkpoints, confirmation, and missing-input requests. Use the next unused letter and explicitly tell the user to enter their own answer; use `A.` when no predefined choices exist. Check the option before presenting each question. An invitation in the question prompt is insufficient.
 - Group text questions with a question-mark symbol, bold stable identifiers and topic labels, bold choice letters, and a final custom-answer option. Keep the layout free of appended arrow-marked rationale lines. Validate text answers and option qualifications; explain insufficient responses and retry only unresolved questions until answered or explicitly deferred. Clarify the intended next action for "I don't know" responses.

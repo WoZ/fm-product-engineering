@@ -5,7 +5,7 @@ description: Clarify a user's exploration request and save confirmed input for r
 
 # Exploration Input Clarification
 
-Establish a shared understanding of the user's request and save clarified input for brief creation. Exploration can concern any subject; it does not require choosing between solutions. A selected solution can still be explored for its behavior, risks, or use within the user's stated boundary.
+Establish a shared understanding of the user's request through user-controlled clarification rounds and save confirmed input for brief creation. Exploration can concern any subject; it does not require choosing between solutions. A selected solution can still be explored for its behavior, risks, or use within the user's stated boundary.
 
 This stage must not create a research brief, fully specify or plan the research, or conduct research. Brief creation has its own analysis, clarification, and validation. Details may remain open when they do not prevent understanding the user's intent.
 
@@ -44,13 +44,13 @@ Once the request is sufficiently understood, assess research suitability first. 
 |---|---|
 | **NOT AN EXPLORATION** | The understood request has no investigative or learning component. Explain why it falls outside this workflow, suggest an appropriate next workflow, and end without entering the readiness loop or automatically starting another workflow. A fixed solution alone does not justify this status. |
 | **CLARIFICATION REQUIRED** | At least one blocking issue remains: materially different user intentions are unresolved, or understanding requires an unsupported assumption or choice on the user's behalf. Ask the necessary blocking questions and reassess after answers. |
-| **READY** | The request includes exploration, its primary intent, intended subject, and expected outcome are understood, and no blocking issue remains. Skip clarifying questions and proceed to restatement. |
+| **READY** | The request includes exploration, its primary intent, intended subject, and expected outcome are understood, and no blocking issue remains. Offer the round checkpoint before proceeding to final restatement; further clarification is voluntary. |
 
-The Readiness Gate passes exactly at `READY`. It assesses input readiness only; confirmation and saving are separate completion conditions. Open questions for brief preparation or exploration do not prevent `READY` unless they block understanding at this stage.
+The Readiness Gate passes exactly at `READY`. It assesses input readiness only; choosing to finish clarification, confirming the restatement, and saving are separate steps. Open questions for brief preparation or exploration and unselected optional categories do not prevent `READY` unless they block understanding at this stage. Reassess readiness after each round and material correction.
 
 ### Decide What Must Be Asked Now
 
-A broad paraphrase is not sufficient evidence of understanding. Before assigning `READY`, check whether two materially different tasks still fit the same restatement. Examine ambiguous terms that determine who or what is in scope, what the user wants to achieve, and what receiving or producing a result means. If plausible interpretations change these elements, clarify them unless the user has already left that choice open for exploration. For example, following selected authors and discovering anyone posting about a topic are different tasks even though both involve receiving people's posts.
+A broad paraphrase is not sufficient evidence of understanding. Before assigning `READY`, check whether two materially different tasks still fit the same restatement. Examine ambiguous terms that determine who or what is in scope, what the user wants to achieve, and what receiving or producing a result means. If plausible interpretations change these elements, clarify them unless the user has already left that choice open for exploration.
 
 A question is blocking if its answer is needed to distinguish the user's intended task before handing input to brief creation. You must clarify an issue unresolved by the supplied context when:
 
@@ -59,30 +59,66 @@ A question is blocking if its answer is needed to distinguish the user's intende
 - Conflicting requirements prevent a coherent understanding.
 - An unknown preference, constraint, or user decision would otherwise have to be assumed to interpret the request.
 
-Defer material nonblocking gaps according to their purpose:
+Distinguish nonblocking gaps from required clarification:
 
-- **Brief preparation:** Leave research-framing details to brief creation and validation. Do not compile or save a separate list of these questions in the final artifact, including under another category. Preserve any already stated decisions or conditions that affect the brief.
+- **Brief preparation:** Leave research-framing work to brief creation and validation. A user may voluntarily clarify a related condition of their request during deepening, but do not design the research or require this answer to finish. Do not compile or save a separate list of brief-preparation questions in the final artifact, including under another category. Preserve any already stated decisions or conditions that affect the brief.
 - **Exploration:** Preserve material, already identified questions about facts, explanations, comparisons, and findings for the final artifact when they add meaning beyond the confirmed request.
 
-You must not ask deferred questions now merely because their answers affect eventual research. Do not ask questions already answered in the input or questions that would not change your understanding. Do not ask the user to choose between alternatives when comparing them is the requested research.
+Do not require answers to nonblocking questions merely because they affect eventual research. Offer relevant optional clarification through the deepening loop below. Do not ask questions already answered in the input or questions that would not change your understanding. Do not ask the user to choose between alternatives when comparing them is the requested research.
 
 An uncertainty does not become deferrable merely because it can be phrased as a research question. Distinguish unknown user intention from a choice the user wants research to inform. Do not treat an unanswered question as evidence that the user wants to explore its alternatives. Clarify that distinction when it changes the intended task. Before deferring a material gap, identify why leaving it open does not obscure the user's intent; an effect on implementation alone does not make it blocking.
 
-Group related blocking issues, prioritize those most affecting understanding, and ask specific, understandable questions. Ask only questions needed to resolve those issues, without a fixed question count or skipping necessary distinctions to minimize the count. Offer meaningful options with brief implications when useful. Reassess affected issues after answers. You may propose interpretations or assumptions, but label them as unconfirmed proposals and never treat them as user requirements without confirmation.
+For the initial clarification round, group related blocking issues, prioritize those most affecting understanding, and ask specific, understandable questions. Do not skip necessary distinctions to minimize the question count. Use the question presentation rules below. You may propose interpretations or assumptions, but label them as unconfirmed proposals and never treat them as user requirements without confirmation.
 
 If the user cannot or does not want to answer, reassess whether the question is genuinely blocking. Defer it if nonblocking. If it remains blocking, explain the unresolved issue and leave the workflow incomplete; do not repeatedly ask the same question or invent an answer.
 
-## 4. Restate and Obtain Confirmation
+## 4. Offer User-Controlled Deepening
 
-At `READY`, restate the request in your own words, including material stated boundaries. Clearly distinguish confirmed information, unconfirmed proposals, and any deferred questions discussed during clarification. Discussing a nonblocking gap does not make it a required artifact field; brief-preparation questions must not become a final handoff list.
+A round consists of a related group of questions and the user's responses. After every round, incorporate the answers, reassess readiness, and present a checkpoint. Also present a checkpoint when the initial input is already `READY`; optional questions are never a prerequisite for ending clarification. Requests classified as `NOT AN EXPLORATION` exit under section 3 without entering this loop.
 
-Ask the user to confirm that the restatement accurately reflects their intent. Do not ask them to certify research readiness or approve a brief. Confirmation validates the presented restatement; it does not resolve omitted ambiguities, answer unasked questions, or turn separately labeled proposals into confirmed requirements.
+### Derive Relevant Categories
 
-If the user corrects the interpretation, update it, reassess affected conditions, and obtain confirmation of the revised restatement. If a blocking ambiguity is discovered, return to clarification even if the user has already confirmed a broad restatement.
+Derive possible clarification categories from the current request and answers. Propose a category only when its clarification could materially change understanding of the desired outcome, context, boundaries, conditions, or preferences. Name it in terms the user can understand and briefly explain what clarifying it would change.
+
+Generate categories for the current task rather than using a fixed questionnaire or domain-specific catalog. The internal understanding criteria are diagnostic aids, not categories that every user must fill. Remove answered or irrelevant categories and add newly discovered ones after each round. Do not invent categories to prolong the conversation or treat selection of a category as acceptance of an answer or solution.
+
+Distinguish:
+
+- **Blocking clarification:** Needed to distinguish the intended task or resolve a contradiction. Identify it explicitly and prioritize it.
+- **Optional clarification:** Could enrich the request, but can remain unanswered without obscuring intent. Ask it when the user selects that direction.
+- **Future research:** Calls for facts, explanations, comparisons, or findings. Leave the answer to research; clarify the user's intended scope only when needed.
+
+An unknown user intention must not be disguised as a future research question. Conversely, a choice the user wants research to inform must not become a required user decision.
+
+### Present Questions
+
+Use the host's available structured question interface when available and permitted, with meaningful answer choices or free-text input. Give brief implications where they help the user choose. Allow a custom answer; where relevant, allow the user to leave a choice open for exploration. If no suitable structured interface is available, use a concise text menu or free-text question with the same semantics. When running in Codex, read [Codex interaction guidance](references/codex-interaction.md) before presenting the first questions.
+
+Within a selected category, ask a coherent group of questions, then return to the checkpoint. Do not automatically ask every candidate question. Preserve the force of each answer: a preference remains optional, an assumption remains unconfirmed, and skipping a question supplies no answer. Revisit an answered question only when a correction or conflict makes it necessary.
+
+### Round Checkpoint and User Choice
+
+At each checkpoint:
+
+1. Briefly summarize current understanding and material changes, and identify any remaining blockers.
+2. Offer the relevant remaining categories with their purpose, distinguishing blocking and optional clarification. Show a manageable prioritized selection and allow the user to introduce another direction; do not imply the displayed set is exhaustive.
+3. Explicitly ask whether to deepen a selected category, introduce another direction, or finish clarification and fix the current results. Wait for the user's choice before asking optional questions or proceeding to final restatement. Silence, a dismissed menu, or a skipped answer is not a choice to finish or confirm.
+
+If the user chooses a direction, conduct the next round and repeat the checkpoint. If no useful categories remain, offer finishing or a user-supplied direction without manufacturing more questions. These checkpoints occur at dialogue boundaries, not after internal reading, analysis, or saving operations.
+
+If the user chooses to finish at `READY`, proceed to section 5. This choice ends deepening; it does not confirm the final restatement. If blockers remain, explain why finalization is unavailable and offer focused clarification or stopping without completion. Do not save an unfinished final artifact. If the user stops, leave the workflow incomplete without repeatedly requesting the same answer.
+
+## 5. Restate and Obtain Confirmation
+
+After the user chooses to finish clarification at `READY`, restate the request in your own words, including material stated boundaries and answers from all rounds. Clearly distinguish confirmed information, unconfirmed proposals, and any deferred questions discussed during clarification. Discussing a nonblocking gap does not make it a required artifact field; brief-preparation questions must not become a final handoff list.
+
+Ask the user separately to confirm that the restatement accurately reflects their intent. Do not reuse the choice to finish clarification as confirmation. Do not ask them to certify research readiness or approve a brief. Confirmation validates the presented restatement; it does not resolve omitted ambiguities, answer unasked questions, or turn separately labeled proposals into confirmed requirements.
+
+If the user corrects the interpretation, update it, reassess affected conditions, and obtain confirmation of the revised restatement. A material correction returns to the clarification loop and invalidates prior confirmation. If a blocking ambiguity is discovered, return to clarification even if the user has already confirmed a broad restatement.
 
 If the user stops or does not confirm, do not claim completion. Distinguish unresolved input from input that is `READY` but awaiting confirmation.
 
-## 5. Save the Clarified Input
+## 6. Save the Clarified Input
 
 After confirmation, read [the clarified input template](references/clarified-input-template.md) and prepare the Markdown document using its structure and filling rules. The document must convey the current confirmed intent without requiring the next agent to reconstruct it from the conversation or original input. Incorporate the material meaning of user clarifications, decisions, boundaries, exclusions, constraints, and preferences directly into the appropriate sections.
 

@@ -17,7 +17,9 @@ Edits to the canonical files are reflected through the link. The [official skill
 $exploration-input-clarification Help me clarify the exploration request in <input-path>.
 ```
 
-Input may also be supplied in chat. The workflow asks for confirmation of its restatement and uses a user-specified destination or the host's configured saving convention; otherwise it asks for a destination when needed.
+Input may also be supplied in chat. After each clarification round, the workflow summarizes its understanding and offers relevant categories for further clarification, a custom direction, or finishing. Categories are derived from the current request; optional deepening does not block readiness. Choosing to finish is followed by a separate restatement confirmation. If blocking ambiguities remain, the user may stop without completing or saving the result.
+
+The workflow uses native structured questions when available and permitted, with a text fallback; see [Codex interaction guidance](skills/exploration-input-clarification/references/codex-interaction.md). It does not change client settings or modes. Saving uses a user-specified destination or the host's configured saving convention; otherwise the workflow asks for a destination when needed.
 
 ## Clarified Input Output
 
@@ -29,4 +31,4 @@ The canonical [plugin.json](plugin.json) follows the portable format in the [off
 
 The development link supports local authoring; it does not install the distributable plugin. The installed package uses its own files and does not depend on the link or repository governance. No marketplace catalog or installation settings are included in this change.
 
-Verification is static only. Runtime discovery, plugin installation, and behavioral workflow execution have not been verified. Codex is the initial packaging target; portability of the instructions does not establish support for other hosts. See the [changelog](CHANGELOG.md) for changes.
+Verification includes static inspection and manual scenario walkthroughs of the written workflow. Runtime discovery, plugin installation, live structured-question rendering, and behavioral workflow execution have not been verified. The existing development evaluation does not cover the new round menus and requires adaptation before its results can validate this interaction contract; it is unchanged by this update. Codex is the initial packaging target; portability of the instructions does not establish support for other hosts. See the [changelog](CHANGELOG.md) for changes.

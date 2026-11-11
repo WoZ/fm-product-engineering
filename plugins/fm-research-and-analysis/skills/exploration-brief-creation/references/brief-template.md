@@ -6,6 +6,8 @@ Read when assessing completeness and preparing the brief. [SKILL.md](../SKILL.md
 
 Use one descriptive H1 and the applicable English section headings below in order. Fill the brief with current, agreed framing rather than dialogue history. Remove bracketed guidance. Omit optional sections or subsections without material content; do not invent facts or use empty placeholders.
 
+The full brief presented for final confirmation and every saved version must be clean current content. Exclude direction-review reason blocks, editorial change labels and emphasis, struck-through deleted text, comparison baselines, and intermediate revision history. Preserve ordinary meaningful formatting. An explicitly requested unfinished draft still includes its required status and material blockers; those are not revision history. See the [post-brief revision cycle](../SKILL.md#revisit-directions-after-full-brief-feedback) for dialogue-only review aids.
+
 Apply the shared [communication and writing style](../SKILL.md#communication-and-writing-style) to the entire document. Keep the fixed headings below and preserve the task's precision.
 
 ```markdown

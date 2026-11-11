@@ -1,12 +1,14 @@
 # Brief Dialogue Protocol
 
-Read before any question. [SKILL.md](../SKILL.md) owns mode permission, readiness, confirmation, and saving; this reference governs presentation and answer handling.
+Read before any question. [SKILL.md](../SKILL.md) owns mode permission, readiness, direction review transitions, confirmation, and saving; this reference governs presentation and answer handling.
+
+Apply the shared [communication and writing style](../SKILL.md#communication-and-writing-style) to every user-facing message, question, and answer option, including messages outside brief discussion. This protocol defines question layout and answer handling without introducing a separate language style.
 
 ## Present Questions
 
 - Ask in Markdown chat and receive answers as chat messages. Localize the wording to the conversation language.
 - Start each question with `❓ **Q1 — Topic:** Question text`, assigning stable identifiers and short topic labels.
-- Group related questions in one message, with clear spacing between blocks. Present options as bullets with literal letter identifiers: `- **A.** Choice text`.
+- Group related clarification questions in one message, with clear spacing between blocks. Direction review instead presents one direction at a time. Present options as bullets with literal letter identifiers: `- **A.** Choice text`.
 - End every choice list with a separate custom-answer option using the next unused letter and an explicit instruction to enter an answer. With no useful predefined options, show only `A. Custom answer — enter your own response.`
 - Explain implications briefly when useful. Request separate answers by identifier and give an example such as `Q1: A` and `Q2: C — <your explanation>`.
 - Preserve identifiers and option meanings on retries. Assign a new identifier when a question changes materially.
@@ -16,17 +18,81 @@ For example, present the mandatory mode choice as follows, localized as needed:
 ```markdown
 ❓ **Q1 — Project context:** Should existing project documents and source code be used when preparing the brief?
 
-- **A.** Yes — inspect relevant materials to clarify context, decomposition, and research boundaries.
+- **A.** Yes — read relevant project materials to understand the project, break down the task, and define what to research.
 - **B.** No — Greenfield Zone: prepare the brief from the saved input and clarification dialogue without inspecting existing project documents or code.
 - **C.** Custom answer — enter your own response.
 
 Reply by question identifier, for example: Q1: A or Q1: C — <your explanation>.
 ```
 
+## Review Research Directions
+
+Present only the current direction for review, in the dependency order established by [SKILL.md](../SKILL.md#check-consistency-and-order-directions). Show its current full content and distinguish a blocker-free version awaiting confirmation from a working version requiring clarification:
+
+- Put the stable research label only on the first line beside the title; use titles when referring to directions elsewhere.
+- State the research question, then explain the subject, boundaries, plausible investigation paths, and relevance to the user's conclusion or decision in one or two paragraphs.
+- Add the research-steps subsection specified in [SKILL.md](../SKILL.md#explain-and-confirm-directions-one-at-a-time), using its grouping and granularity review rules without a fixed count. Localize its heading as specified there and distinguish planned checks from expected findings.
+- Add a separate heading localized as **What the research should produce**, with one or two paragraphs describing the concrete expected information. Use bullets where they make an enumeration clearer. Describe this direction's output rather than its purpose, work steps, or the final result of the whole brief.
+- Add a short example. Label hypothetical examples and do not present possible findings as established facts.
+
+Use the same format for user-supplied and agent-proposed directions. A research question describes future work; it is not a demand that the user answer it now. After the complete direction, choose the next question by its current status: ask only necessary clarification questions for a working version with material blockers, or request confirmation when no blockers remain. The following confirmation example applies only to a blocker-free version:
+
+```markdown
+❓ **Q4 — Current direction:** Does this description reflect what you want to investigate?
+
+- **A.** Confirm the current description.
+- **B.** Revise this direction — describe your changes or ask for more explanation.
+- **C.** Custom answer — enter your own response.
+
+Reply by question identifier, for example: Q4: A or Q4: B — limit the comparison to the stated operating conditions.
+```
+
+Derive the actual question identifier from the conversation. Interpret answers semantically, preserving qualifications. Allow changes to the wider set of directions as well, including addition, removal, merging, or splitting, and changes within the current research steps, including shortening, combining, or removing items. Apply the main workflow's checks for effects on dependencies and expected outputs. For revisions retaining the current direction, show the complete revised direction in the same response under its existing label and title, with all current steps and updated numbering; do not refill an agreed shorter list. Include all components listed above, even if some are unchanged; a change summary alone is insufficient. In a post-brief revision cycle, use [the presentation below](#show-post-brief-revisions) for every revision display. Place explicit notes at ambiguous or conflicting passages, retaining the difference between an accepted condition and an unresolved requested change. Label a blocked direction as a working version and ask only necessary questions after the full display, without a confirmation option. Explicit removal of the direction follows the existing deletion rule instead of requesting approval of the removed content.
+
+When an earlier answer conflicts with the revision, explain after the full display which answers are affected and that you will ask those questions again. Reopen only the conflicting questions in dependency order, reusing their wording, choices, and identifiers when unchanged. A materially changed question gets a new identifier. If the earlier wording is unavailable, ask about the recorded condition without claiming to reproduce the original question. Preserve unrelated answers. Follow [the revision and return workflow](../SKILL.md#explain-and-confirm-directions-one-at-a-time); never infer a new accepted answer or resolve competing conditions yourself.
+
+After clarification answers, show the complete updated direction again and ask for confirmation only if material blockers are gone. An edit request or clarification answer itself does not confirm the revised direction. For an explanation-only request, explain the term or provision without mandatory redisplay when content is unchanged. Do not advance to the next direction without confirmation, except when the user explicitly removes the current direction. An omitted, ambiguous, or deferred answer leaves review pending under the answer-handling rules below.
+
+If a change affects earlier confirmations, return to the affected directions for renewed confirmation before dependent review continues. First perform the required full redisplay of the current direction in the revision response; earlier-direction review does not replace it. Keep unaffected confirmations. Once each current direction is confirmed, continue to the finishing choice and full-brief confirmation without a separate collective approval of the list.
+
+## Show Post-Brief Revisions
+
+Use this presentation only during the [post-brief revision cycle](../SKILL.md#revisit-directions-after-full-brief-feedback). The main workflow owns activation and the comparison baseline; do not apply this format to initial direction review before the first complete brief is shown for confirmation.
+
+Before each affected direction, add a short **Why we are revisiting this direction** block, localized to the conversation. Name the user correction and its concrete effect on this direction, including an upstream dependency when relevant. On subsequent iterations, explain the latest correction and its connection to the ongoing revision. Do not substitute policy citations or a generic list of affected directions for this explanation.
+
+Show the complete direction with inline editorial markup against its fixed baseline:
+
+- Classify and label each edited span by the operation, not by whether its containing sentence changed. Leave unchanged words in ordinary formatting.
+- For an insertion, bold the new text and append *[Added]*, including when the insertion is inside an existing sentence.
+- For a deletion, strike through the removed text and append *[Removed]* near its former position, whether it is part of a sentence or a whole element. Clearly treat it as review history, not active scope. For a removed research step, show the deletion as an unnumbered note beside the current list, and number only active steps.
+- Reserve *[Changed]* for a replacement: show the struck-through original span followed by its bold replacement and the label. Apply the same rule to a wholly replaced sentence. Do not use this label for a pure insertion or deletion.
+- Put each label next to the span or replacement pair it describes. When a sentence contains separate operations, label them separately rather than applying a single sentence-level label. A label alone never replaces the required bold or strikethrough formatting.
+- Localize the labels. Keep ordinary meaningful formatting distinguishable from editorial emphasis through these labels. Mark only the affected spans rather than bolding whole unchanged paragraphs. Ignore numbering-only shifts when identifying substantive changes.
+- Recalculate this display after every edit or clarification using the main workflow's baseline. Do not compare with the immediately preceding working version or accumulate intermediate history. Keep unresolved-issue notes separate from change labels so a proposed or disputed condition is not presented as accepted.
+
+The following shortened example illustrates the rendering only; actual review must include the entire direction and the appropriate clarification or confirmation question afterward:
+
+```markdown
+**Why we are revisiting this direction:** You combined the parallel-work scenarios and excluded investigation of separate shared services. This changes the conditions used to select candidates and the limits of their descriptions.
+
+Consider concurrent creation of records **in independent local repository copies synchronized through the remote** *[Added]*.
+
+Examine ~~specific shared-service tools~~ **coordination through the remote** *[Changed]*.
+
+~~Separately compare multiple developers with one developer using several worktrees.~~ *[Removed]*
+
+Cite a source for each approach.
+
+**If an approach requires a separate shared service, note that dependency without investigating the service or specific tools.** *[Added]*
+```
+
+These annotations and the reason block belong only to direction-review messages. The full brief shown for final confirmation and any saved brief or draft must contain current content without review history. Do not remove ordinary meaningful formatting while producing that clean version. Existing working-version, explanation-only, deletion, and confirmation rules remain in force.
+
 ## Handle Answers
 
 - Accept a clear letter, custom response, or qualified choice. Preserve qualifications; a response allowing documents only does not allow code inspection.
-- Retain accepted answers. For ambiguous mapping or an unanswered, contradictory, or off-topic response, explain the specific gap and re-ask only the unresolved question. An empty custom answer supplies no answer.
+- Retain accepted answers unless the user revises them. For ordinary clarification, explain ambiguous mapping or an unanswered, contradictory, or off-topic response and re-ask only the unresolved question. During direction revisions, first show the full working version as described above, then ask only the necessary unresolved or reopened questions. An empty custom answer supplies no answer; a conflict makes the affected decision pending clarification rather than silently replacing its accepted answer.
 - Treat requests for explanation, corrections, stopping, or changes of direction as dialogue control. Incorporate corrections and reassess affected decisions.
 - For “I don't know,” clarify whether explanation, explicit deferral, or assignment to research is intended when the next action is unclear. Do not infer any of these from silence or uncertainty.
 - Honor explicit deferrals without repeated retries. Record material effects, but do not convert a skipped decision into a default or research permission. Deferring project-context selection leaves the mode unselected and discovery unavailable.

@@ -2,7 +2,7 @@
 
 Read before any question. [SKILL.md](../SKILL.md) owns mode permission, readiness, direction review transitions, confirmation, and saving; this reference governs presentation and answer handling.
 
-Apply [the brief writing style](../SKILL.md#writing-style) when presenting or discussing any part of the brief, including content outside direction review.
+Apply the shared [communication and writing style](../SKILL.md#communication-and-writing-style) to every user-facing message, question, and answer option, including messages outside brief discussion. This protocol defines question layout and answer handling without introducing a separate language style.
 
 ## Present Questions
 
@@ -18,7 +18,7 @@ For example, present the mandatory mode choice as follows, localized as needed:
 ```markdown
 ❓ **Q1 — Project context:** Should existing project documents and source code be used when preparing the brief?
 
-- **A.** Yes — inspect relevant materials to clarify context, decomposition, and research boundaries.
+- **A.** Yes — read relevant project materials to understand the project, break down the task, and define what to research.
 - **B.** No — Greenfield Zone: prepare the brief from the saved input and clarification dialogue without inspecting existing project documents or code.
 - **C.** Custom answer — enter your own response.
 
@@ -31,7 +31,7 @@ Present only the current direction for review, in the dependency order establish
 
 - Put the stable research label only on the first line beside the title; use titles when referring to directions elsewhere.
 - State the research question, then explain the subject, boundaries, plausible investigation paths, and relevance to the user's conclusion or decision in one or two paragraphs.
-- Add the research-steps subsection specified in [SKILL.md](../SKILL.md#explain-and-confirm-directions-one-at-a-time): ten numbered, concrete points showing what will be checked and analyzed, tailored to the current direction and its agreed methods. Localize its heading as specified there. Keep the steps in ordinary working language and distinguish them from expected findings.
+- Add the research-steps subsection specified in [SKILL.md](../SKILL.md#explain-and-confirm-directions-one-at-a-time), using its grouping and granularity review rules without a fixed count. Localize its heading as specified there and distinguish planned checks from expected findings.
 - Add a separate heading localized as **What the research should produce**, with one or two paragraphs describing the concrete expected information. Use bullets where they make an enumeration clearer. Describe this direction's output rather than its purpose, work steps, or the final result of the whole brief.
 - Add a short example. Label hypothetical examples and do not present possible findings as established facts.
 
@@ -47,7 +47,7 @@ Use the same format for user-supplied and agent-proposed directions. A research 
 Reply by question identifier, for example: Q4: A or Q4: B — limit the comparison to the stated operating conditions.
 ```
 
-Derive the actual question identifier from the conversation. Interpret answers semantically, preserving qualifications. Allow changes to the wider set of directions as well, including addition, removal, merging, or splitting. For revisions retaining the current direction, apply the understood edits and check dependencies, then show the complete revised direction in the same response under its existing label and title. Include all components listed above, even if some are unchanged; a change summary alone is insufficient. Place explicit notes at ambiguous or conflicting passages, retaining the difference between an accepted condition and an unresolved requested change. Label a blocked direction as a working version and ask only necessary questions after the full display, without a confirmation option. Explicit removal follows the existing deletion rule instead of requesting approval of the removed content.
+Derive the actual question identifier from the conversation. Interpret answers semantically, preserving qualifications. Allow changes to the wider set of directions as well, including addition, removal, merging, or splitting, and changes within the current research steps, including shortening, combining, or removing items. Apply the main workflow's checks for effects on dependencies and expected outputs. For revisions retaining the current direction, show the complete revised direction in the same response under its existing label and title, with all current steps and updated numbering; do not refill an agreed shorter list. Include all components listed above, even if some are unchanged; a change summary alone is insufficient. Place explicit notes at ambiguous or conflicting passages, retaining the difference between an accepted condition and an unresolved requested change. Label a blocked direction as a working version and ask only necessary questions after the full display, without a confirmation option. Explicit removal of the direction follows the existing deletion rule instead of requesting approval of the removed content.
 
 When an earlier answer conflicts with the revision, explain after the full display which answers are affected and that you will ask those questions again. Reopen only the conflicting questions in dependency order, reusing their wording, choices, and identifiers when unchanged. A materially changed question gets a new identifier. If the earlier wording is unavailable, ask about the recorded condition without claiming to reproduce the original question. Preserve unrelated answers. Follow [the revision and return workflow](../SKILL.md#explain-and-confirm-directions-one-at-a-time); never infer a new accepted answer or resolve competing conditions yourself.
 

@@ -6,7 +6,7 @@ Read when assessing completeness and preparing the brief. [SKILL.md](../SKILL.md
 
 Use one descriptive H1 and the applicable English section headings below in order. Fill the brief with current, agreed framing rather than dialogue history. Remove bracketed guidance. Omit optional sections or subsections without material content; do not invent facts or use empty placeholders.
 
-Apply [the writing style](../SKILL.md#writing-style) to the entire document, not only its research directions. Keep the fixed headings below; write generated titles and content in plain language without losing the task's precision.
+Apply the shared [communication and writing style](../SKILL.md#communication-and-writing-style) to the entire document. Keep the fixed headings below and preserve the task's precision.
 
 ```markdown
 # [Research subject and intended understanding or decision]
@@ -33,7 +33,7 @@ Apply [the writing style](../SKILL.md#writing-style) to the entire document, not
 
 #### Research steps
 
-[Ten numbered, substantive points describing the checks and analysis planned for this direction, in order. Adapt them to the actual question, scope, and agreed methods. Describe what will be examined, not findings already established. Avoid filler, repeated work, and scope expansion. Preserve the steps agreed during individual review.]
+[Numbered, substantive points describing the planned checks and analysis in order. Follow the main workflow's grouping and granularity review rules, without a fixed count. Adapt them to the actual question, scope, and methods. Preserve the current agreed steps, including user-requested combinations and removals; do not repopulate a shorter list. Describe planned work rather than findings.]
 
 #### Expected research output
 
@@ -89,9 +89,9 @@ Apply [the writing style](../SKILL.md#writing-style) to the entire document, not
 - Purpose, preparation mode and context, questions, scope, plan, evidence expectations, and output/completion criteria must be present. Constraint subsections appear only when applicable.
 - Preserve current input meaning and accepted clarifications without reproducing source utterances, question IDs from the dialogue, discarded proposals, or an execution log. Refer to research directions by title outside their first heading line.
 - Preserve the distinction between the primary problem, its occurrence conditions, and its consequences wherever applicable. Keep unverified causal explanations labeled as hypotheses; do not invent a problem or causal chain for a task that has none.
-- Retain each individually confirmed direction with one or two explanatory paragraphs, a `Research steps` section of ten numbered points, a separate `Expected research output` section of one or two paragraphs or a useful bullet list, and a short example. A bare list of questions is insufficient. Preserve the agreed substance; substantive changes require renewed individual review of affected directions.
-- Check that local research steps serve the direction's expected output and fit the overall research plan. Keep shared methods, dependencies, resources, and transitions in the overall plan rather than repeating all ten-point lists there.
-- Before presenting the brief for confirmation, review every section for plain working language, including context, constraints, the plan, evidence requirements, and completion criteria. Follow the shared writing style; preserve technical precision and the status of conditions, preferences, and hypotheses.
+- Retain each individually confirmed direction with one or two explanatory paragraphs, a `Research steps` section reflecting the current agreed list without a count requirement, a separate `Expected research output` section of one or two paragraphs or a useful bullet list, and a short example. A bare list of questions is insufficient. Preserve the agreed substance; substantive changes require renewed individual review of affected directions.
+- Check that local research steps follow the main workflow's grouping and granularity rules, serve the expected output, and fit the overall plan. Preserve agreed reductions; resolve any resulting substantive gaps through clarification rather than silently restoring removed work. Keep shared methods, dependencies, resources, and transitions in the overall plan rather than repeating all local lists there.
+- Before presenting the brief for confirmation, review every section against the shared communication and writing style. Preserve technical precision and the status of conditions, preferences, and hypotheses.
 - Check directions together for duplicated work and conflicting scope, assumptions, or outputs; resolve material conflicts before confirmation. A direction being revised may be shown in full as a working version with inline issue notes and clarification questions, but cannot be confirmed with blockers. Follow the main workflow when a change reopens earlier answers. Treat deliberate research alternatives as alternatives, not inconsistencies. Place directions whose definitions or user clarifications affect others first, and reflect the agreed dependencies in the plan.
 - Check the meaningful effect of every agent-added direction on the user's conclusion or decision, directly or through a stated dependency. Remove unjustified additions or keep only a short contextual explanation without separate research work. Changes to user-requested directions require user agreement.
 - Keep the full formulation and material context in the brief; a link to the input or project materials does not substitute for them. Include useful source references without relying on paths outside the recipient's environment; explain unavailable references.

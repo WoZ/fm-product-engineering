@@ -4,6 +4,18 @@
 
 Initial package version: `0.1.0`.
 
+- Add `Phase Agent Input Classification` and a numbered interaction cycle to `exploration-chatty`. Classify every intention and its affected content in compound responses, support explicitly offered free-form replies, and select a `Phase Agent Check Set` before the next `Phase Agent Action Proposal`, including short sets for narrow questions. Route startup checks through available topic and context, and account for errors exposed by explanatory questions. Detailed phase-specific sets and transitions remain deferred. Invocation, output formats, implementation boundaries, and version remain unchanged; verification is static and manual scenario review, without live behavioral execution.
+
+- Define `Phase Agent Check`, `Phase Agent Check Set`, and `Phase Agent Action Proposal` in `exploration-chatty`. Record the relationship between step-specific checks and the next proposed user interaction. Detailed check sets, proposal handling, and phase transitions remain deferred.
+
+- Move topic and context setup, missing-topic handling, and targeted clarification guidance into the `Topic And Context` reference. Route initial context setup to that reference while retaining shared rules and initial-analysis guidance in `SKILL.md`. `Phase User Move` categories and phase transitions remain deferred; existing input and output contracts and package version remain unchanged.
+
+- Add separate references for `Topic And Context`, `Exploration And Refinement`, and `Results Consolidation`, each reserving sections for phase logic and `Phase User Move` guidance. Link them from `exploration-chatty` for selective reading. Existing instructions remain in place; phase-specific behavior and transition rules remain deferred.
+
+- Define `Skill Phase`, `Phase User Move`, `Topic And Context`, `Exploration And Refinement`, and `Results Consolidation` in `exploration-chatty`. Add placeholders for the three named phases; phase-specific behavior and transition rules remain deferred. The existing workflow, input and output contracts, discovery, and package version remain unchanged.
+
+- Add an empty `Terms` section and self-contained terminology-use instructions to `exploration-chatty`. Distinguish explanations of the skill's behavior from subject-specific discussion and results. No terms are defined yet; existing input, output, and implementation boundaries remain unchanged.
+
 - Add `exploration-chatty`, a standalone iterative exploration workflow with interim findings, recommendations, ordinary-message decision acceptance, and targeted revision after feedback. Support requested decision records, diagnostic guidance, and implementation instructions; applying changes remains outside the workflow. Keep state in conversation context and save only on request. Add bundled deliverable guidance and a local development symlink, and synchronize package descriptions. The new skill uses default automatic discovery; existing skill contracts and version remain unchanged. Verification evidence and limitations are recorded in the package README.
 
 - Classify inline revision labels by edit operation on the affected span: insertions use `Added`, including within existing sentences; deletions use `Removed`; replacements use `Changed` with both the struck-through original and bold replacement. Remove the sentence-level insertion exception, require labels beside their spans with actual formatting, and update the rendering example. Baseline timing, confirmation, and clean brief output remain unchanged. Verification is static and manual scenario review without a live interactive run.

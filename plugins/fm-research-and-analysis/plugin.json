@@ -2,5 +2,5 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "fm-research-and-analysis",
   "version": "0.1.0",
-  "description": "Clarify exploration requests and prepare confirmed research briefs with complete research plans."
+  "description": "Clarify exploration requests, prepare research briefs, and explore topics through iterative discussion, recommendations, and decision records."
 }

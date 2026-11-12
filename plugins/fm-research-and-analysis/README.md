@@ -1,11 +1,12 @@
 # FocusMatrix Research and Analysis
 
-This plugin provides workflows for preparing research input and briefs. Version `0.1.0` contains two skills:
+This plugin provides workflows for preparing research input and briefs and exploring topics through ongoing discussion. Version `0.1.0` contains three skills:
 
 - [exploration-input-clarification](skills/exploration-input-clarification/SKILL.md) clarifies a request, confirms intent, and saves input for brief creation.
 - [exploration-brief-creation](skills/exploration-brief-creation/SKILL.md) uses that input to clarify scope and save a confirmed brief with a complete research plan.
+- [exploration-chatty](skills/exploration-chatty/SKILL.md) independently explores topics, develops recommendations, and retains decisions across discussion, with documents and instructions on request.
 
-Neither skill executes the research or implements a solution.
+The first two skills prepare research without executing it. Exploration chatty performs research and analysis within the authorized scope. None of these skills applies implementation changes.
 
 ## Local Authoring and Use
 
@@ -16,6 +17,8 @@ The canonical skills live inside this package. The repository includes these rel
   -> ../../plugins/fm-research-and-analysis/skills/exploration-input-clarification
 .agents/skills/exploration-brief-creation
   -> ../../plugins/fm-research-and-analysis/skills/exploration-brief-creation
+.agents/skills/exploration-chatty
+  -> ../../plugins/fm-research-and-analysis/skills/exploration-chatty
 ```
 
 Edits to the canonical files are reflected through the links. The [official skill guide](https://learn.chatgpt.com/docs/build-skills) documents repository-local discovery through `.agents/skills`, symlink support, and explicit invocation. Input clarification's [Codex policy](skills/exploration-input-clarification/agents/openai.yaml) disables implicit invocation. Invoke it explicitly from this repository:
@@ -48,18 +51,30 @@ When a change conflicts with earlier answers, the workflow explains which answer
 
 Feedback on a complete brief uses the [post-brief revision cycle](skills/exploration-brief-creation/SKILL.md#revisit-directions-after-full-brief-feedback). Each affected direction gets a specific explanation of the correction and its impact, followed by the complete direction with [inline editorial markup](skills/exploration-brief-creation/references/brief-dialogue.md#show-post-brief-revisions) for additions, changes, and removals. Comparison uses the direction text from the latest full-brief confirmation presentation, held fixed across clarification rounds and individual confirmations. Each subsequent full-brief confirmation presentation establishes new baselines. Initial direction review before the first complete brief does not use these additions. Further corrections repeat dependency, consistency, and readiness checks. Reason blocks and revision markup are dialogue-only: the full brief for confirmation and saved documents contain clean current content, with required status and blockers retained for unfinished drafts.
 
+## Conversational Exploration
+
+Invoke `$exploration-chatty Explore <topic> with me.` or continue with relevant conversation context. This standalone skill uses default automatic discovery and requires neither saved clarified input nor a research brief.
+
+The [workflow](skills/exploration-chatty/SKILL.md) provides interim findings and recommendations, discusses related decisions together, accepts clear choices in ordinary messages, and revises affected decisions when feedback or evidence warrants it. Unaffected agreements remain available for subsequent iterations. Explanation requests do not by themselves reopen decisions. Research and inspection use available host capabilities within the authorized scope; unavailable evidence remains visibly uncertain.
+
+The [deliverable guidance](skills/exploration-chatty/references/deliverables.md) supports requested summaries, decision records, diagnostic collection, and implementation instructions with checks and success criteria. These are optional continuations. The skill can analyze reported execution results and correct instructions; applying changes belongs to a separate implementation task. Decisions stay in conversation context unless the user requests a saved artifact. Discussion can finish without saving or a formal confirmation sequence.
+
 ## Clarified Input Output
 
 Completed input is a self-contained Markdown document for the next agent preparing a brief. Its [template and filling rules](skills/exploration-input-clarification/references/clarified-input-template.md) define a descriptive title, a required confirmed request, and conditional sections for context, conditions, unconfirmed proposals, and future research questions. Section names are fixed in English. Material clarifications and explicit deferral decisions are incorporated directly into the current understanding, without a dialogue history or a separate list of brief-preparation questions. The incomplete variant uses the same headings with a required status notice, only the confirmed partial understanding, and visible unresolved blockers; consumers must not treat it as completed input for brief creation.
 
 ## Package and Verification Status
 
-The canonical [plugin.json](plugin.json) follows the portable format in the [official packaging guide](https://developers.openai.com/plugins/build/plugins). Skills are packaged under `skills/`; the package has no scripts, bundled tools, or external service prerequisites. Reading supplied input and saving the result require capabilities provided by the host.
+The canonical [plugin.json](plugin.json) follows the portable format in the [official packaging guide](https://developers.openai.com/plugins/build/plugins). Skills are packaged under `skills/`; the package has no scripts, bundled tools, or external service prerequisites. Reading supplied input, optional research and inspection, and saving requested results require capabilities provided by the host.
 
-The development link supports local authoring; it does not install the distributable plugin. The installed package uses its own files and does not depend on the link or repository governance. No marketplace catalog or installation settings are included in this change.
+The development links support local authoring; they do not install the distributable plugin. The installed package uses its own files and does not depend on these links or repository governance. No marketplace catalog or installation settings are included in this change.
 
-Prior verification of input clarification includes static instruction comparison, a passage-by-passage requirement map, and 13 manual scenario walkthroughs covering readiness, clarification, answer handling, confirmation, and saving. The new brief skill has static instruction and resource checks and manual scenario review covering mode selection, discovery boundaries, research framing, confirmation, and persistence. Both skills pass the standard skill validator using an existing temporary Python environment with `PyYAML`. Local links, development symlinks, and the new skill's resources in an isolated package copy were checked. These are document and structure checks, not live behavioral execution. Runtime discovery and plugin installation remain unverified.
+Prior verification of input clarification includes static instruction comparison, a passage-by-passage requirement map, and 13 manual scenario walkthroughs covering readiness, clarification, answer handling, confirmation, and saving. The new brief skill has static instruction and resource checks and manual scenario review covering mode selection, discovery boundaries, research framing, confirmation, and persistence. The two preparation skills pass the standard skill validator using an existing temporary Python environment with `PyYAML`. Local links, development symlinks, and the new skill's resources in an isolated package copy were checked. These are document and structure checks, not live behavioral execution. Runtime discovery and plugin installation remain unverified.
 
-The existing development evaluator does not cover round menus, answer-validation retries, or incomplete saving. Its pre-confirmation command check recognizes only direct `cat …/SKILL.md` reads, so reading the dialogue reference also requires adaptation before its results can validate this contract. The evaluator is unchanged.
+Exploration chatty passes the standard skill validator with a temporary PyYAML dependency. Static checks cover relative file links, whitespace, unique names, the development symlink, resources in an isolated package copy, and the unchanged package version. Review against repository instructions, applicable conventions, and affected README and manifest descriptions found no unresolved consistency discrepancies in the changed package guidance.
+
+A separate Codex agent read the skill and generated responses for a nontechnical reading-group scenario covering initial recommendations, acceptance of multiple choices, explanation without revision, new evidence affecting one decision, an updated decision note, and an implementation handoff. Additional response probes cover missing input, unavailable evidence, instructions with unknown settings, correction of a shell-builtin invocation error, and conflicting cost requirements. The observed responses preserved unaffected decisions and distinguished unresolved proposals from agreements. This was a scenario exercise with all turns supplied upfront and inherited development context, not a blinded evaluation or an interactive user session. External research, actual diagnostic execution, file persistence, automatic discovery, and plugin installation were not tested.
+
+The existing input-clarification development evaluator does not cover round menus, answer-validation retries, or incomplete saving. Its pre-confirmation command check recognizes only direct `cat …/SKILL.md` reads, so reading the dialogue reference also requires adaptation before its results can validate that skill's contract. The evaluator is unchanged.
 
 Codex is the initial packaging target; portability of the instructions does not establish support for other hosts. See the [changelog](CHANGELOG.md) for changes.

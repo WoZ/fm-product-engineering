@@ -4,7 +4,7 @@ This reference reserves space for `Results Consolidation` guidance. Use the defi
 
 ## Phase Logic
 
-Phase-specific instructions will be defined separately.
+Detailed phase-specific instructions will be defined separately. Apply the [phase-transition requirements](../SKILL.md#phase-transitions) for readiness and explicit user confirmation before entering another phase.
 
 ## `Phase User Move`
 

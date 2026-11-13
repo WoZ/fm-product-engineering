@@ -20,6 +20,7 @@ This is a standalone workflow. Do not require other skills, a formal research br
 - `Topic And Context` — The `Skill Phase` focused on establishing the topic and relevant context.
 - `Exploration And Refinement` — The `Skill Phase` focused on investigation, developing understanding, and incorporating user feedback.
 - `Results Consolidation` — The `Skill Phase` focused on consolidating the exploration's results.
+- `Debug Mode` — An optional diagnostic output mode maintained throughout the current skill workflow. It has simplified and extended detail levels and uses the active `Skill Phase`'s diagnostic instructions to report input interpretation, check results, and agent actions.
 
 ### Terminology Use
 
@@ -47,6 +48,54 @@ Read [phase guidance](references/exploration-and-refinement.md) when working on 
 ### `Results Consolidation`
 
 Read [phase guidance](references/results-consolidation.md) when working on `Results Consolidation`.
+
+## `Debug Mode`
+
+### Controls and State
+
+Keep `Debug Mode` in conversation context as Off, Simplified, or Extended. Default to Off for a new exploration. Preserve the setting throughout the current skill workflow, including forward and return phase transitions and resumption when the setting is available in context. Do not infer a previously enabled setting when that context is unavailable. No tracking file is required.
+
+Accept all of the following forms, including clear equivalents in the user's language and ordinary capitalization variations. These are instructions in chat, not commands that require host integration.
+
+| Form | Simplified | Extended | Off |
+|---|---|---|---|
+| Ordinary language | "Enable simplified debug." | "Enable extended debug." | "Turn debug off." |
+| Explicit setting | `Debug Mode: Simplified` | `Debug Mode: Extended` | `Debug Mode: Off` |
+| Compact marker | `[debug:simplified]` | `[debug:extended]` | `[debug:off]` |
+
+Apply an unambiguous control request before processing the rest of that turn; the resulting setting applies to the current response. A clear request to enable debugging without specifying a level selects Simplified. If the intended setting remains ambiguous, retain the existing setting and ask one focused question. Quoted examples or discussion of how to use a control do not change the setting unless the user requests its application.
+
+Explicitly acknowledge every enable, disable, or level change outside the diagnostic block, in the user's language. State the resulting setting, for example, "`Debug Mode` enabled: Simplified," "`Debug Mode` changed to Extended," or "`Debug Mode` disabled." If the requested setting is already active, say that it is already active rather than claiming a change. When disabled, acknowledge the action but omit diagnostic output from that response onward.
+
+Treat these controls as output settings before phase-specific input classification. A clear control request does not by itself add a substantive intention or trigger mixed-input action selection. Process the remaining input under the existing workflow; enabling debugging is not confirmation of a decision, revision, or phase transition. A control-only turn needs no manufactured research checks, follow-up proposal, or extra confirmation.
+
+### Redisplay After Controls
+
+After acknowledging an enable, disable, or level-change request, redisplay the complete ordinary message most recently sent to the user before that control request. Apply this also when acknowledging that the requested setting is already active. Preserve its wording, Markdown, question identifiers, choices, and reply examples; do not replace it with a summary or a statement that a question remains open. Exclude prior diagnostic blocks and mode-control acknowledgments from the redisplayed content. For consecutive control-only turns, reuse the same last ordinary message rather than nesting earlier control responses. If that message is unavailable in context, state that it cannot be redisplayed faithfully; do not reconstruct it from guesses.
+
+Use this response order: setting acknowledgment, redisplayed ordinary message, response to any additional substantive input in the same turn, then diagnostic output at the resulting level when enabled. Clearly label the redisplayed message in the user's language. If the turn also answers an old question or changes the work, identify the repeat as the previous message and distinguish the new response and current question status from that historical content. When disabling the mode, still redisplay the message but omit diagnostic output.
+
+Redisplay is a presentation operation, not renewed investigation, a new `Phase Agent Action Proposal`, confirmation, or a phase transition. Do not rerun checks, repeat tool actions, reopen resolved questions, or allocate new question identifiers merely to repeat the message. On a control-only turn, report only the setting change and redisplay as current actions; do not present the repeated message's earlier checks or actions as newly performed. A still-pending proposal remains pending with its existing identifier. Ordinary later replies follow the normal workflow without automatic redisplay.
+
+### Conditional Reference Loading
+
+Read only the diagnostic reference for the active `Skill Phase`, and only while `Debug Mode` is enabled:
+
+| Active phase | Diagnostic reference |
+|---|---|
+| `Topic And Context` | [Diagnostic output](references/topic-and-context-debug.md) |
+| `Exploration And Refinement` | [Diagnostic output](references/exploration-and-refinement-debug.md) |
+| `Results Consolidation` | [Diagnostic output](references/results-consolidation-debug.md) |
+
+On enabling the mode partway through a phase, read that phase's diagnostic reference before producing the block. On a confirmed phase transition with the mode enabled, retain its level and read the destination's diagnostic reference when entering that phase. Do not preload references for inactive phases or read diagnostic references while the mode is Off. Reuse a reference already available in context; reread it only if needed to recover unavailable or changed instructions.
+
+### Output Boundaries
+
+When enabled, follow the active phase's diagnostic format after the ordinary response, in a separate Markdown blockquote. Use exact defined terms for diagnostic labels, text statuses alongside colored result markers, and explanations in the user's language. Keep internal terminology out of ordinary subject-matter recommendations and deliverables under the terminology rules above.
+
+Report concise interpretations, applied criteria, check findings, and observable actions. Do not present a private reasoning transcript or claim checks, tool use, actions, or outcomes that did not occur. Keep proposed actions distinct from completed actions. The mode does not introduce additional workflow gates or checks, and does not require another proposal after completion or stopping. Save diagnostic output only when requested.
+
+For a response that includes work in more than one phase after a confirmed transition, use separately labeled blocks for the phases whose work is reported. Do not attribute outgoing-phase checks to the destination phase or repeat their findings as new checks. Use the destination format for its work while preserving the selected level.
 
 ## Phase Transitions
 
@@ -79,14 +128,54 @@ The user may stop in any phase. Stopping or completing the immediate request doe
 
 ## Interaction Cycle
 
-Apply the current `Skill Phase`'s input-admission and confirmation requirements before executing requested actions, adopting revisions, or recording acceptance. Clear meaning alone does not override a phase-specific requirement for separate selection or confirmation.
+Apply any [diagnostic output controls](#controls-and-state) first, then use the remaining input for this cycle. Apply the current `Skill Phase`'s input-admission and confirmation requirements before executing requested actions, adopting revisions, or recording acceptance. Clear meaning alone does not override a phase-specific requirement for separate selection or confirmation.
 
 1. **Identify the input.** At invocation, use the available initial input and relevant context; no preceding `Phase Agent Action Proposal` is required. During the ongoing dialogue, use the received `Phase User Move` and current working context.
 2. **Classify intentions.** Perform `Phase Agent Input Classification`. Identify all expressed intentions and the content each concerns, including confirmations, corrections, and explanatory questions. These categories are not exhaustive. A free-form response may contain several intentions at once; do not force the whole message into one category. Classification identifies what needs processing; it does not establish clarity, completeness, or consistency, or apply requested changes.
 3. **Select the checks.** Use the classification and current step to select the applicable `Phase Agent Check Set`, covering intentions relevant to that step and their dependencies on other parts of the input. Use phase-specific instructions where defined; until detailed sets are specified, select checks from the requirements already stated for the current work in this skill and its relevant references. A narrow explanatory question may use a short set; do not skip the set or repeat unrelated checks merely to fill it out.
 4. **Evaluate the current state.** Perform the selected `Phase Agent Check Set`, considering the full response, proposed changes, current evidence, and affected earlier decisions. Completing the set means obtaining its results, not satisfying every checked requirement. Unclear or conflicting content may require clarification; missing evidence may require inspection or a visible limitation. A clear revision can replace an earlier choice after any required phase-specific confirmation; assess its consequences without treating the earlier confirmation as a prohibition on change.
-5. **Respond and propose the next interaction.** Use the results to answer the request and, when continuing the dialogue, select and present the next `Phase Agent Action Proposal`. A question or clarification submitted through an offered free-form response is an explicitly permitted continuation. An explanatory question can expose a material error or contradiction: if it does, perform the affected checks before forming the next proposal, and correct established agent errors without requesting unnecessary clarification. Do not treat the question alone as acceptance or a request to revise unrelated decisions.
+5. **Respond and propose the next interaction.** Use the results to answer the request and, when continuing the dialogue, select and present the next `Phase Agent Action Proposal`. Present any question using the [shared question format](#present-questions). A question or clarification submitted through an offered free-form response is an explicitly permitted continuation. An explanatory question can expose a material error or contradiction: if it does, perform the affected checks before forming the next proposal, and correct established agent errors without requesting unnecessary clarification. Do not treat the question alone as acceptance or a request to revise unrelated decisions.
 6. **Repeat after the response.** Incorporate all understood parts of the next `Phase User Move` into the next pass through classification and checks. Account for confirmations, corrections, and questions expressed in the same user response while following any phase-specific processing order, without prescribing a count of moves per message. Apply the completion and stopping rules below; do not manufacture another proposal when the request is complete or the user stops.
+
+## Present Questions
+
+Use this format for every question actually addressed to the user in every `Skill Phase`, including clarification, action selection, decision confirmation, phase-transition confirmation, missing information, and ambiguous mode controls. Apply it to the question within a `Phase Agent Action Proposal`; it does not turn every answer or proposal into a question. Internal check criteria, quoted user questions, research questions in deliverables, and diagnostic references to an already presented question are not new questions addressed to the user.
+
+### Layout and Identifiers
+
+- Start each question with `❓ **Q1 — Short title:** Question text`, substituting its actual identifier, a concise topic label, and a concrete question. Localize the title, wording, choices, and reply instruction to the user's language. Render ordinary Markdown rather than enclosing actual questions in code fences or relying on fixed text colors.
+- Use Q1, Q2, and subsequent numbers as stable identifiers throughout the current exploration, including phase transitions. Keep the identifier when clarifying the same question; assign the next unused number to a new question or substantively different proposal. Do not silently reuse a number for another decision or change what an existing answer letter means. Numbering stays in conversation context and does not require a file. Illustrative identifiers in references do not restart the actual numbering.
+- Where meaningful alternatives exist, list them as bullets labeled **A.**, **B.**, and subsequent letters. Include a final **Custom answer** choice inviting a correction, question, or alternative. Use as many substantive choices as needed; do not pad the list to a fixed count or combine unrelated decisions into one choice. State the exact subject, boundaries, and consequences needed for a meaningful selection.
+- Follow the choices with a reply example using the actual identifier and letters, such as `Q1: A` or `Q1: C — <your answer>`. If there are no useful preset alternatives, use a **Custom answer:** prompt and an example such as `Q2: <your answer>` without artificial A/B choices.
+- Put necessary findings, proposed wording, scope boundaries, and workflow restrictions before the question. The layout does not replace phase-specific readiness, action-selection, or confirmation requirements. Do not present a transition-confirmation question until readiness permits it.
+
+Illustrative choice layout; use the actual next identifier and localize the content:
+
+❓ **Q1 — Scope of exclusion:** Exclude `YYYYMMDD-topic` as a standalone scheme or keep it for comparison with its deficiency recorded?
+
+- **A.** Exclude only the standalone scheme `YYYYMMDD-topic`.
+- **B.** Keep it for comparison with the deficiency recorded.
+- **C. Custom answer** — Clarify another action, ask a question, or correct the scope.
+
+Reply, for example: `Q1: A` or `Q1: C — <your answer>`.
+
+Illustrative free-response layout:
+
+❓ **Q2 — Identifier scope:** Across which collection must identifiers remain unique?
+
+**Custom answer:** Describe the collection and its boundaries.
+
+Reply, for example: `Q2: across all research documents in my projects`.
+
+### Answers and Workflow
+
+Accept clear ordinary prose as well as identifier-and-letter answers. A bare letter is sufficient when one pending question makes its meaning unambiguous. If several questions are pending, accept any clear mapping and ask only about unresolved references. Do not reject a meaningful free-form answer, question, correction, or stop request because it lacks the suggested syntax.
+
+Interpret the complete response, including qualifications; a selected letter does not override contradictory or conditional text. A clear, unqualified selection of an already presented confirmation option can satisfy explicit confirmation for that exact proposal. Do not ask again merely because the answer is a letter, and do not treat a subject-matter choice as phase-transition consent. Classify and check qualified or compound answers under the current phase's existing rules.
+
+The common layout does not set a fixed number of questions per response or schedule future actions. Keep dependent decisions separate where the workflow requires it. If several questions are appropriate together, give each its own identifier and choices, and include a reply example mapping each answer to its question. Do not repeat resolved questions or manufacture a question when the current request is complete or the user stops. The labeled [redisplay after mode controls](#redisplay-after-controls) preserves prior questions as historical content without reopening them.
+
+When `Debug Mode` is enabled, keep the actual question in the ordinary response before the diagnostic block. In diagnostic `Phase Agent Action Proposal` fields, reference its identifier and purpose rather than repeating it as another question or assigning it another identifier.
 
 ## Start from Available Context
 

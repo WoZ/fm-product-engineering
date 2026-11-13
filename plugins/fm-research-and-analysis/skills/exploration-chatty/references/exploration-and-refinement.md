@@ -2,6 +2,8 @@
 
 Use this reference when investigating the topic and refining understanding in `Exploration And Refinement`. Use the definitions and terminology rules in [the skill's terms](../SKILL.md#terms). Apply this guidance alongside the shared workflow in `SKILL.md`.
 
+Use the [shared question format](../SKILL.md#present-questions) for every question addressed to the user in this phase.
+
 ## Phase Logic
 
 - **Topic and available context.** Use the topic, supplied materials, and relevant conversation context.
@@ -33,15 +35,27 @@ Classify independent intentions, not sentences. Several sentences may provide co
 - Associate every intention with its subject and scope. Partial confirmation does not accept unrelated proposals. Multiple independent intentions may share one category.
 - Classification does not apply revisions, record acceptance, or establish readiness. Describe a clear intention outside the listed categories directly; do not force it into a category or use an uncertain classification to bypass admission requirements.
 
+### Feedback Content
+
+During `Phase Agent Input Classification`, distinguish the following kinds of content within the existing categories. They are content attributes, not additional categories or automatically separate intentions; one passage may contain more than one.
+
+- **Factual correction:** A claim that an agent statement is wrong, such as "This identifier is not unique." Identify the disputed statement and its grounds. Verify the claim and correct an established agent error without requesting confirmation. If verification is unavailable, retain the uncertainty rather than adopting the claim as fact. Correcting a fact does not itself authorize changing a user decision.
+- **Evaluation:** A user's assessment, such as "This identifier is too long." Retain it as the user's expressed opinion; do not automatically turn it into a requirement, rejection, or proof of a factual defect. Use Request Clarity to determine whether a materially different next step depends on its intended consequence.
+- **Intention to change a decision:** An expressed request to change what is considered or agreed, such as "Exclude this format." Identify whether the target is one format, an entire family of options, or a criterion. Assign the existing category by its subject; do not infer that rejecting one example rejects its family or changes a criterion.
+
+An evaluation may accompany a factual correction or a request for change. Preserve these distinctions without inventing an additional intention for each attribute. Use the feedback-handling rules below to resolve consequential uncertainty and propose a specific interpretation.
+
+When criticism identifies an option under consideration as violating the investigation's goal or a criterion, assess both possible intentions: correcting the assessment and excluding the option from further consideration. They may coexist, but a factual correction alone does not establish either exclusion or an intention to keep the option. Treat these as possible interpretations, not automatically two expressed intentions or classification categories. If the intended inclusion or exclusion is not unambiguous, apply the specific Request Clarity rule and ask the disposition question under [Feedback Handling](#feedback-handling), even if the criticism is entirely factual. Ordinary dislike without a stated or contextually established goal or criterion does not trigger this mandatory question.
+
 ## Check Selection
 
 Select the applicable `Phase Agent Check Set` from the checks below. Keep classification, check findings, and admission decisions separate.
 
 - **Request Clarity:** Evaluate every input against the current context and pending proposal. If interpretation remains uncertain, preserve the unresolved criteria; do not use a guessed category to perform the requested action.
-- **Context Consistency And Impact:** Include this check when establishing or revising context, accepting or changing substantive decisions, assessing a phase transition, or answering a question or result request that affects existing requirements, decisions, assumptions, or conclusions. A narrow explanation unrelated to those matters does not require unrelated consistency work.
+- **Context Consistency And Impact:** Include this check when feedback disputes an option's compliance with an existing requirement or an agent conclusion, when establishing or revising context, accepting or changing substantive decisions, assessing a phase transition, or answering a question or result request that affects existing requirements, decisions, assumptions, or conclusions. A narrow explanation unrelated to those matters does not require unrelated consistency work.
 - **Phase Transition Readiness:** Include this check for the selected request to advance to the next `Skill Phase`, using the current clarity and consistency findings. Do not treat pause, stop, format changes, or action selection as phase transitions.
 
-For restricted mixed input, evaluate what is needed to identify the requests, their relationships, and relevant constraints before offering action selection. Do not solve all unselected requests as part of checking them. After selection, evaluate the selected action and its dependencies. Reuse findings that remain applicable; reassess findings affected by new input. The checks record results; use those results under the admission and confirmation rules below.
+For restricted mixed input, evaluate what is needed to identify the requests, their relationships, and relevant constraints before offering action selection. Do not solve all unselected requests as part of checking them; the independent-question exception below permits explanatory answers without authorizing the other requests. After selection, evaluate the selected action and its dependencies. Reuse findings that remain applicable; reassess findings affected by new input. The checks record results; use those results under the admission and confirmation rules below.
 
 ## Phase Agent Checks
 
@@ -57,6 +71,12 @@ Evaluate:
 - **Relationships:** For compound input, is it clear how the intentions relate? Determine whether confirmation is conditional, a correction replaces an earlier requirement, or a decision depends on an answer. Mark this criterion as not applicable when there are no relationships to evaluate.
 
 Clarification is required when at least two plausible interpretations remain and choosing between them would materially change the next response, action, or recorded decision. A merely conceivable alternative interpretation is not sufficient reason to require clarification.
+
+A negative evaluation alone establishes neither an intention to exclude an option nor the absence of a request for action. Explicit wording such as "Exclude it" or "Do not consider it" expresses an intention to change the considered set; evaluate its subject and scope rather than inferring a broader exclusion.
+
+For criticism that an option violates the investigation's goal or a criterion, evaluate the intention to correct the assessment separately from the intention to exclude the option. If inclusion or exclusion is not unambiguous, record Clarification Required for Intent and any unresolved Subject or Scope, retaining the alternatives of exclusion and continued comparison with the identified deficiency. Do not mark the input Clear solely because the factual criticism is understood or the agent's error has been corrected. If exclusion or retention is already explicitly requested or confirmed, do not reopen that intention; assess any remaining scope or relationship ambiguity and apply the existing admission and confirmation rules.
+
+For other negative evaluations without an explicit action, assess whether plausible interpretations would materially change the next response, action, or recorded decision. If so, record the unresolved intention or scope as Clarification Required. Otherwise, the evaluation alone does not require clarification or confirmation. This check records findings; [Feedback Handling](#feedback-handling) uses them to formulate the question and preserve the current decision.
 
 Record one of these outcomes:
 
@@ -116,13 +136,14 @@ Apply these rules after `Phase Agent Input Classification` and the applicable ch
 
 - When the input contains only one category, process it under that category's requirements.
 - **Ask A Question** and **Request Assistance Or A Result** may be processed together when their subjects, dependencies, and processing order are clear. Otherwise, clarify the unresolved relationship or order before performing dependent work.
-- When **Direct The Interaction**, **Express A Decision**, or **Provide Or Revise Context** occurs alongside another category, do not execute the requested substantive actions, adopt proposed revisions, record substantive acceptance, or advance to another `Skill Phase` from that mixed input.
+- When **Direct The Interaction**, **Express A Decision**, or **Provide Or Revise Context** occurs alongside another category, do not execute the requested substantive actions, adopt proposed revisions, record substantive acceptance, or advance to another `Skill Phase` from that mixed input. The following exception permits only independent explanatory answers.
+- For input containing feedback, answer an unambiguous **Ask A Question** intention independently while another part awaits clarification or separate action selection, provided the answer does not depend on that unresolved part, assume the proposed change, violate the user's explicit order, or continue work the user has asked to pause or stop. Answering does not select or authorize any other request. Apply the remaining admission and confirmation requirements to those requests; do not ask the user to select a question already answered.
 
 A mixed request may be clear in meaning and still require separate selection or confirmation under this workflow. Do not report a procedural restriction as a Request Clarity failure.
 
 ### Selection And Order
 
-For mixed input requiring separate selection:
+For mixed input requiring separate selection, apply the following steps to the remaining requests after any independent explanatory answer permitted above:
 
 1. Show the independent requests and their recognized categories. Use plain-language action descriptions alongside the category labels.
 2. State that the workflow requires selecting the current action separately.
@@ -145,11 +166,50 @@ This contains **Provide Or Revise Context** and **Direct The Interaction**. The 
 
 A suitable response is:
 
-> You proposed two actions: exclude cloud solutions, then begin the final synthesis. This workflow handles these separately. Shall we begin by reviewing the proposed context change? Unselected actions will not be resumed automatically; please request the transition separately if you want it afterward.
+> You proposed two actions: exclude cloud solutions, then begin the final synthesis. This workflow handles these separately. Unselected actions will not be resumed automatically; please request the transition separately if you want it afterward.
+>
+> ❓ **Q1 — Current action:** Shall we begin by reviewing the proposed context change?
+>
+> - **A.** Begin reviewing the proposed context change.
+> - **B.** Do not begin that action yet.
+> - **C. Custom answer** — Specify another current action or correct the proposed order.
+>
+> Reply, for example: `Q1: A` or `Q1: C — <your answer>`.
 
 After the user selects the context change, present its proposed wording for confirmation. Do not treat selection of that action as confirmation of the wording.
 
 If the user instead requests the transition, retain the unresolved context issue for assessment. Do not infer that the user withdrew the proposed condition merely by selecting another action.
+
+### Feedback Handling
+
+Use the feedback attributes and check findings to distinguish an error correction from a proposed change to the user's decisions.
+
+1. **Correct established errors.** Verify disputed facts and assess consequences under the existing goal and criteria. Correct an established agent error immediately without asking the user to approve the correction. If an option violates a goal or criterion, state the finding and stop recommending it as satisfying that goal or criterion. If the alleged defect is unverified or disproved, report that accurately. None of these findings is itself the user's decision to exclude the option or relax a criterion.
+2. **Ask about exclusion for goal or criterion criticism.** When the user criticizes an option's compliance with the investigation's goal or a criterion and inclusion or exclusion is not unambiguous, you must ask one concrete question: exclude the identified option from further consideration, or retain it for comparison with the identified deficiency recorded? Name the exact option or standalone scheme and the boundaries of exclusion; do not extend rejection of one format to its entire family. Where relevant, state which combinations or other options are outside that boundary. If the alleged deficiency is not established, describe it as an allegation or open issue rather than a confirmed defect. Correcting the factual assessment does not fulfill this clarification requirement. An already explicit exclusion request or confirmation needs no repeated question about intent; an explicit request to retain the option also resolves that intention. Apply the existing admission and confirmation rules to any requested change.
+3. **Handle other evaluations proportionately.** Outside goal or criterion criticism, ask a focused clarification question only if plausible interpretations would materially change the next step. Otherwise, reflect the user's opinion in the explanation without additional confirmation. Do not create a mandatory exclusion question for every negative assessment.
+4. **Make the question concrete.** Formulate the clarification as a `Phase Agent Action Proposal` identifying the exact subject and scope. For the mandatory disposition question, present exclusion and retention for comparison as alternatives rather than presuming rejection. For other consequential feedback, propose the specific plausible change and ask the user to confirm or correct it. Do not first ask a generic question and then request confirmation of the same unchanged interpretation.
+5. **Preserve the current decision until the answer.** Keep exclusion separate from accepted decisions until the user answers unambiguously and applicable admission and confirmation requirements are satisfied. Retain the option's current inclusion or exclusion status in the meantime. This does not suppress a verified defect, justify recommending the option as compliant, or prevent correction of its factual assessment. Do not record exclusion as a user decision merely because the user identified a defect.
+6. **Apply the answer precisely.** Update only the confirmed subject and scope. Keeping the option for comparison does not withdraw the criterion or establish compliance. An unqualified answer to the concrete proposal satisfies confirmation for that unchanged content; a correction, qualification, or other independent intention requires reassessment under the existing rules. Do not add an intent-clarification round when exclusion has already been explicitly requested or confirmed.
+
+For example, assume the investigation requires unique identifiers and `YYYYMMDD-topic` uses only the date as its identifier. The user says:
+
+> `20261113-topic` assumes the identifier `20261113`, which is not unique at all.
+
+A suitable response is:
+
+> Correct: a date alone does not ensure uniqueness. The following choice concerns only `YYYYMMDD-topic` as a standalone scheme; it does not affect combinations of a date with another identifier.
+>
+> ❓ **Q1 — Standalone scheme:** Exclude `YYYYMMDD-topic` from further consideration or keep it for comparison with this deficiency noted?
+>
+> - **A.** Exclude only the standalone scheme `YYYYMMDD-topic`.
+> - **B.** Keep it for comparison with the uniqueness deficiency recorded.
+> - **C. Custom answer** — Specify another action, correct the scope, or ask a question.
+>
+> Reply, for example: `Q1: A` or `Q1: C — <your answer>`.
+
+The factual correction is immediate. Excluding the standalone scheme remains undecided until the answer. Do not broaden this question to all date-based identifiers. If the user instead says "Exclude `YYYYMMDD-topic` as a standalone scheme," apply the existing change-admission and confirmation rules without asking again whether exclusion is intended.
+
+Answer independent questions from the same message in the same response when the category-combination exception applies, alongside the focused disposition question. For example, an independent explanation of UTC need not wait for the exclusion decision. Do not let that answer imply acceptance, rejection, or withdrawal of the criterion. A question whose answer depends on retaining or excluding the option must wait for the relevant clarification; preserve the user's explicit ordering and stopping instructions.
 
 ## Explicit Confirmation
 
@@ -170,3 +230,7 @@ Checks record findings. The workflow uses those findings to select the next `Pha
 ## `Phase User Move`
 
 Use the categories and admission rules above to interpret a `Phase User Move`. Apply the explicit-confirmation requirements before adopting context changes or accepting substantive decisions, and the [phase-transition requirements](../SKILL.md#phase-transitions) before changing phases.
+
+## Diagnostic Output
+
+Only while `Debug Mode` is enabled and `Exploration And Refinement` is active, read [the phase diagnostic instructions](exploration-and-refinement-debug.md). Follow the shared [mode controls and loading rules](../SKILL.md#debug-mode).

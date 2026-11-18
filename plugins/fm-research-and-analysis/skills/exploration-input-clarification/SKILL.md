@@ -32,7 +32,7 @@ Evaluate all ten criteria. These are diagnostic checks, not required artifact fi
 5. **Scope:** Intended subject, boundaries, and exclusions.
 6. **Constraints:** Explicit mandatory requirements, constraints, and preferences.
 7. **Ambiguity:** Key terms with materially different interpretations.
-8. **Consistency:** Contradictions preventing an accurate restatement.
+8. **Consistency:** Contradictions preventing an accurate document preview.
 9. **Assumptions:** Unconfirmed assumptions about intent.
 10. **Research suitability:** Investigation or learning versus solely executing an already defined task.
 
@@ -45,10 +45,10 @@ Once sufficiently understood, assess research suitability first. Clarify unclear
 | Status | Condition and action |
 |---|---|
 | **NOT AN EXPLORATION** | The understood request has no investigative or learning component. Explain the exclusion, suggest an appropriate workflow, and stop without entering the readiness loop or starting another workflow. A fixed solution alone does not justify exclusion. |
-| **CLARIFICATION REQUIRED** | Missing intent, ambiguity, contradiction, or an unavoidable unsupported assumption prevents accurate handoff. Ask necessary blocking questions and reassess after answers. |
-| **READY** | Exploration is present, primary intent, subject, and expected outcome are understood, each applicable research mode is determined, and no blocker remains. Present the round checkpoint. Further clarification is voluntary. |
+| **CLARIFICATION REQUIRED** | A required research mode or project-source boundary is unresolved, or missing intent, ambiguity, contradiction, or an unavoidable unsupported assumption prevents accurate handoff. Ask necessary blocking questions and reassess after answers. |
+| **READY** | Exploration is present, primary intent, subject, and expected outcome are understood, each applicable research mode and required project-source boundary is determined, and no blocker remains. Present the round checkpoint. Further clarification is voluntary. |
 
-The Readiness Gate passes exactly at `READY`. Readiness, choosing to finish clarification, confirming the restatement, and saving are separate events. Reassess after each round and material correction. An explicitly deferred blocker retains `CLARIFICATION REQUIRED`; a nonblocking deferral may accompany `READY`.
+The Readiness Gate passes exactly at `READY`. Readiness, choosing to finish clarification, confirming the document, and saving are separate events. Reassess after each round and material correction. An explicitly deferred blocker retains `CLARIFICATION REQUIRED`; a nonblocking deferral may accompany `READY`.
 
 ### Determine Research Mode for the Subject
 
@@ -60,9 +60,21 @@ Once the research goal and subject are clear, determine the mode before assignin
 
 Use a mode the user states or that follows unambiguously from the request. If the goal and subject are clear but the mode is ambiguous, ask about that subject in the next blocking clarification round under the dialogue protocol. Frame the options in terms of what to investigate. If the goal or subject is unclear, clarify it first. Keep `CLARIFICATION REQUIRED` while any applicable mode is unresolved, including after an explicit deferral. An explicit request to compare both paths determines the mode and leaves the choice of approach to research.
 
+### Clarify Permitted Research Sources
+
+Once the research goal and subject are clear, check whether there are material conditions on the sources the researcher may use. Treat this as a separate decision from the research mode. By default, ask about research execution. Preserve any scope the user explicitly sets for research execution or brief preparation. Clarify the boundary using the supplied input and dialogue.
+
+When the request concerns a specific existing project and its materials could materially affect the research, require a decision on whether and within what scope the researcher may independently inspect those materials before assigning `READY`. This applies even when the goal and expected outcome are already clear. For example, existing directory names or allocated identifiers can inform the design of a new naming scheme for the current repository. A generic request about naming in Git repositories needs no project-source decision.
+
+If this boundary is unclear, ask a direct blocking question in the next clarification round under the dialogue protocol. Offer relevant choices such as inspecting task-relevant materials, inspecting only named paths or materials, or using only project materials explicitly supplied by the user. Include the custom-answer option. If the research mode also needs an answer, ask separate questions in the same round. Use an already clear boundary in the document preview without asking again. Keep `CLARIFICATION REQUIRED` while a required boundary is unresolved, including if the user defers the decision to brief preparation. Research mode, silence, and delegation do not grant permission to inspect sources.
+
+Apply the Blocker Test to other source uncertainties. Clarify external sources separately when material. A limit on repository inspection leaves the use of external sources undecided unless the user specifies it. If the other source choices can wait until brief preparation without changing the task, allow `READY` when the other criteria are met and preserve any explicit delegation.
+
+When describing a source limit, distinguish gathering project evidence from reading applicable workspace instructions and any conventions they require. The limit on gathering evidence does not prevent the researcher from consulting those instructions as needed to follow them. Preserve applicable mandatory rules that constrain the outcome. Using examples, descriptions of current project behavior, or linked materials as research evidence remains subject to the agreed source limits.
+
 ### Blocker Test
 
-Before assigning `READY` or classifying a question as blocking, apply all three checks internally to each material uncertainty:
+After checking the required research mode and project-source boundary, apply all three checks internally to each remaining material uncertainty before assigning `READY` or classifying a question as blocking:
 
 1. **Unresolved meaning:** Identify two plausible interpretations grounded in the input and how they change subject, scope, or outcome. For missing primary intent or conflicting requirements, identify what cannot be understood or reconciled instead of inventing alternatives.
 2. **Unavoidable choice:** Identify the unsupported assumption or user decision needed for handoff. Explain why its absence would convey materially different tasks; an effect on research framing, findings, or implementation alone is insufficient.
@@ -97,37 +109,33 @@ At each checkpoint:
 
 1. Briefly summarize understanding, material changes, and remaining blockers.
 2. Offer a manageable, prioritized selection of relevant remaining categories with their purpose, distinguishing blocking from optional clarification. Allow another user-supplied direction; the displayed categories are not exhaustive.
-3. Ask whether to deepen a category, introduce another direction, or finish clarification and fix the current results. Wait for an actual choice before optional questions or final restatement. Silence, an empty message, or a skipped answer is not a choice to finish or confirm.
+3. Ask whether to deepen a category, introduce another direction, or finish clarification and fix the current results. Wait for an actual choice before optional questions or the final document preview. Silence, an empty message, or a skipped answer is not a choice to finish or confirm.
 
 Category selection chooses a topic, not an answer or solution. After its round, repeat the checkpoint. If no useful categories remain, offer finishing or a user-supplied direction without manufacturing questions. Checkpoints occur at dialogue boundaries, not after internal reading, analysis, or saving.
 
-- **Finish at `READY`:** Proceed to restatement. Finishing deepening does not confirm the restatement.
+- **Finish at `READY`:** Prepare the document preview and ask for separate confirmation.
 - **Finish with blockers:** Explain why finalization is unavailable. Offer focused clarification, explicitly incomplete saving, or stopping without saving. Incomplete saving proceeds through sections 5 and 6 without changing readiness or claiming completion.
 - **Stop without saving:** Leave the workflow incomplete without repeatedly requesting the same answer.
 
-## 5. Restate and Obtain Confirmation
+## 5. Preview the Document and Obtain Confirmation
 
-For completed input, after the user chooses to finish at `READY`, restate the request in your own words, incorporating material answers and boundaries from all rounds. Distinguish confirmed information, unconfirmed proposals, and explicit deferrals. Discussing a nonblocking gap does not require including it in the artifact.
+After the user chooses to finish at `READY` or explicitly chooses incomplete saving, read the [clarified input template](references/clarified-input-template.md). Prepare the complete applicable document and apply its completion checks before asking for confirmation. Include each applicable research mode and its subject, material source decisions, and all material clarifications. For incomplete saving, show the understood portion, the incomplete notice, unresolved blockers, and explicit deferrals.
 
-Include each applicable research mode and its subject in the restatement for confirmation. When the mode follows unambiguously from the request, obtain confirmation through this restatement without asking a separate mode question.
+Show the full document in the dialogue language using the [document preview format](references/clarification-dialogue.md#preview-the-document-for-confirmation). Localize the title, section headings, and any incomplete notice for the preview. Resolve the file's prose language using applicable instructions for the save destination and any compatible user choice. When neither specifies a language, use the dialogue language. Tell the user which language will be used for the file. The saved file uses the template's exact English section headings and, for incomplete input, its exact English notice.
 
-For explicitly chosen incomplete saving, restate only the understood portion, label it incomplete and not ready for brief creation, and identify unresolved blockers and intentional deferrals. Ask the user to confirm the partial understanding and recorded gaps; that confirmation does not resolve them.
-
-Ask separately whether the restatement accurately reflects intent. The finish choice is not confirmation. Confirmation validates the presented understanding, not research readiness or a brief; it does not answer unasked questions, resolve omitted ambiguities, or turn separately labeled proposals into requirements or deferrals into research assignments.
-
-After corrections, update the interpretation, reassess affected conditions, and obtain confirmation of the revised restatement. Material corrections invalidate prior confirmation and return to clarification. A newly discovered blocker also returns completed input to clarification, even after broad confirmation. For incomplete input, retain acknowledged blockers and confirm any revised partial restatement.
+Ask the user to confirm the entire displayed document for saving in the stated language. Confirmation applies to the displayed version, including the status of any proposals, deferrals, and unresolved blockers. After a correction, reassess readiness, show the full revised preview, and obtain confirmation again. If a new blocker emerges, return to clarification before seeking confirmation of completed input.
 
 Without confirmation, do not claim completion. Distinguish unresolved input from `READY` input awaiting confirmation.
 
 ## 6. Save the Clarified Input
 
-After confirmation, read [the clarified input template](references/clarified-input-template.md), prepare the applicable variant, and apply its completion checks. The artifact must convey current confirmed understanding without reconstructing the conversation or original input; do not invent content or expand it into a brief, research plan, or findings.
+Save the confirmed document. When the file language differs, translate the confirmed text faithfully, preserving its section order, content, and the force of every decision and condition. Use the template's fixed headings and notice where applicable, and omit chat presentation elements. Check the file against both the confirmed preview and the template before writing. If the destination requires a different language from the one announced, or any content needs to change, show the full updated preview and obtain confirmation before saving.
 
 Use the user's destination or the host's configured saving convention. If neither exists, request a destination when saving becomes necessary. Do not overwrite an existing artifact without authorization.
 
 If persistence fails or is unavailable, provide the prepared content in chat, explain that it was not saved, and identify the outstanding saving step. Do not claim persistence or completion.
 
-- **Completed input:** Complete the workflow only when input is `READY`, the current restatement is confirmed, and the result is saved. Report the saved location.
+- **Completed input:** Complete the workflow only when input is `READY`, the current document is confirmed, and the result is saved. Report the saved location.
 - **Incomplete input:** Report the saved location, remaining blockers, and `CLARIFICATION REQUIRED` status. State that clarification remains incomplete and the document is not ready for brief creation; confirmation and saving do not satisfy completion.
 
 End this stage without automatically creating a brief or starting research.

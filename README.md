@@ -4,7 +4,7 @@ An AI-first monorepo for FocusMatrix plugins and skills that help coding agents 
 
 ## Current State
 
-The repository contains governance, documentation, basic text-file configuration, and the initial [FocusMatrix Research and Analysis package](plugins/fm-research-and-analysis/README.md), version `0.1.0`. Its `exploration-input-clarification` skill prepares confirmed input; `exploration-brief-creation` uses that input to prepare a confirmed brief with a complete research plan. Verification consists of static checks and manual scenario reviews; runtime discovery, installation, and live behavioral execution have not been verified. Codex is the initial packaging and validation target. Other coding agents are future targets with unverified compatibility.
+The repository contains governance, documentation, basic text-file configuration, and the initial [FocusMatrix Research and Analysis package](plugins/fm-research-and-analysis/README.md), version `0.1.0`. Its `exploration-input-clarification` skill prepares confirmed input. `exploration-input-validation` checks whether the Markdown is ready for handoff. `exploration-brief-creation` uses that input to prepare a confirmed brief with a complete research plan. Verification includes static checks, manual scenario review, and isolated Codex installation and skill discovery. Codex is the initial packaging and validation target. Other coding agents are future targets with unverified compatibility.
 
 ## Local Use
 

@@ -4,6 +4,10 @@
 
 Initial package version: `0.1.0`.
 
+- Require an isolated check of completed exploration input before confirmation and when a consuming session contains prior clarification context. Document clean delegation for Codex and Claude Code and a new-chat handoff when it is unavailable.
+
+- Add `exploration-input-validation` for document-only readiness checks with a `PASS` or `FAIL` report. Share the criteria and templates within the plugin. Check the current Markdown before confirmation and before a consuming workflow proceeds. The incomplete notice retains its status prefix and omits the workflow-specific suffix. Readers recognize the status regardless of explanatory text after the prefix.
+
 - Determine the research mode for each applicable subject before marking exploration input `READY`. Support Greenfield, Brownfield, and comparison of both. Ask when the mode is ambiguous, and include the mode and its subject in the document preview and saved input.
 - Clarify research sources separately from the research mode. When materials from a specific existing project could materially affect the research, require a decision about independent inspection and its scope before `READY`. Record source permissions, limits, preferences, and explicit deferrals as applicable. Distinguish gathering project evidence from reading required workspace instructions and conventions.
 - Show the complete clarified-input document in the dialogue language before asking for confirmation. Use a Markdown blockquote between horizontal rules, with the confirmation question below it. Announce the file language, preserve the confirmed content and structure when translating, and show a revised preview for confirmation if the content or file language changes. Apply this flow to both complete and explicitly incomplete input. Dialogue consumers should expect a full-document preview at confirmation. Saved Markdown keeps its fixed English headings.

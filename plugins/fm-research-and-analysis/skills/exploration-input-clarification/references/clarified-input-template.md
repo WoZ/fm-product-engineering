@@ -1,6 +1,6 @@
 # Clarified Input Template
 
-Read after confirmation and before preparing the Markdown artifact. This resource defines output, not additional questions or readiness criteria; [SKILL.md](../SKILL.md) owns saving and workflow completion.
+Read before preparing the full document preview. Apply the structure and completion checks to the preview and verify the saved Markdown against the confirmed preview. The preview may localize the fixed headings and notice. The saved artifact uses their exact English wording. [SKILL.md](../SKILL.md) owns confirmation, saving, and workflow completion.
 
 ## Document Structure
 
@@ -47,7 +47,7 @@ The title must be noticeably shorter than the full request and must not introduc
 | Variant | Required content |
 |---|---|
 | Completed input | `Confirmed request` contains a complete, coherent statement of the understood task. No blocking assumption or ambiguity may remain, including in an optional section. Nonblocking explicit deferrals may remain. |
-| Incomplete input | Only after the user chooses incomplete saving and separately confirms the partial restatement and gaps. `Confirmed request` contains only the understood portion, with its limitations. In `Context, decisions, and boundaries`, identify each unresolved blocker, the missing clarification, and any explicit deferral. If primary intent is unknown, say so instead of inventing it. |
+| Incomplete input | Only after the user chooses incomplete saving and separately confirms the full incomplete document, including its gaps. `Confirmed request` contains only the understood portion, with its limitations. In `Context, decisions, and boundaries`, identify each unresolved blocker, the missing clarification, and any explicit deferral. If primary intent is unknown, say so instead of inventing it. |
 
 Incomplete input keeps the same headings and order. Immediately after the H1, insert this exact notice:
 
@@ -62,6 +62,8 @@ Only the incomplete variant may retain blockers. They are known gaps, not a brie
 - Write the confirmed request as a paragraph. Incorporate the current material meaning of answers from every round directly into the request, context, or conditions so the artifact stands alone.
 - Use separate bullets for independent decisions, conditions, proposals, and questions, keeping qualifications with each item. Keep mandatory conditions and preferences separate and preserve their original force.
 - Put necessary context, decisions, boundaries, and exclusions in `Context, decisions, and boundaries`. Attribute user assertions where needed rather than presenting them as verified facts. A reference to supplied material that is itself the subject may remain here.
+- Record each applicable, confirmed research mode in `Context, decisions, and boundaries`, naming the subject it applies to. If a mode is unresolved in incomplete input, identify the affected subject and the unresolved choice there.
+- Record agreed source permissions and explicit delegation in `Context, decisions, and boundaries`, mandatory source limits in `Mandatory constraints`, and source preferences in `Preferences`. Preserve the applicable stage, scope, and exceptions when material. Distinguish limits on using project materials as evidence from following applicable workspace instructions and required conventions. If a blocking source choice is unresolved in incomplete input, identify the choice and how it affects the task in `Context, decisions, and boundaries`. Omit source entries when no source decision or material unresolved issue needs to be conveyed.
 - Record each current explicit deferral here too: topic, clarification intentionally unanswered, and the user's deferral decision. Preserve the decision, not question identifiers or a dialogue log. Incorporate later answers and omit superseded deferrals. An omitted answer alone is not a deferral; neither omission nor deferral creates a condition, default, or automatic research assignment.
 - Put mandatory conditions and preferences under their respective H3 headings; omit their parent H2 when both are empty. A material condition may also appear briefly in the title or request without changing its meaning.
 - Include only previously raised, material unconfirmed assumptions or proposals needed for accurate handoff. Label each status explicitly in words, not through placement or emphasis alone. Restatement confirmation does not turn separately labeled proposals into requirements. Do not brainstorm here; blockers belong only in the incomplete variant's context section.
@@ -75,6 +77,8 @@ Before saving, verify that:
 
 - The artifact is understandable without chat history or reconstruction from original input, and preserves all material current clarifications, conditions, and explicit deferrals with their correct status.
 - It meets the selected variant's requirements: a complete request without blockers, or confirmed partial understanding with the exact incomplete notice and visible blockers.
+- Each applicable research mode is explicit and tied to its subject, or identified as unresolved in incomplete input.
+- A required project-source boundary is explicit in completed input. Material source decisions preserve their scope and force. Any unresolved source blocker is visible in incomplete input. Neither the research mode nor an omitted or deferred decision is represented as source permission.
 - Exactly one descriptive H1 and applicable fixed H2/H3 headings appear in order. A simple completed request may need only the title and `Confirmed request`.
 - No history, disguised source-input section, or brief-preparation question list remains; removing these has not removed material current meaning.
 - Passing the Markdown content to the next agent conveys the same meaning as the saved artifact. Formatting alone does not establish a model's interpretation; that requires behavioral verification.

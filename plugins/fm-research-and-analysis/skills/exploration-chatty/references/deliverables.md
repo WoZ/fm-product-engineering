@@ -6,6 +6,8 @@ Read this reference when preparing requested materials. Select the relevant guid
 
 A compact summary should capture the goal, current approach, accepted decisions and reasons, and consequential open questions. Include rejected alternatives when their tradeoffs help explain a choice. Distinguish proposals from accepted decisions.
 
+When reporting a comparison, preserve the [candidate state and decision boundaries](../SKILL.md#candidate-state-and-decision-boundaries): a locally configured candidate is not necessarily the selected overall approach. Keep relevant open or deferred alternatives and exclusion reasons accurate within the requested result's scope; a limited result does not require a full comparison or additional investigation.
+
 For an architecture decision record or equivalent decision note, put the context, constraints, and assumptions near the beginning. Explain the considered alternatives, meaningful advantages and drawbacks, chosen approach, and rationale. Include consequences and conditions for revisiting the decision when useful. State acceptance status accurately: a request to draft a record does not accept unresolved choices. Use actual dates and known facts rather than copying metadata from an example.
 
 Keep implementation commands out of a decision record unless they are necessary to explain the decision. A decision record explains why; a requested runbook supplies operational detail. If later evidence changes the approach, make the revised decision and its reason clear without inventing approval.

@@ -11,6 +11,20 @@ Use the [shared question format](../SKILL.md#present-questions) for every questi
 - **Missing topic.** If no topic can be identified, use that check result to formulate a `Phase Agent Action Proposal` asking for the topic. When a topic is present, use the clarity and context check results to formulate the appropriate next interaction.
 - **Targeted clarification.** When establishing the topic and context, ask only about missing information that materially affects the answer or next step.
 
+### Focused Analysis Within a Comparison
+
+Apply the shared [return-to-comparison guidance](../SKILL.md#return-to-the-overall-comparison) during candidate analysis in this phase. Use Request Clarity's Subject and Scope findings to distinguish a local configuration choice from scheme selection or exclusion. Use Context Consistency And Impact's Applicable Baseline, Revision Boundaries, Dependencies And Impact, and Evidence For Consequences findings to assess its effect on the overall comparison. Reuse findings that remain valid; this adds no mandatory `Phase Agent Check` or confirmation step.
+
+For example, assume the presented proposal has been accepted under the existing confirmation rules: use four random characters without coordination for `YYYYMMDD-rrrr-topic`, with a previously explained residual collision risk. Sequential numbering, ULID, and UUIDv7 remain open. A suitable return is:
+
+> For `YYYYMMDD-rrrr-topic`, four random characters without coordination are accepted, with the stated residual risk. This configures one candidate; the overall scheme has not been selected.
+>
+> Sequential numbering, ULID, and UUIDv7 remain open. Their mechanisms and costs have been examined in less depth. The required ordering within a day is still unresolved.
+>
+> I recommend examining sequential-number reservation next, to compare its coordination cost with independent random generation.
+
+This illustrates an overview and recommendation, not a required response template or automatic authorization to investigate numbering. It assumes numbering investigation is within the current comparison's scope and is not an unselected request. If it was an unselected request, do not re-offer it merely because numbering remains open; follow the existing [selection and order rules](#selection-and-order). An exclusion or deferral of any listed candidate changes the overview accordingly; do not reuse an illustrative open status against the actual decisions.
+
 ## Input Classification
 
 Use the following categories for `Phase Agent Input Classification` in `Exploration And Refinement`, for both input on phase entry or resumption and subsequent responses. These are local classification labels; do not assume they apply to other `Skill Phase` contexts.

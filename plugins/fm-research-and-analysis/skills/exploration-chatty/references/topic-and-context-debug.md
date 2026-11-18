@@ -4,6 +4,8 @@ Read this reference only while `Debug Mode` is enabled and `Topic And Context` i
 
 ## Presentation
 
+Follow the [single active-phase block rule](../SKILL.md#output-boundaries). After a confirmed transition, show only the destination phase's diagnostics; never include the outgoing phase's check list or findings. In Extended output, Agent Actions Taken may briefly record the transition. If no checks were selected for the destination phase yet, use None and Not Applicable with that reason rather than borrowing earlier checks.
+
 After a mode control, follow the [shared redisplay rule](../SKILL.md#redisplay-after-controls): acknowledge the setting, repeat the previous ordinary message, handle any additional substantive input, then show the current diagnostic block. The repeat preserves question identifiers and does not rerun earlier checks or reopen decisions. In extended output, report redisplay as a presentation action; cite any still-pending question separately from a new proposal. When the mode is disabled, redisplay still applies but this diagnostic format does not.
 
 Put the ordinary response and any mode-change acknowledgment before one separate Markdown blockquote headed **`Debug Mode` · Simplified** or **`Debug Mode` · Extended**. Use a `>` prefix for every line, including blank lines, so all diagnostic fields remain in the same block. Do not wrap the rendered block in a code fence or use color-dependent HTML.
@@ -14,12 +16,19 @@ Use the initial or current topic-and-context input. Distinguish proposed framing
 
 Present actual questions in the ordinary response using the [shared question format](../SKILL.md#present-questions). In diagnostic `Phase Agent Action Proposal` fields, cite the question identifier and purpose rather than repeating the question or introducing another identifier.
 
+### Readable Layout
+
+- Put each field or section heading in its own paragraph, with a blank blockquote line (`>`) between sections and before and after lists. Do not join multiple fields into one paragraph.
+- Under Results, put each check summary in a separate Markdown bullet: `> - 🟩 **Request Clarity — Clear**`. A control-only or no-check explanation is one separate bullet.
+- In Extended output, follow Results with a separate bold heading for each evaluated check's criteria. Put every criterion in its own Markdown bullet containing its name, status, and one or two explanatory sentences. Never concatenate criteria in a single paragraph or rely on soft line breaks to separate them.
+- Keep Input Interpretation, Agent Actions Taken, and `Phase Agent Action Proposal` as separate labeled sections, with their content in paragraphs below the labels. Keep the comma-separated `Phase Agent Check Set` on its own field line. Preserve the existing field order and level-specific omissions.
+
 ## Simplified Level
 
 Include only the heading and these fields, in order:
 
 1. **`Skill Phase`:** `Topic And Context`.
-2. **`Phase Agent Check Set`:** Names of the checks selected for this exchange, separated by commas. Do not list checks merely because they appear in the catalog. For a control-only turn, use None.
+2. **`Phase Agent Check Set`:** Names of the checks selected for the active phase's work in this exchange, separated by commas. Do not list checks merely because they appear in the catalog. Use None for a control-only turn or when no checks were selected for this phase.
 3. **Results:** One compact entry per selected check using the result conventions below. Omit input interpretation, criterion details, actions, and `Phase Agent Action Proposal` at this level. For a control-only turn, use ⬜ Not Applicable: Only the diagnostic output setting was handled.
 
 ### Check Result Conventions
@@ -50,6 +59,6 @@ If the user requests an explanation of "the second term" while two lists remain 
 >
 > **Results:**
 >
-> 🟨 **Request Clarity — Clarification Required:** Two lists match the reference. The intended term has not been identified.
+> - 🟨 **Request Clarity — Clarification Required:** Two lists match the reference. The intended term has not been identified.
 
 At the extended level, the same case adds one input-interpretation paragraph, the four Request Clarity criteria, and the final two fields. For example, the actions paragraph can say: "Asked which of the two lists contains the intended term. Topic and context remain unchanged while the list reference is clarified." The proposal cites that question's actual identifier, for example "Q1 — clarify the intended list," rather than asking it again. Use the actual next identifier in the ordinary response; illustrative Q1 labels do not restart numbering. Translate explanatory prose into the user's language while preserving term names and statuses.

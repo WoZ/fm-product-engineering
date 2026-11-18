@@ -26,6 +26,18 @@ Historical plans, reviews, and decision records describe earlier context. Differ
 
 In the change report, summarize the documents checked, discrepancies found or none found, and verification limits. This is an agent procedure, not an executable check or a guarantee that every semantic conflict will be found.
 
+## Skill Terminology Consistency Check
+
+After completing edits to a skill that uses the `Terms` approach, compare its `Terminology Use` block with the canonical block in [Skill authoring: Self-Contained Terminology Instructions](skill-authoring.md#self-contained-terminology-instructions).
+
+- Check only affected skills, including those whose supporting resources changed. Existing skills without `Terms` and skills covered by an explicit user opt-out do not require adoption or migration.
+- Compare the literal contents of the `Terminology Use` block, including its heading, with the canonical block. Do not compare the skill-specific term definitions. A missing block in a skill using this approach is a discrepancy.
+- Perform the check once after the requested edits are complete. Do not repeat it for an unchanged state. After synchronization, recheck the affected block.
+- If the block matches, do not issue a separate success message. Use the existing overall change report.
+- If the block differs or is missing, identify the affected file and section, show the relevant differences, and propose synchronizing it with the canonical block. Ask for confirmation before synchronization unless the user has already explicitly authorized it.
+- Do not offer changing the canonical block or preserving a local exception as alternative corrective actions in this check. If synchronization is not authorized, leave the block unchanged and report the discrepancy as unresolved.
+- If the canonical source is unavailable, report that the comparison could not be performed. Do not reconstruct the canonical text from memory or claim a successful check.
+
 ## Verification and Review Evidence
 
 For documentation changes, inspect links, naming, language, and rule consistency. A repository status and whitespace review can support that inspection; no persistent validation tooling is required at this milestone.

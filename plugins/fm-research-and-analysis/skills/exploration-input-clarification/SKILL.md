@@ -46,9 +46,19 @@ Once sufficiently understood, assess research suitability first. Clarify unclear
 |---|---|
 | **NOT AN EXPLORATION** | The understood request has no investigative or learning component. Explain the exclusion, suggest an appropriate workflow, and stop without entering the readiness loop or starting another workflow. A fixed solution alone does not justify exclusion. |
 | **CLARIFICATION REQUIRED** | Missing intent, ambiguity, contradiction, or an unavoidable unsupported assumption prevents accurate handoff. Ask necessary blocking questions and reassess after answers. |
-| **READY** | Exploration is present; primary intent, subject, and expected outcome are understood; no blocker remains. Present the round checkpoint. Further clarification is voluntary. |
+| **READY** | Exploration is present, primary intent, subject, and expected outcome are understood, each applicable research mode is determined, and no blocker remains. Present the round checkpoint. Further clarification is voluntary. |
 
 The Readiness Gate passes exactly at `READY`. Readiness, choosing to finish clarification, confirming the restatement, and saving are separate events. Reassess after each round and material correction. An explicitly deferred blocker retains `CLARIFICATION REQUIRED`; a nonblocking deferral may accompany `READY`.
+
+### Determine Research Mode for the Subject
+
+Once the research goal and subject are clear, determine the mode before assigning `READY` whenever it changes what the user wants investigated. Apply this check to each part of the project for which the user expects a distinct conclusion or decision. A component mentioned only as a compatibility constraint does not need its own mode. Skip the check when the choice does not change the task, such as explaining how an existing system behaves.
+
+- **Greenfield** explores a solution designed from scratch within any stated boundaries.
+- **Brownfield** explores changes that take the existing solution as their starting point.
+- **Comparison of Greenfield and Brownfield** explores both paths when the research should inform the choice between them.
+
+Use a mode the user states or that follows unambiguously from the request. If the goal and subject are clear but the mode is ambiguous, ask about that subject in the next blocking clarification round under the dialogue protocol. Frame the options in terms of what to investigate. If the goal or subject is unclear, clarify it first. Keep `CLARIFICATION REQUIRED` while any applicable mode is unresolved, including after an explicit deferral. An explicit request to compare both paths determines the mode and leaves the choice of approach to research.
 
 ### Blocker Test
 
@@ -98,6 +108,8 @@ Category selection chooses a topic, not an answer or solution. After its round, 
 ## 5. Restate and Obtain Confirmation
 
 For completed input, after the user chooses to finish at `READY`, restate the request in your own words, incorporating material answers and boundaries from all rounds. Distinguish confirmed information, unconfirmed proposals, and explicit deferrals. Discussing a nonblocking gap does not require including it in the artifact.
+
+Include each applicable research mode and its subject in the restatement for confirmation. When the mode follows unambiguously from the request, obtain confirmation through this restatement without asking a separate mode question.
 
 For explicitly chosen incomplete saving, restate only the understood portion, label it incomplete and not ready for brief creation, and identify unresolved blockers and intentional deferrals. Ask the user to confirm the partial understanding and recorded gaps; that confirmation does not resolve them.
 

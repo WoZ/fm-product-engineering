@@ -21,9 +21,9 @@ Simplification must preserve meaning and precision: mandatory conditions, option
 
 ## 1. Read and Check the Input
 
-Read the saved clarified input identified by the user, or its supplied Markdown content, with relevant conversation context. If it is missing or inaccessible, explain the limitation and request only the input needed. Do not search the project to locate an unspecified input or reconstruct intent from unrelated files.
+Read the clarified input file identified by the user or the supplied Markdown. Check the current document before asking for the project context choice or inspecting project materials. If this session began with that document and contains no clarification history or additional task evidence, apply [exploration-input-validation](../exploration-input-validation/SKILL.md) directly. Otherwise, including when the context is uncertain, use [isolated validation](../../references/exploration/isolated-validation.md). If isolated execution is unavailable, use the new-chat handoff and wait for the report before continuing.
 
-Check the document's meaning as well as its status. Input marked `INCOMPLETE — CLARIFICATION REQUIRED`, or containing unresolved intent blockers, cannot support a ready brief. Explain the blockers and offer to return to intent clarification or stop. Do not automatically invoke another workflow or invent a resolution. Resume brief creation when the user supplies resolved, confirmed input.
+Continue only on `PASS`. On `FAIL`, relay the report’s problems and needed corrections in the dialogue language. Use the validation report alone as evidence for this response. Do not cite earlier answers or suggest a specific value for an unresolved choice that the report leaves open. Then stop until the corrected input or missing material is supplied. Check the supplied version again before continuing. Use the dialogue protocol when asking the user to provide missing input. Do not search the project for an unspecified input, alter the input, infer a resolution, or start another workflow.
 
 An input document need not already contain research framing, methods, or a brief-preparation questionnaire. Determining these belongs to this skill.
 

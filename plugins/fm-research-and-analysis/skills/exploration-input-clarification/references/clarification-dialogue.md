@@ -37,6 +37,12 @@ Q2: B.
 
 Before presenting any question, check it against the format above, including its heading, bold letters, final custom-answer option, and separately identified reply example.
 
+## Preview the Document for Confirmation
+
+Show the full preview in one message. Add a localized preview label and the file language above it. Delimit the document with Markdown horizontal rules (`---`) on their own lines, with blank lines around each rule. Between the rules, put the entire document in one Markdown blockquote, including blank lines. Render the title as a level-three heading, section headings at level four, and subsections at level five. Preserve the document's paragraphs and lists. Include the localized incomplete notice immediately after the title when applicable.
+
+Below the closing rule, present the usual confirmation question outside the blockquote. Ask whether the user confirms the full displayed document for saving in the stated language. Offer an explicit confirmation choice and a custom-answer choice for requested edits, with the usual reply example.
+
 ## Validate Answers and Handle Deferrals
 
 Evaluate every response semantically, including custom text and qualifications accompanying a letter. Judge whether it answers the requested distinction, not its length, factual proof, or the feasibility of the user's wishes.
@@ -49,7 +55,7 @@ Evaluate every response semantically, including custom text and qualifications a
 | Custom-answer letter without text | Treat as unanswered, not a substantive answer. |
 | Request to explain, revise the task, change direction, or stop | Treat as dialogue control: respond and reassess pending questions rather than classifying it as an invalid answer. |
 | On-topic “I don't know” or “I haven't decided” | Unless the next action is explicit, clarify whether the user wants an explanation, intentional deferral, or a choice left to exploration. Lack of knowledge establishes none of these by itself. |
-| Explicit skip or deferral | Acknowledge it and stop retrying. Retain the topic, missing clarification, and deferral decision for restatement and saving. Revisit only if the user reopens it or a material change requires reassessment; do not repeatedly reassess to pressure an answer. |
+| Explicit skip or deferral | Acknowledge it and stop retrying. Retain the topic, missing clarification, and deferral decision for the document preview and saving. Revisit only if the user reopens it or a material change requires reassessment; do not repeatedly reassess to pressure an answer. |
 
 Check each answer against its explanation and relevant prior input. Preserve its force: preferences remain optional, assumptions remain unconfirmed, and skipping supplies no substantive answer. An omitted answer, silence, or empty custom-answer selection is not explicit deferral.
 

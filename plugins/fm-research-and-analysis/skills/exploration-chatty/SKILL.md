@@ -1,13 +1,13 @@
 ---
 name: exploration-chatty
-description: Explore a topic through an ongoing dialogue with interim findings, comparisons, and recommendations; incorporate feedback and retain accepted decisions. Use for collaborative investigation and approach refinement, including requested decision records, diagnostic guidance, and implementation instructions. Does not apply changes or require a prior clarification document or research brief.
+description: Explore a topic through an ongoing dialogue with interim findings, comparisons, and recommendations; incorporate feedback and retain accepted decisions. Use for collaborative investigation and approach refinement, including requested decision records, diagnostic guidance, and implementation instructions. Requires complete exploration input Markdown, validated before research. Does not apply implementation changes or require a research brief.
 ---
 
 # Exploration Chatty
 
 Help the user develop understanding and a workable approach through substantive discussion. Each iteration should answer the current question, incorporate new evidence or choices, and leave a coherent basis for continuing. The outcome may be an explanation, comparison, decision, or instructions; do not require solution selection when understanding is the goal.
 
-This is a standalone workflow. Do not require other skills, a formal research brief, an initial questionnaire, or a fixed sequence of artifacts. A simple factual question alone does not need this workflow unless it belongs to an ongoing exploration.
+Start from a user-identified exploration input file or complete Markdown supplied in chat. Use the bundled exploration-input-validation skill before research; no prior clarification workflow or formal research brief is required. A simple factual question alone does not need this workflow unless it belongs to an ongoing exploration.
 
 ## Terms
 
@@ -17,7 +17,7 @@ This is a standalone workflow. Do not require other skills, a formal research br
 - `Phase Agent Check` — A check through which the agent evaluates a specific requirement for the current state of work in a `Skill Phase`. Each step has its own set of checks; their results provide the basis for subsequent actions.
 - `Phase Agent Check Set` — A set of `Phase Agent Check` evaluations defined for a particular step of a `Skill Phase` and performed by the agent before selecting the next `Phase Agent Action Proposal`. The set may differ between steps.
 - `Phase Agent Action Proposal` — The next step in interaction with the user, selected by the agent after completing a `Phase Agent Check Set`. The agent presents it as a question, a confirmation request, or a proposed action whose further execution depends on the user's response. The proposed interaction may explicitly allow confirmation, a question, a clarification, or other free-form input.
-- `Topic And Context` — The `Skill Phase` focused on establishing the topic and relevant context.
+- `Topic And Context` — The `Skill Phase` focused on receiving and independently validating exploration input before research.
 - `Exploration And Refinement` — The `Skill Phase` focused on investigation, developing understanding, and incorporating user feedback.
 - `Results Consolidation` — The `Skill Phase` focused on consolidating the exploration's results.
 - `Debug Mode` — An optional diagnostic output mode maintained throughout the current skill workflow. It has simplified and extended detail levels and uses the active `Skill Phase`'s diagnostic instructions to report input interpretation, check results, and agent actions.
@@ -39,7 +39,7 @@ The following references contain `Skill Phase` logic and reserve space for furth
 
 ### `Topic And Context`
 
-Read [phase guidance](references/topic-and-context.md) when establishing the topic and relevant context for `Topic And Context`, including at the start of a new exploration.
+Read [phase guidance](references/topic-and-context.md) when receiving and validating input for `Topic And Context`, including at the start of a new exploration.
 
 ### `Exploration And Refinement`
 
@@ -99,11 +99,23 @@ Produce exactly one diagnostic block for the `Skill Phase` active when the respo
 
 List only checks selected for the active phase's work and report their actual findings. Do not relabel outgoing-phase checks as destination-phase checks or rerun checks merely to populate the block. If no checks were selected for the destination phase yet, use None for `Phase Agent Check Set` and Not Applicable with that reason for Results. Preserve honest Not Evaluated findings for any selected checks that have not been evaluated.
 
+## Input Baseline and Immutability
+
+In `Topic And Context`, follow the [input validation procedure](references/topic-and-context.md) before substantive research or project inspection. Do not replace isolated validation with the main agent's assessment. Reading the supplied input, skill resources, and applicable mandatory workspace instructions is allowed; gathering research evidence waits for the confirmed transition and remains subject to the input's source permissions.
+
+Never edit the source input file or rewrite the user's input in chat, even when explicitly requested. Before `PASS`, the user may supply complete corrected Markdown or ask you to reread their corrected file; validate each submitted version independently. Do not assemble incremental chat answers into a revised input.
+
+After `PASS`, retain the exact validated Markdown, its source, and its report in conversation context. Its goals, mandatory conditions, criteria, and research boundaries remain fixed throughout this run. A later file edit or newly supplied Markdown does not replace that baseline. Explain that changing it requires the user to prepare updated input themselves, as a file or complete Markdown, and explicitly start a new exploration. Do not silently restart, carry over old validation, or treat restart as a phase transition. A new exploration follows the normal initial state, including `Debug Mode` Off unless enabled for that run.
+
+Research may establish new facts, correct agent errors, test input assertions, and revise local proposals or decisions within those boundaries. Preserve the distinction between evidence contradicting an input assertion and permission to rewrite the task. Identify any consequential conflict rather than silently changing a goal or criterion. Confirmation of a local choice cannot override this rule.
+
+On resumption, retain the validated baseline and last confirmed phase only when available. If the exact baseline or its validation evidence is missing, pause substantive work and request the missing material; do not reconstruct it from a summary or treat a different version as validated. If the validated version cannot be recovered, require a new run.
+
 ## Phase Transitions
 
 Start a new exploration in `Topic And Context`. On resumption, retain the last confirmed `Skill Phase` when the available context identifies it. Keep the current phase in conversation context; a saved tracking document is not required.
 
-The forward order is `Topic And Context` → `Exploration And Refinement` → `Results Consolidation`. Do not silently advance or skip phases. Use the return transitions below when earlier work needs to be revisited.
+The forward order is `Topic And Context` → `Exploration And Refinement` → `Results Consolidation`. Do not silently advance or skip phases. The only return transition within this research run is `Results Consolidation` → `Exploration And Refinement`. Revising the input requires a new run, not a return to `Topic And Context`.
 
 ### Readiness Requirements
 
@@ -111,10 +123,9 @@ Assess the following requirements with the applicable `Phase Agent Check` evalua
 
 | Transition | Requirements |
 |---|---|
-| `Topic And Context` → `Exploration And Refinement` | The topic, intended result, and material scope and constraints are established and confirmed. Enough context is available to identify a useful first investigation step without guessing the user's intentions. Unknown facts that the investigation is meant to establish are not blockers. |
+| `Topic And Context` → `Exploration And Refinement` | The exact input Markdown has a usable `PASS` report from isolated validation under the phase guidance. The validated version is available as the fixed research baseline. Unknown facts that research is meant to establish are not blockers. `PASS` permits proposing the transition; explicit user confirmation is still required. |
 | `Exploration And Refinement` → `Results Consolidation` | The requested final synthesis is understood, and enough findings, reasoning, and current decisions are available to produce it. Unresolved choices and evidence limitations are identified and can be represented accurately in the result. A deliberately limited result may remain incomplete; do not invent agreement or research merely to make it appear final. |
 | `Results Consolidation` → `Exploration And Refinement` | Further investigation or substantive analysis is needed beyond editing the current synthesis. Identify the question to reopen, its reason, and the affected findings or decisions. |
-| `Exploration And Refinement` or `Results Consolidation` → `Topic And Context` | The topic, goal, scope, or essential context needs renewed clarification or reframing. Identify what must be revisited and why; agreement on the revised framing is obtained within `Topic And Context`, not assumed before returning. |
 
 ### Transition Protocol
 
@@ -135,7 +146,7 @@ Apply any [diagnostic output controls](#controls-and-state) first, then use the 
 1. **Identify the input.** At invocation, use the available initial input and relevant context; no preceding `Phase Agent Action Proposal` is required. During the ongoing dialogue, use the received `Phase User Move` and current working context.
 2. **Classify intentions.** Perform `Phase Agent Input Classification`. Identify all expressed intentions and the content each concerns, including confirmations, corrections, and explanatory questions. These categories are not exhaustive. A free-form response may contain several intentions at once; do not force the whole message into one category. Classification identifies what needs processing; it does not establish clarity, completeness, or consistency, or apply requested changes.
 3. **Select the checks.** Use the classification and current step to select the applicable `Phase Agent Check Set`, covering intentions relevant to that step and their dependencies on other parts of the input. Use phase-specific instructions where defined; until detailed sets are specified, select checks from the requirements already stated for the current work in this skill and its relevant references. A narrow explanatory question may use a short set; do not skip the set or repeat unrelated checks merely to fill it out.
-4. **Evaluate the current state.** Perform the selected `Phase Agent Check Set`, considering the full response, proposed changes, current evidence, and affected earlier decisions. Completing the set means obtaining its results, not satisfying every checked requirement. Unclear or conflicting content may require clarification; missing evidence may require inspection or a visible limitation. A clear revision can replace an earlier choice after any required phase-specific confirmation; assess its consequences without treating the earlier confirmation as a prohibition on change.
+4. **Evaluate the current state.** Perform the selected `Phase Agent Check Set`, considering the full response, proposed changes, current evidence, and affected earlier decisions. Completing the set means obtaining its results, not satisfying every checked requirement. Unclear or conflicting content may require clarification; missing evidence may require inspection or a visible limitation. A clear revision within the [fixed input boundaries](#input-baseline-and-immutability) can replace an earlier research choice after any required phase-specific confirmation; assess its consequences without treating the earlier confirmation as a prohibition on change.
 5. **Respond and propose the next interaction.** Use the results to answer the request and, when continuing the dialogue, select and present the next `Phase Agent Action Proposal`. When comparing alternatives, apply the [return-to-comparison guidance](#return-to-the-overall-comparison) before choosing the continuation. Present any question using the [shared question format](#present-questions). A question or clarification submitted through an offered free-form response is an explicitly permitted continuation. An explanatory question can expose a material error or contradiction: if it does, perform the affected checks before forming the next proposal, and correct established agent errors without requesting unnecessary clarification. Do not treat the question alone as acceptance or a request to revise unrelated decisions.
 6. **Repeat after the response.** Incorporate all understood parts of the next `Phase User Move` into the next pass through classification and checks. Account for confirmations, corrections, and questions expressed in the same user response while following any phase-specific processing order, without prescribing a count of moves per message. Apply the completion and stopping rules below; do not manufacture another proposal when the request is complete or the user stops.
 
@@ -181,11 +192,11 @@ When `Debug Mode` is enabled, keep the actual question in the ordinary response 
 
 ## Start from Available Context
 
-Provide a useful initial analysis at the requested level of detail. Do not make the user supply findings that the exploration is meant to establish.
+After input validation and the confirmed transition to `Exploration And Refinement`, provide a useful initial analysis at the requested level of detail. Do not make the user supply findings that the exploration is meant to establish.
 
 Use available research and read capabilities within the authorized scope. Inspect relevant evidence rather than asking the user to repeat accessible facts. Verify version-dependent or uncertain claims with appropriate sources when available, linking material findings to their sources. Distinguish observed facts, user-reported information, assumptions, and recommendations. Do not invent prior context, access, verification, or results.
 
-No particular tool, service, or credential is required. Research, inspection, and saving depend on host capabilities. When a capability or source is unavailable, explain which conclusion remains uncertain and continue with supported analysis; request targeted evidence if it is necessary. A recommendation may remain provisional while useful discussion continues.
+Input validation requires isolated agent execution or the shared new-chat handoff; its failure blocks research. Research, inspection, and saving depend on host capabilities. When a capability or source is unavailable, explain which conclusion remains uncertain and continue with supported analysis; request targeted evidence if it is necessary. A recommendation may remain provisional while useful discussion continues.
 
 ## Run an Adaptive Discussion
 
@@ -201,7 +212,7 @@ Use plain working language in the user's language. Explain technical terms when 
 
 ## Preserve Decisions While Allowing Revision
 
-Maintain the current goal, constraints, accepted decisions and their reasons, proposed alternatives, relevant evidence, and unresolved questions in conversation context. Surface the parts needed to understand the current response; do not repeat a full ledger every turn or create a working file automatically.
+Keep the [validated input baseline](#input-baseline-and-immutability) fixed. The revision rules below concern research decisions within it, not permission to change the input. Maintain the current goal, constraints, accepted decisions and their reasons, proposed alternatives, relevant evidence, and unresolved questions in conversation context. Surface the parts needed to understand the current response; do not repeat a full ledger every turn or create a working file automatically.
 
 - Clear user revisions identify the specified earlier choices to replace. Where the current `Skill Phase` requires confirmation, retain the revision as proposed until confirmed. After acceptance, update the affected choices and explain material downstream effects without reopening unaffected decisions.
 - When new evidence undermines an accepted approach, identify the affected assumption, explain the implication, and recommend a revision. Do not present that recommendation as a user decision already made.
@@ -242,7 +253,7 @@ Honor an explicit request to focus on one candidate. Keep other candidates open 
 
 Read [deliverables](references/deliverables.md) when the user requests a summary, decision record, diagnostic collection, or implementation instructions. These are optional continuations, not mandatory stages. Adapt other requested document types to their intended use.
 
-Keep accepted decisions and their rationale coherent across artifacts. New evidence may justify an updated recommendation; identify it explicitly rather than quietly rewriting the accepted baseline. An artifact must stand on its own without requiring the reader to reconstruct the chat. Preserve unresolved questions and unverified prerequisites where they matter.
+Apply the [input-alignment review](references/results-consolidation.md#review-alignment-with-input) during `Results Consolidation`. Keep accepted decisions and their rationale coherent across artifacts. New evidence may justify an updated recommendation; identify it explicitly rather than quietly rewriting the accepted baseline. An artifact must stand on its own without requiring the reader to reconstruct the chat. Preserve unresolved questions and unverified prerequisites where they matter.
 
 This workflow may research, inspect, prepare documents and diagnostic commands, and analyze user-supplied results. It does not apply configuration changes, deploy, or execute an implementation runbook. If asked to perform implementation, explain the boundary and hand off the current decisions, prerequisites, and requested actions to a separate implementation task; do not mistake that request for permission to execute within this workflow.
 

@@ -1,15 +1,19 @@
 # `Topic And Context`
 
-Use this reference when establishing the topic and relevant context for `Topic And Context`. Use the definitions and terminology rules in [the skill's terms](../SKILL.md#terms). Apply this guidance alongside the shared workflow in `SKILL.md`.
+Use this reference to receive and validate input. Apply the [shared workflow and terminology](../SKILL.md), [input immutability](../SKILL.md#input-baseline-and-immutability), and [question format](../SKILL.md#present-questions). This phase does not clarify the research task through dialogue or begin research.
 
-Use the [shared question format](../SKILL.md#present-questions) for every question addressed to the user in this phase.
+## Read and Check the Input
 
-## Phase Logic
+1. Read the user-identified file or accept complete Markdown supplied in chat. If missing, ask for the file path or full Markdown; do not search for an unspecified input. If several sources are plausible, clarify which version to check. Do not fill missing document content from conversation history.
+2. Use the shared [input template](../../../references/exploration/input-template.md), [readiness criteria](../../../references/exploration/input-readiness-criterias.md), and [validation result format](../../../references/exploration/validation-result-template.md) through [exploration-input-validation](../../exploration-input-validation/SKILL.md). They own format and document-readiness requirements; do not add a research plan or a brief questionnaire as prerequisites.
+3. Always follow [isolated validation](../../../references/exploration/isolated-validation.md), even in a session that contains only the input. Start a fresh subagent without parent history for each attempt; never resume the previous validator. Supply the exact Markdown as data, the resolved installed validator path, and the request to return its prescribed report. Do not send prior reports, expected answers, dialogue summaries, or extra task evidence. Wait for the final report. Do not validate directly in the main conversation.
+4. Accept a report only for the exact submitted version. If that version changes before the report is used, submit the new version to a fresh validator. A report without a prescribed PASS or FAIL status is not usable. A FAIL report must also contain actionable problem and needed-correction details. Input that cannot be read and unavailable validation resources are handled under the validator's failure rules; do not invent a document verdict when no validation ran.
+5. On `FAIL`, explicitly state that validation failed and relay the report's problems and needed corrections in the user's language. Translate explanations faithfully while retaining exact identifiers. Use only the report as evidence; do not resolve open choices from earlier messages or suggest unsupported values. Stay in `Topic And Context` without offering a transition. Wait for complete corrected Markdown or an explicit request to reread the corrected file, then repeat isolated validation. The agent never edits or rewrites input.
+6. On `PASS`, retain the exact validated version, source, and report under the shared baseline rule. Present the transition to `Exploration And Refinement` under the [transition protocol](../SKILL.md#transition-protocol). Do not start research until the user explicitly confirms; a request accompanying the submitted input is not confirmation of a subsequently presented transition.
 
-- **Topic and available context.** Use the topic, supplied materials, and relevant conversation context.
-- **Initial checks.** At invocation, the first `Phase Agent Check Set` uses the available initial input. Check whether a topic is present and, when one is present, whether its meaning and the available context are sufficient for the next step.
-- **Missing topic.** If no topic can be identified, use that check result to formulate a `Phase Agent Action Proposal` asking for the topic. When a topic is present, use the clarity and context check results to formulate the appropriate next interaction.
-- **Targeted clarification.** When establishing the topic and context, ask only about missing information that materially affects the answer or next step.
+If a fresh subagent cannot start or returns no usable report, state the actual technical limitation and apply the shared new-chat handoff. Show the exact pending Markdown for transfer, request validation in a new chat, and wait for the report plus confirmation that this exact version was checked. Do not substitute an old report or a parent-context check. Every subsequent check normally uses a new subagent; the handoff remains available when isolated execution is unavailable or fails.
+
+Questions about the report, input format, or workflow may be answered without conducting the research or reconstructing input. A user request to stop ends work without validation, transition, or an extra procedural question.
 
 ## Input Classification
 
@@ -17,10 +21,10 @@ Use the following categories for `Phase Agent Input Classification` in `Topic An
 
 | Category | Intent | Examples |
 |---|---|---|
-| **Provide Or Revise Context** | Independently establish or revise the investigation's topic, context, conditions, or requirements. Facts supplied to support another request are context for that request, not a separate revision intention unless they establish or change the agreed framing. | "Let's investigate home storage." / "Exclude cloud solutions." |
-| **Express A Decision** | Accept, select, reject, withdraw, or defer a substantive proposal about the investigation. This includes confirmation of presented context wording; interaction controls and phase-transition confirmations belong to Direct The Interaction. | "I choose the second storage option." / "I confirm the proposed context." |
-| **Ask A Question** | Request an explanation about the investigation's subject or the skill's behavior. | "What does high availability mean?" / "Why are you asking for confirmation again?" |
-| **Request Assistance Or A Result** | Ask for options, help framing the topic, a summary, a document, or a saved result. | "Help me narrow the topic." / "Save the agreed context." |
+| **Provide Or Revise Context** | Supply complete input Markdown or a replacement version before PASS. A request to change a validated task is classified but cannot be adopted in this run. | "Here is the complete corrected Markdown." |
+| **Express A Decision** | Accept, select, reject, withdraw, or defer a substantive proposal about the investigation. This does not approve edits to the input; interaction controls and phase-transition confirmations belong to Direct The Interaction. | "I accept that recommendation." (Research choices wait for the research phase.) |
+| **Ask A Question** | Request an explanation of the input, validation report, or skill behavior; substantive research waits for the confirmed transition. | "Why did validation fail?" / "Why is transition confirmation required?" |
+| **Request Assistance Or A Result** | Request assistance or an output; research and input rewriting remain outside this phase. | "Explain the validation report." / "Rewrite my input." (Do not rewrite it.) |
 | **Direct The Interaction** | Control the discussion's format, order, or current action; request or confirm a phase transition; or pause, resume, or stop work. Classify the same control intention only here, even when expressed as a selection or confirmation. | "Start with the explanation." / "I confirm the transition to research." / "Let's stop." |
 
 ### Classification Rules
@@ -28,99 +32,22 @@ Use the following categories for `Phase Agent Input Classification` in `Topic An
 Classify independent intentions, not sentences. Several sentences may provide context for one request; one sentence may request several independent results.
 
 - Assign one category to each identified independent intention according to the category definitions, its subject, and the current `Phase Agent Action Proposal`. Do not assign overlapping categories to the same intention.
-- Interpret an answer to a pending selection or confirmation according to what that proposal asked the user to decide. Choosing the current action is interaction control; accepting proposed context wording is a substantive decision.
+- Interpret an answer to a pending selection or confirmation according to what that proposal asked the user to decide. Choosing the current action is interaction control; accepting a substantive proposal is a substantive decision, subject to the fixed-input boundary.
 - Distinguish expressed intentions from alternative interpretations. For example, "What about cloud storage?" may be a question or a proposed revision. Retain that uncertainty for Request Clarity rather than treating both interpretations as established intentions.
-- Keep supporting facts and conditions with the request they qualify. For example, "I use Proxmox. Explain LXC versus VMs" is an explanation request with context, not automatically two independent requests. "Update the agreed platform from VMware to Proxmox" independently requests a context revision.
+- Keep supporting facts and conditions with the request they qualify. For example, "I use Proxmox. Explain LXC versus VMs" is an explanation request with context, not automatically two independent requests. "Update the agreed platform from VMware to Proxmox" independently requests a context revision; after PASS it requires a new run.
 - A qualification that changes a proposal is a proposed revision, not acceptance of the unchanged proposal. Preserve any separate question or other independent request alongside it.
 - Associate every intention with its subject and scope. Partial confirmation does not accept unrelated proposals. Multiple independent intentions may share one category.
 - Classification does not apply revisions, record acceptance, or establish readiness. Describe a clear intention outside the listed categories directly; do not force it into a category or use an uncertain classification to bypass admission requirements.
 
-### Feedback Content
+## Check Selection and Results
 
-During `Phase Agent Input Classification`, distinguish the following kinds of content within the existing categories. They are content attributes, not additional categories or automatically separate intentions; one passage may contain more than one.
+Select the applicable `Phase Agent Check Set` without duplicating document validation:
 
-- **Factual correction:** A claim that an agent statement is wrong, such as "This identifier is not unique." Identify the disputed statement and its grounds. Verify the claim and correct an established agent error without requesting confirmation. If verification is unavailable, retain the uncertainty rather than adopting the claim as fact. Correcting a fact does not itself authorize changing a user decision.
-- **Evaluation:** A user's assessment, such as "This identifier is too long." Retain it as the user's expressed opinion; do not automatically turn it into a requirement, rejection, or proof of a factual defect. Use Request Clarity to determine whether a materially different next step depends on its intended consequence.
-- **Intention to change a decision:** An expressed request to change what is considered or agreed, such as "Exclude this format." Identify whether the target is one format, an entire family of options, or a criterion. Assign the existing category by its subject; do not infer that rejecting one example rejects its family or changes a criterion.
+- **Request Clarity:** Evaluate Intent (requested action), Subject (source/version or proposal), Scope (affected content), and Relationships (dependencies between intentions; Not Applicable when absent). Record Clear or Clarification Required, retaining the unresolved criteria and why they matter. Do not use this check to repair or approve the research task from chat context.
+- **Context Consistency And Impact:** When a request affects the baseline, decisions, or transition, record findings for Applicable Baseline, Revision Boundaries, Consistency, Dependencies And Impact, and Evidence For Consequences. Distinguish a user-supplied replacement before PASS from a forbidden change after PASS. No confirmation can waive the immutable-input rule.
+- **Phase Transition Readiness:** When assessing advancement, use Required Entry Information (the exact validated Markdown and its usable PASS report), Blocking Gaps (failed or unavailable validation), and Available Working Context (the baseline and report are retained). Record Ready or Not Ready with the missing prerequisite. Reuse the external verdict; do not rerun its ten criteria yourself. This check does not request or perform the transition.
 
-An evaluation may accompany a factual correction or a request for change. Preserve these distinctions without inventing an additional intention for each attribute. Use the feedback-handling rules below to resolve consequential uncertainty and propose a specific interpretation.
-
-## Check Selection
-
-Select the applicable `Phase Agent Check Set` from the checks below. Keep classification, check findings, and admission decisions separate.
-
-- **Request Clarity:** Evaluate every input against the current context and pending proposal. If interpretation remains uncertain, preserve the unresolved criteria; do not use a guessed category to perform the requested action.
-- **Context Consistency And Impact:** Include this check when feedback disputes an option's compliance with an existing requirement or an agent conclusion, when establishing or revising context, accepting or changing substantive decisions, assessing a phase transition, or answering a question or result request that affects existing requirements, decisions, assumptions, or conclusions. A narrow explanation unrelated to those matters does not require unrelated consistency work.
-- **Phase Transition Readiness:** Include this check for the selected request to advance to the next `Skill Phase`, using the current clarity and consistency findings. Do not treat pause, stop, format changes, or action selection as phase transitions.
-
-For restricted mixed input, evaluate what is needed to identify the requests, their relationships, and relevant constraints before offering action selection. Do not solve all unselected requests as part of checking them; the independent-question exception below permits explanatory answers without authorizing the other requests. After selection, evaluate the selected action and its dependencies. Reuse findings that remain applicable; reassess findings affected by new input. The checks record results; use those results under the admission and confirmation rules below.
-
-## Phase Agent Checks
-
-### Request Clarity
-
-Use this `Phase Agent Check` to determine whether the user's request, together with the available context, supports an unambiguous understanding of the expected response or action, its subject, and its scope.
-
-Evaluate:
-
-- **Intent:** Is it clear what the user expects, such as an explanation, revision, confirmation, or another result?
-- **Subject:** Is it clear which proposal, requirement, document, statement, or other content the request concerns? Resolve references such as "this option" using the available context.
-- **Scope:** Is it clear which parts the request affects and how broadly the requested response or change applies?
-- **Relationships:** For compound input, is it clear how the intentions relate? Determine whether confirmation is conditional, a correction replaces an earlier requirement, or a decision depends on an answer. Mark this criterion as not applicable when there are no relationships to evaluate.
-
-Clarification is required when at least two plausible interpretations remain and choosing between them would materially change the next response, action, or recorded decision. A merely conceivable alternative interpretation is not sufficient reason to require clarification.
-
-A negative evaluation alone establishes neither an intention to exclude an option nor the absence of a request for action. Explicit wording such as "Exclude it" or "Do not consider it" expresses an intention to change the considered set; evaluate its subject and scope rather than inferring a broader exclusion. For an evaluation without an explicit action, assess whether plausible interpretations would materially change the next response, action, or recorded decision. If so, record the unresolved intention or scope as Clarification Required. If not, the evaluation alone does not require clarification or confirmation. Apply these findings through the feedback-handling rules below.
-
-Record one of these outcomes:
-
-- **Clear:** No material ambiguity remains, or the available context resolves it.
-- **Clarification Required:** Material ambiguity remains. Retain the check result, identifying each unresolved criterion from the Evaluate list, the ambiguous content, the plausible interpretations, and why the difference matters.
-
-For example, "Remove the second option" is clear when the immediately preceding discussion contains one relevant numbered list. It requires clarification when several lists remain plausible and the available context does not identify the intended one.
-
-This check evaluates clarity of understanding. It does not establish context completeness, feasibility, or consistency with earlier decisions; those require separate checks.
-
-### Context Consistency And Impact
-
-Use this `Phase Agent Check` to evaluate whether an understood request is consistent with requirements and decisions that remain in effect, identify affected dependencies, and assess the grounds for conclusions about its consequences.
-
-Evaluate:
-
-- **Applicable Baseline:** Which requirements and decisions are confirmed and remain in effect? Distinguish them from unconfirmed agent proposals and assumptions.
-- **Revision Boundaries:** Which earlier conditions does the user explicitly replace or withdraw? A difference from an earlier choice is not itself a conflict.
-- **Consistency:** Is the request compatible with the remaining requirements, and is it internally consistent?
-- **Dependencies And Impact:** Which decisions, assumptions, and earlier conclusions are affected? Do not treat dependent decisions as automatically revised or reconfirmed.
-- **Evidence For Consequences:** Do available facts and reasoning support the conclusions about consequences? Distinguish established consequences, conditional conclusions, and unsupported assumptions.
-
-Retain a result for each criterion rather than only an overall pass or fail. Identify any conflicts, affected dependencies, supported consequences, and missing grounds for assessment. An established conflict and consequences that cannot yet be assessed may coexist in the same request.
-
-For example, the confirmed context requires primary data to remain at home and recovery after the complete loss of the home equipment. The user now requests removal of the only planned external backup. The request can be clear while undermining the current basis for recovery: the recovery requirement remains in effect, its planned means of fulfillment is affected, and the earlier recovery conclusion is no longer supported without another independent copy. This does not establish that recovery is impossible; another backup arrangement may exist.
-
-This check records its findings. Selecting the next `Phase Agent Action Proposal` is a separate workflow step.
-
-### Phase Transition Readiness
-
-Use this `Phase Agent Check` when **Direct The Interaction** expresses a request to move to the next `Skill Phase`, rather than to pause, stop, or change the discussion format. Determine whether the established topic, context, and current results are sufficient to begin that phase under its explicitly defined entry requirements.
-
-Use the current results of Request Clarity to identify the requested transition and Context Consistency And Impact to account for consistency and consequences. Do not duplicate their evaluations within this check.
-
-Evaluate:
-
-- **Required Entry Information:** Are the mandatory inputs for the next phase present? For a transition from `Topic And Context` to `Exploration And Refinement`, this includes knowing what to investigate and for what intended result.
-- **Blocking Gaps:** Would the next step require a material guess about the user's intentions? Distinguish such gaps from unknown facts that the investigation itself is meant to establish.
-- **Available Working Context:** Are the necessary agreements and materials available for the next step? A separately saved document is not required.
-
-Record one of these outcomes when the entry requirements allow the assessment:
-
-- **Ready:** Mandatory entry information is available, and no blocking gaps remain.
-- **Not Ready:** Retain the missing information and explain why each gap prevents the next phase from beginning.
-
-For example, a request to research home-storage options may be ready when its topic and goal are established, even though the relative advantages of the technologies remain unknown: discovering those advantages is part of the investigation. If it is unclear whether the user needs shared file storage or backup only, and that distinction determines the investigation's subject, the gap may prevent readiness.
-
-Use the entry requirements for `Exploration And Refinement` in [the phase-transition requirements](../SKILL.md#readiness-requirements). Do not invent additional mandatory inputs.
-
-This check records readiness and gaps. It does not request confirmation or perform the transition.
+The external validation report is separate from these `Phase Agent Check` results. Selecting an action, accepting wording, or obtaining a clear user reply does not produce PASS.
 
 ## Input Admission And Action Selection
 
@@ -152,61 +79,11 @@ Do not maintain a task queue from unselected requests or prompt the user to retu
 
 While resolving a request to pause or stop, do not initiate additional investigation or continue the potentially affected work. Honor the skill's completion and stopping rules.
 
-### Mixed Input Example
-
-> Exclude cloud solutions, then move on to research.
-
-This contains **Provide Or Revise Context** and **Direct The Interaction**. The order is explicit, but the mixed input requires separate action selection.
-
-A suitable response is:
-
-> You proposed two actions: exclude cloud solutions, then begin research. This workflow handles these separately. Unselected actions will not be resumed automatically; please request the transition separately if you want it afterward.
->
-> ❓ **Q1 — Current action:** Shall we begin by reviewing the proposed context change?
->
-> - **A.** Begin reviewing the proposed context change.
-> - **B.** Do not begin that action yet.
-> - **C. Custom answer** — Specify another current action or correct the proposed order.
->
-> Reply, for example: `Q1: A` or `Q1: C — <your answer>`.
-
-After the user selects the context change, present its proposed wording for confirmation. Do not treat selection of that action as confirmation of the wording.
-
-If the user instead requests the transition, retain the unresolved context issue for assessment. Do not infer that the user withdrew the proposed condition merely by selecting another action.
-
-### Feedback Handling
-
-Use the feedback attributes and check findings to distinguish an error correction from a proposed change to the user's decisions.
-
-1. **Correct established errors.** Verify disputed facts and assess consequences under the existing requirements. Correct an established agent error without asking the user to approve the correction. If an option fails a mandatory criterion, state that finding and stop recommending it as compliant. Do not equate that correction with the user's decision to exclude the option or relax the criterion.
-2. **Resolve only consequential uncertainty.** If the feedback is only an evaluation and its plausible interpretations would materially change the next step, ask one focused clarification question. Otherwise, reflect the opinion in the explanation without additional confirmation. Do not manufacture a change proposal for every criticism.
-3. **Propose a specific interpretation.** When clarification of the intended change is needed, formulate a `Phase Agent Action Proposal` stating the plausible change and its reason. Identify the exact option, family, or criterion affected, and which other options remain open. Ask the user to confirm or correct this interpretation in the same focused question; do not first ask a generic question and then request confirmation of the same unchanged interpretation.
-4. **Preserve the current decision until confirmation.** Keep the proposed change separate from accepted decisions. Until the user confirms, retain the option's current inclusion or exclusion status. This does not suppress a verified defect, justify recommending an unsuitable option, or prevent correction of the factual assessment. Do not attribute the proposed change to the user as a decision already made.
-5. **Apply the confirmed change precisely.** An unqualified confirmation of the presented interpretation satisfies the confirmation requirement for that unchanged content. Update only the confirmed scope after the applicable checks and admission requirements are satisfied. A correction or qualification requires reassessment, not automatic adoption. Explicitly requested changes follow the existing admission and confirmation rules; do not add an interpretation-confirmation round when the action and scope are already clear.
-
-For example, when `20261113T142530Z`, ULID, and UUIDv7 are under consideration and the user says the timestamp representation is too long, a plausible change proposal is:
-
-> Proposed change: exclude `20261113T142530Z` because of its length. ULID and UUIDv7 would remain under consideration pending examples.
->
-> ❓ **Q1 — Intended change:** Does this proposed change match your intention?
->
-> - **A.** Confirm this change with the stated boundaries.
-> - **B.** Do not adopt this change; retain the current considered set.
-> - **C. Custom answer** — Correct the interpretation or ask a question.
->
-> Reply, for example: `Q1: A` or `Q1: C — <your answer>`.
-
-Use those boundaries only when they match the current discussion. Do not infer a length limit or reject all timestamp-based formats from criticism of this one representation.
-
-If the same message also asks an independent question such as "What does UTC mean?", answer it when the category-combination exception applies, then ask only about the unresolved change. Do not delay that answer merely because the feedback needs clarification. A question whose answer depends on retaining or excluding the option must wait for the relevant clarification.
-
-## Explicit Confirmation
-
-Before adopting newly established or revised context under **Provide Or Revise Context**, present the proposed wording and request explicit confirmation. Until confirmation, distinguish the proposed context from the agreed context.
+### Explicit Confirmation
 
 Before accepting a substantive choice under **Express A Decision**, ensure that the exact proposal being accepted has been presented to the user. If the proposal has not been presented, restate it and request confirmation. A clear acceptance of an already presented proposal is sufficient.
 
-Several changes or decisions within one category may be presented as a single confirmation block when each item is explicit and their joint acceptance is unambiguous.
+These confirmation rules do not permit rewriting input or adopting task changes. PASS needs no extra content-confirmation ceremony; the phase transition still requires its own confirmation.
 
 An unqualified confirmation of the pending proposal completes that confirmation step. Do not request confirmation of the same unchanged content again.
 
@@ -218,8 +95,8 @@ Checks record findings. The workflow uses those findings to select the next `Pha
 
 ## `Phase User Move`
 
-Use the categories and admission rules above to interpret a `Phase User Move`. Apply the explicit-confirmation requirements before adopting context changes or accepting substantive decisions, and the [phase-transition requirements](../SKILL.md#phase-transitions) before changing phases.
+Apply the classification and admission rules above to supplied input, requests to reread, report questions, transition confirmations, and stopping. Revisions after PASS follow the new-run boundary, regardless of category or confirmation.
 
 ## Diagnostic Output
 
-Only while `Debug Mode` is enabled and `Topic And Context` is active, read [the phase diagnostic instructions](topic-and-context-debug.md). Follow the shared [mode controls and loading rules](../SKILL.md#debug-mode).
+Only while `Debug Mode` is enabled and `Topic And Context` is active, read [the phase diagnostic instructions](topic-and-context-debug.md).

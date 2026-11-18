@@ -106,3 +106,7 @@ Assume an initial naming comparison has been presented, uniqueness is required, 
 > **`Phase Agent Action Proposal`**
 >
 > Q3 — clarify the required precision of chronological ordering.
+
+## Fixed Input in Diagnostics
+
+Use existing fields to distinguish the validated input baseline from subsequent findings and local choices. Report a request to change that baseline as requiring a new run, not as an accepted revision. Do not claim revalidation merely because the baseline was consulted.

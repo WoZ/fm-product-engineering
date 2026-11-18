@@ -1,6 +1,6 @@
 # Diagnostic Output for `Results Consolidation`
 
-Read this reference only while `Debug Mode` is enabled and `Results Consolidation` is active. Use the definitions and terminology rules in [the skill's terms](../SKILL.md#terms), the [shared mode controls](../SKILL.md#debug-mode), and the [phase workflow](results-consolidation.md). Detailed phase-local check catalogs remain undefined; report checks actually selected from the shared workflow rather than borrowing another phase's catalog or inventing checks to fill the display.
+Read this reference only while `Debug Mode` is enabled and `Results Consolidation` is active. Use the definitions and terminology rules in [the skill's terms](../SKILL.md#terms), the [shared mode controls](../SKILL.md#debug-mode), and the [phase workflow](results-consolidation.md). Use the phase guidance's check selection for actual consolidation work; do not invent check names to fill the display.
 
 ## Presentation
 
@@ -43,3 +43,9 @@ Keep the simplified fields and check summaries, adding the following in this ord
 4. Add **`Phase Agent Action Proposal`:** the next interaction actually presented. If delivery completes the request, the user stops, or only a mode control was handled, state None and the reason. Do not create another confirmation ceremony to populate this field.
 
 For example, if the user requests a summary in chat and the skill delivers it with unresolved choices clearly identified, the actions field reports delivery in chat. It must not claim that a file was saved or that the unresolved choices were accepted. Preserve term names and statuses while writing explanations in the user's language.
+
+## Fixed Input in Diagnostics
+
+Use existing fields to distinguish the validated input baseline from subsequent findings and local choices. Report a request to change that baseline as requiring a new run, not as an accepted revision. Do not claim revalidation merely because the baseline was consulted.
+
+When the input-alignment review finds a departure, describe the affected original condition and actual result in existing findings and Agent Actions Taken. Distinguish a reported departure from a corrected one and chat disclosure from verified saving. Do not invent another `Phase Agent Check` or omit the departure from the ordinary result because diagnostics contain it.

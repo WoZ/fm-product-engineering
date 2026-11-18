@@ -2,6 +2,8 @@
 
 Read this reference when preparing requested materials. Select the relevant guidance rather than turning every exploration into the whole sequence. Use the user's requested format and language, subject to destination conventions. Include only sections that serve the purpose.
 
+During `Results Consolidation`, apply the [input-alignment review](results-consolidation.md#review-alignment-with-input). Preserve any material departure from the fixed input in the requested result and its saved files; drafting or revising a deliverable never authorizes rewriting input.
+
 ## Summary or Decision Record
 
 A compact summary should capture the goal, current approach, accepted decisions and reasons, and consequential open questions. Include rejected alternatives when their tradeoffs help explain a choice. Distinguish proposals from accepted decisions.

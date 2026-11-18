@@ -4,6 +4,8 @@
 
 Initial package version: `0.1.0`.
 
+- Require isolated input validation before exploration chatty research, retain an immutable validated task, disclose departures in consolidated results, and report validation output and available usage in diagnostics.
+
 - Require an isolated check of completed exploration input before confirmation and when a consuming session contains prior clarification context. Document clean delegation for Codex and Claude Code and a new-chat handoff when it is unavailable.
 
 - Add `exploration-input-validation` for document-only readiness checks with a `PASS` or `FAIL` report. Share the criteria and templates within the plugin. Check the current Markdown before confirmation and before a consuming workflow proceeds. The incomplete notice retains its status prefix and omits the workflow-specific suffix. Readers recognize the status regardless of explanatory text after the prefix.

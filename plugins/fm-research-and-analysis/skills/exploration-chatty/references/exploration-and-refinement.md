@@ -6,10 +6,9 @@ Use the [shared question format](../SKILL.md#present-questions) for every questi
 
 ## Phase Logic
 
-- **Topic and available context.** Use the topic, supplied materials, and relevant conversation context.
-- **Initial checks.** On entry to or resumption of this phase, the first `Phase Agent Check Set` uses the available input and established context. Do not ask the user to repeat a topic already available in that context. Check whether a topic is present and, when one is present, whether its meaning and the available context are sufficient for the next step.
-- **Missing topic.** If no topic can be identified, use that check result to formulate a `Phase Agent Action Proposal` asking for the topic. When a topic is present, use the clarity and context check results to formulate the appropriate next interaction.
-- **Targeted clarification.** When establishing the topic and context, ask only about missing information that materially affects the answer or next step.
+- **Validated baseline.** Research within the exact input that passed validation and the [shared immutability rule](../SKILL.md#input-baseline-and-immutability). Conversation context supplies findings and local decisions, not replacement goals or permissions.
+- **Initial checks.** Use available findings and the retained baseline without repeating validation merely because the phase starts or resumes. Missing baseline evidence follows the shared recovery rule; do not ask for a new topic and continue as though it were validated.
+- **Targeted clarification.** Clarify local decisions or interpretations within the task. If the request changes the input's goals, criteria, or boundaries, explain the new-run requirement instead of adopting revised wording.
 
 ### Focused Analysis Within a Comparison
 
@@ -31,7 +30,7 @@ Use the following categories for `Phase Agent Input Classification` in `Explorat
 
 | Category | Intent | Examples |
 |---|---|---|
-| **Provide Or Revise Context** | Independently establish or revise the investigation's topic, context, conditions, or requirements. Facts supplied to support another request are context for that request, not a separate revision intention unless they establish or change the agreed framing. | "Let's investigate home storage." / "Exclude cloud solutions." |
+| **Provide Or Revise Context** | Supply or revise research context within the fixed input boundaries. Requests to change the input's topic, goals, conditions, or requirements require a new run and cannot be adopted here. Facts supplied to support another request are context for that request, not a separate revision intention unless they establish or change the agreed framing. | "This candidate requires coordination." / "Exclude this candidate within the agreed scope." |
 | **Express A Decision** | Accept, select, reject, withdraw, or defer a substantive proposal about the investigation. This includes confirmation of presented context wording; interaction controls and phase-transition confirmations belong to Direct The Interaction. | "I choose the second storage option." / "I confirm the proposed context." |
 | **Ask A Question** | Request an explanation about the investigation's subject or the skill's behavior. | "What does high availability mean?" / "Why are you asking for confirmation again?" |
 | **Request Assistance Or A Result** | Ask for options, help framing the topic, a summary, a document, or a saved result. | "Help me narrow the topic." / "Save the agreed context." |
@@ -108,7 +107,7 @@ Use this `Phase Agent Check` to evaluate whether an understood request is consis
 Evaluate:
 
 - **Applicable Baseline:** Which requirements and decisions are confirmed and remain in effect? Distinguish them from unconfirmed agent proposals and assumptions.
-- **Revision Boundaries:** Which earlier conditions does the user explicitly replace or withdraw? A difference from an earlier choice is not itself a conflict.
+- **Revision Boundaries:** Which earlier conditions does the user explicitly replace or withdraw? A difference from an earlier research choice is not itself a conflict. The validated input cannot be replaced or withdrawn within this run; requests affecting it follow the shared new-run rule.
 - **Consistency:** Is the request compatible with the remaining requirements, and is it internally consistent?
 - **Dependencies And Impact:** Which decisions, assumptions, and earlier conclusions are affected? Do not treat dependent decisions as automatically revised or reconfirmed.
 - **Evidence For Consequences:** Do available facts and reasoning support the conclusions about consequences? Distinguish established consequences, conditional conclusions, and unsupported assumptions.
@@ -174,6 +173,8 @@ While resolving a request to pause or stop, do not initiate additional investiga
 
 ### Mixed Input Example
 
+This example assumes excluding cloud solutions is a local candidate decision permitted by the input. If it changes an input boundary, explain the new-run requirement instead of proposing adoption.
+
 > Exclude cloud solutions, then move on to the final synthesis.
 
 This contains **Provide Or Revise Context** and **Direct The Interaction**. The order is explicit, but the mixed input requires separate action selection.
@@ -227,7 +228,7 @@ Answer independent questions from the same message in the same response when the
 
 ## Explicit Confirmation
 
-Before adopting newly established or revised context under **Provide Or Revise Context**, present the proposed wording and request explicit confirmation. Until confirmation, distinguish the proposed context from the agreed context.
+For research context within the fixed input boundaries, before adopting newly established or revised context under **Provide Or Revise Context**, present the proposed wording and request explicit confirmation. Until confirmation, distinguish the proposed context from the agreed context.
 
 Before accepting a substantive choice under **Express A Decision**, ensure that the exact proposal being accepted has been presented to the user. If the proposal has not been presented, restate it and request confirmation. A clear acceptance of an already presented proposal is sufficient.
 

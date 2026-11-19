@@ -18,6 +18,8 @@ When a [return to the overall comparison](../SKILL.md#return-to-the-overall-comp
 
 Present actual questions in the ordinary response using the [shared question format](../SKILL.md#present-questions). In diagnostic `Phase Agent Action Proposal` fields, cite the question identifier and purpose rather than repeating the question or introducing another identifier.
 
+When [developing or revising a comparison](exploration-and-refinement.md#developing-and-revising-a-comparison), use Agent Actions Taken to briefly identify families actually considered, consequential gaps found, and any earlier recommendation reassessed. Use the evaluated Context Consistency And Impact criteria for applicability conditions and limits on comparative claims. A clear request does not establish adequate coverage of alternatives, and a favorable check result does not prove that no unknown alternatives exist. Do not add diagnostic fields or checks, claim exhaustive coverage, or report a proposed investigation as completed. Simplified output keeps its existing fields.
+
 ### Readable Layout
 
 - Put each field or section heading in its own paragraph, with a blank blockquote line (`>`) between sections and before and after lists. Do not join multiple fields into one paragraph.
@@ -67,7 +69,7 @@ At the extended level, the same case adds one input-interpretation paragraph, th
 
 ### Extended Layout Example
 
-Assume an initial naming comparison has been presented, uniqueness is required, and the desired precision of chronological sorting remains open. The following block illustrates layout, not mandatory checks or wording. It assumes both listed checks were actually evaluated in this phase and Q3 was presented in the ordinary response. Use the actual question identifier and localize explanations.
+Assume an initial naming comparison has examined reserved sequential numbers, assigned namespaces, date plus a random suffix, and UUIDv7. Uniqueness is required, and the desired precision of chronological sorting remains open. The following block illustrates layout, not mandatory checks or wording. It assumes both listed checks were actually evaluated in this phase and Q3 was presented in the ordinary response. Use the actual question identifier and localize explanations.
 
 > **`Debug Mode` · Extended**
 >
@@ -101,7 +103,7 @@ Assume an initial naming comparison has been presented, uniqueness is required, 
 >
 > **Agent Actions Taken**
 >
-> Presented a preliminary comparison and asked Q3 about ordering precision. No scheme selection was recorded as a user decision.
+> Compared reserved sequential numbers, assigned namespaces, date plus a random suffix, and UUIDv7 under the agreed criteria. Presented a preliminary comparison and asked Q3 about ordering precision. This does not establish exhaustive coverage. No scheme selection was recorded as a user decision.
 >
 > **`Phase Agent Action Proposal`**
 >

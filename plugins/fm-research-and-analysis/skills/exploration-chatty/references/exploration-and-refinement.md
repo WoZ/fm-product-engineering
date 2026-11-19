@@ -10,6 +10,18 @@ Use the [shared question format](../SKILL.md#present-questions) for every questi
 - **Initial checks.** Use available findings and the retained baseline without repeating validation merely because the phase starts or resumes. Missing baseline evidence follows the shared recovery rule; do not ask for a new topic and continue as though it were validated.
 - **Targeted clarification.** Clarify local decisions or interpretations within the task. If the request changes the input's goals, criteria, or boundaries, explain the new-run requirement instead of adopting revised wording.
 
+### Developing and Revising a Comparison
+
+Apply [Build the Comparison Before Recommending](../SKILL.md#build-the-comparison-before-recommending) when forming the initial comparison or materially revising it. Use Context Consistency And Impact for comparative conclusions: Applicable Baseline identifies the criteria that make alternatives consequential; Consistency assesses candidate compliance under stated conditions; Dependencies And Impact identifies affected recommendations; Evidence For Consequences assesses support for comparative claims and material gaps in the examined alternatives. Reuse applicable findings. This uses the existing checks without adding a mandatory `Phase Agent Check` or asking the user to approve the candidate search.
+
+For example, assume an initial naming comparison covers reserved sequential numbers, assigned namespaces with local counters, and UUIDv7. Locally generated identifiers are within scope, and date plus a random suffix is then identified as a missing family. A suitable correction is:
+
+> The comparison omitted date plus a random suffix. This adds a candidate; it does not record a scheme choice. The visible date and the identifier-generation mechanism are separate properties. Its generation and duplicate-handling procedure need assessment against the same uniqueness criterion used for the other candidates.
+>
+> My earlier preference for UUIDv7 for local creation needs reassessment alongside this family. Reserved sequential numbers and assigned namespaces remain open. I recommend comparing the two local-generation approaches next because the omitted family could change that recommendation; neither brevity nor a visible date is a mandatory requirement unless the input establishes it.
+
+This is an illustrative reassessment, not a required candidate list or authorization to resume an unselected request. Use actual evidence and candidate statuses; the shared rules govern exclusions, focus, and limited results.
+
 ### Focused Analysis Within a Comparison
 
 Apply the shared [return-to-comparison guidance](../SKILL.md#return-to-the-overall-comparison) during candidate analysis in this phase. Use Request Clarity's Subject and Scope findings to distinguish a local configuration choice from scheme selection or exclusion. Use Context Consistency And Impact's Applicable Baseline, Revision Boundaries, Dependencies And Impact, and Evidence For Consequences findings to assess its effect on the overall comparison. Reuse findings that remain valid; this adds no mandatory `Phase Agent Check` or confirmation step.
@@ -65,7 +77,7 @@ When criticism identifies an option under consideration as violating the investi
 Select the applicable `Phase Agent Check Set` from the checks below. Keep classification, check findings, and admission decisions separate.
 
 - **Request Clarity:** Evaluate every input against the current context and pending proposal. If interpretation remains uncertain, preserve the unresolved criteria; do not use a guessed category to perform the requested action.
-- **Context Consistency And Impact:** Include this check when feedback disputes an option's compliance with an existing requirement or an agent conclusion, when establishing or revising context, accepting or changing substantive decisions, assessing a phase transition, or answering a question or result request that affects existing requirements, decisions, assumptions, or conclusions. A narrow explanation unrelated to those matters does not require unrelated consistency work.
+- **Context Consistency And Impact:** Include this check when developing or materially revising a comparative recommendation, when feedback disputes an option's compliance with an existing requirement or an agent conclusion, when establishing or revising context, accepting or changing substantive decisions, assessing a phase transition, or answering a question or result request that affects existing requirements, decisions, assumptions, or conclusions. A narrow explanation unrelated to those matters does not require unrelated consistency work.
 - **Phase Transition Readiness:** Include this check for the selected request to advance to the next `Skill Phase`, using the current clarity and consistency findings. Do not treat pause, stop, format changes, or action selection as phase transitions.
 
 For restricted mixed input, evaluate what is needed to identify the requests, their relationships, and relevant constraints before offering action selection. Do not solve all unselected requests as part of checking them; the independent-question exception below permits explanatory answers without authorizing the other requests. After selection, evaluate the selected action and its dependencies. Reuse findings that remain applicable; reassess findings affected by new input. The checks record results; use those results under the admission and confirmation rules below.

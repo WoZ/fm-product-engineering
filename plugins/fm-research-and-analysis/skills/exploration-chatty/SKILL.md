@@ -198,11 +198,21 @@ Use available research and read capabilities within the authorized scope. Inspec
 
 Input validation requires isolated agent execution or the shared new-chat handoff; its failure blocks research. Research, inspection, and saving depend on host capabilities. When a capability or source is unavailable, explain which conclusion remains uncertain and continue with supported analysis; request targeted evidence if it is necessary. A recommendation may remain provisional while useful discussion continues.
 
+## Build the Comparison Before Recommending
+
+Apply this guidance when developing or materially revising a comparison in `Exploration And Refinement`, after the confirmed research transition. Derive candidate approaches from the investigation's goals, mandatory criteria, and open questions. Identify materially different mechanisms and, where useful, the properties that can vary within or across them. Consider plausible combinations while checking their dependencies and compatibility. Do not require every approach to decompose into independent properties.
+
+Before making a comparative recommendation, review whether a consequential family of approaches is missing, especially one that could offer a different trade-off or change the recommendation. Compare candidates under consistent criteria and make conditions of applicability explicit. Do not infer overall suitability from a familiar name, example format, or one favorable property. Distinguish compliance with mandatory criteria from attractiveness under preferences; do not silently promote an agent-suggested advantage into a user requirement. Qualify comparative claims by the alternatives and evidence actually examined.
+
+Keep this exploration proportional to the decision. Do not enumerate every combination, impose a candidate quota, or require equal investigation depth. Group variants whose differences do not affect the decision. Briefly explain consequential omissions and grounds for setting aside a family, distinguishing an analytical finding from a user decision to exclude it. Disclose uncertainty and distinguish a preliminary recommendation from a supported conclusion across the relevant alternatives. Honor an explicit focus or limited result; a short explanation or diagnostic control does not itself require another search for alternatives.
+
+When a newly identified candidate exposes a material gap, reassess the affected comparison and earlier recommendation. Apply the [return-to-comparison guidance](#return-to-the-overall-comparison) without treating discovery as user acceptance or automatically reopening excluded candidates. Revisit affected findings when new evidence changes which approaches or combinations are feasible. This guidance adds no phase transition, confirmation requirement, or automatic queue of unselected requests.
+
 ## Run an Adaptive Discussion
 
 Use the [interaction cycle](#interaction-cycle) for each exchange; apply the following discussion guidance within that cycle.
 
-1. **Answer and recommend.** Address the user's immediate question using the current constraints and evidence. Where alternatives matter, explain their consequential advantages and drawbacks and recommend an approach with reasons. Avoid padding comparisons with implausible alternatives.
+1. **Answer and recommend.** Address the user's immediate question using the current constraints and evidence. Where alternatives matter, [build the comparison](#build-the-comparison-before-recommending), explain consequential advantages and drawbacks, and recommend an approach with reasons. Avoid padding comparisons with implausible alternatives.
 2. **Make the proposal discussable.** Group related decisions and give them descriptive titles; use stable numbering when it helps the user refer to several proposals. Discuss complex or dependent questions separately when useful. Match depth to the request instead of enforcing one decision per turn or a complete design in every reply.
 3. **Incorporate the response.** Interpret ordinary prose and selections by title or number. Apply the current `Skill Phase`'s admission and confirmation requirements. Where those requirements are satisfied, an unambiguous choice accepts the relevant proposal without another confirmation ceremony. Apply qualifications and partial acceptance precisely; unaddressed proposals remain undecided but are not automatically scheduled for later work. Acknowledging an explanation does not necessarily accept an unrelated recommendation.
 4. **Check the consequences.** Compare new information and choices with the working approach and its dependencies. Explain what changes and why. Preserve unrelated agreements. If the approach still fits, say so briefly when useful and proceed without inventing a revision.
@@ -237,7 +247,7 @@ Candidate state is research context, not an execution queue. An open candidate d
 
 ### When and How to Return
 
-Bring the comparison back into view after answering a substantive question in the focused analysis, accepting a significant local choice, or discovering a limitation that changes the comparison. Also do so before another step would risk extending one candidate's analysis while leaving the others invisible. Combine several triggers in one response into one concise overview.
+Bring the comparison back into view after answering a substantive question in the focused analysis, accepting a significant local choice, discovering a limitation that changes the comparison, or identifying a previously omitted candidate that materially affects it. Also do so before another step would risk extending one candidate's analysis while leaving the others invisible. Combine several triggers in one response into one concise overview.
 
 Answer a direct question first. Add the overview where it helps determine continuation; do not substitute it for the answer. A short explanation, diagnostic setting acknowledgment or redisplay, or progress message without a substantive result does not itself trigger an overview. Stop when asked, without an added overview or procedural question. For a requested limited result, respect its scope and mark consequential limits; do not expand it into a full comparison or require further investigation for completeness.
 

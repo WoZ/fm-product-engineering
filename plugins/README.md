@@ -6,13 +6,13 @@ This directory holds distributable plugin source packages.
 
 | Package | Version | Included workflow |
 |---|---|---|
-| [FocusMatrix Research and Analysis](fm-research-and-analysis/README.md) (`fm-research-and-analysis`) | `0.1.0` | Clarify and validate exploration input, then prepare confirmed research briefs with complete research plans |
+| [FocusMatrix Research and Analysis](fm-research-and-analysis/README.md) (`fm-research-and-analysis`) | `0.1.0` | Clarify and validate exploration input, prepare research briefs, and explore topics through iterative discussion and recommendations |
 
 ## Local Use and Verification
 
-Invoke `$exploration-input-clarification` explicitly with input in chat or a file path. Use `$exploration-input-validation` to check a Markdown document independently. Use `$exploration-brief-creation` with saved clarified input to prepare a brief; this new skill uses default automatic discovery. The repository's `.agents/skills/` development symlinks point to the canonical packaged skills. Input clarification remains explicit-only. See the [package README](fm-research-and-analysis/README.md#local-authoring-and-use) for relative links and usage details.
+Invoke `$exploration-input-clarification` explicitly with input in chat or a file path. Use `$exploration-input-validation` to check a Markdown document independently. Use `$exploration-brief-creation` with saved clarified input to prepare a brief; this new skill uses default automatic discovery. The repository's `.agents/skills/` development symlinks point to the canonical packaged skills. Use `$exploration-chatty` with an input file or complete exploration Markdown, validated in isolation before research; it uses default automatic discovery and can prepare requested documents and instructions. Input clarification remains explicit-only. See the [package README](fm-research-and-analysis/README.md#local-authoring-and-use) for relative links and usage details.
 
-Local authoring through the links is separate from installation of the distributable plugin. No marketplace catalog or installation settings are included. Verification includes static checks, manual scenario review, and isolated Codex installation and skill discovery. Codex is the initial packaging target, and support for other hosts is unverified.
+Local authoring through the links is separate from installation of the distributable plugin. No marketplace catalog or installation settings are included. Verification includes static checks, manual scenario review, and isolated Codex installation and skill discovery for the preparation and validation workflows. Runtime discovery and installation of `exploration-chatty` remain unverified. Codex is the initial packaging target, and support for other hosts is unverified.
 
 ## Adding Packages
 
